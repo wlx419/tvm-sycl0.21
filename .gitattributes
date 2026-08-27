@@ -1,0 +1,20 @@
+# Normalize text to LF in the repository. The overlay targets a Linux TVM
+# build, so shell scripts and the CMake patch must not acquire CRLF endings.
+* text=auto eol=lf
+
+*.sh        text eol=lf
+*.patch     text eol=lf
+*.py        text eol=lf
+*.cc        text eol=lf
+*.cpp       text eol=lf
+*.cu        text eol=lf
+*.h         text eol=lf
+*.pxi       text eol=lf
+*.cmake     text eol=lf
+
+# Binary artifacts: never touch.
+*.nsys-rep  binary
+*.sqlite    binary
+*.png       binary
+*.pdf       binary
+*.gz        binary

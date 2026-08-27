@@ -1,0 +1,296 @@
+2026-08-10 00:37:07 [INFO] [task_scheduler.cc:259] Initializing Task #1: "transpose1"
+2026-08-10 00:37:07 [INFO] [task_scheduler.cc:41] 
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(fc2_weight: T.Buffer((T.int64(10), T.int64(256)), "float32"), T_transpose: T.Buffer((T.int64(256), T.int64(10)), "float32")):
+        T.func_attr({"op_pattern": 2, "tir.noalias": True})
+        # with T.block("root"):
+        for ax0, ax1 in T.grid(T.int64(256), T.int64(10)):
+            with T.block("T_transpose"):
+                v_ax0, v_ax1 = T.axis.remap("SS", [ax0, ax1])
+                T.reads(fc2_weight[v_ax1, v_ax0])
+                T.writes(T_transpose[v_ax0, v_ax1])
+                T_transpose[v_ax0, v_ax1] = fc2_weight[v_ax1, v_ax0]
+2026-08-10 00:37:07 [INFO] [task_scheduler.cc:263] Total 1 design space(s) generated
+2026-08-10 00:37:07 [INFO] [task_scheduler.cc:269] Design space #0:
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(fc2_weight: T.Buffer((T.int64(10), T.int64(256)), "float32"), T_transpose: T.Buffer((T.int64(256), T.int64(10)), "float32")):
+        T.func_attr({"op_pattern": 2, "tir.noalias": True})
+        # with T.block("root"):
+        for ax0_ax1_fused_0 in T.thread_binding(T.int64(80), thread="blockIdx.x"):
+            for ax0_ax1_fused_1 in T.thread_binding(T.int64(32), thread="threadIdx.x"):
+                with T.block("T_transpose"):
+                    v_ax0 = T.axis.spatial(T.int64(256), (ax0_ax1_fused_0 * T.int64(32) + ax0_ax1_fused_1) // T.int64(10))
+                    v_ax1 = T.axis.spatial(T.int64(10), (ax0_ax1_fused_0 * T.int64(32) + ax0_ax1_fused_1) % T.int64(10))
+                    T.reads(fc2_weight[v_ax1, v_ax0])
+                    T.writes(T_transpose[v_ax0, v_ax1])
+                    T_transpose[v_ax0, v_ax1] = fc2_weight[v_ax1, v_ax0]
+b0 = sch.get_block(name="T_transpose", func_name="main")
+l1, l2 = sch.get_loops(block=b0)
+l3 = sch.fuse(l1, l2, preserve_unit_iters=True)
+v4 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512, 1024], probs=[0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666], decision=0)
+l5, l6 = sch.split(loop=l3, factors=[None, v4], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l5, thread_axis="blockIdx.x")
+sch.bind(loop=l6, thread_axis="threadIdx.x")
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:713] Picked top 0 candidate(s) from database
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:721] Sampled 512 candidate(s)
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:647] Scores of the best 6 candidates:
+[1 : 6]:	0.7815  0.6433  0.5576  0.4456  0.4132  0.1098
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:725] Got 6 candidate(s) with evolutionary search
+2026-08-10 00:37:27 [INFO] [evolutionary_search.cc:728] Sending 6 candidates(s) for measurement
+2026-08-10 00:38:15 [INFO] [task_scheduler.cc:210] [Task #1: transpose1] Trial #1: GFLOPs: 0.0001. Time: 9.9312 us. Best GFLOPs: 0.0001
+2026-08-10 00:38:15 [INFO] [task_scheduler.cc:210] [Task #1: transpose1] Trial #2: GFLOPs: 0.0001. Time: 9.9502 us. Best GFLOPs: 0.0001
+2026-08-10 00:38:15 [INFO] [task_scheduler.cc:210] [Task #1: transpose1] Trial #3: GFLOPs: 0.0001. Time: 9.9223 us. Best GFLOPs: 0.0001
+2026-08-10 00:38:15 [INFO] [task_scheduler.cc:210] [Task #1: transpose1] Trial #4: GFLOPs: 0.0001. Time: 9.8411 us. Best GFLOPs: 0.0001
+2026-08-10 00:38:15 [INFO] [task_scheduler.cc:210] [Task #1: transpose1] Trial #5: GFLOPs: 0.0001. Time: 11.7765 us. Best GFLOPs: 0.0001
+2026-08-10 00:38:15 [INFO] [task_scheduler.cc:210] [Task #1: transpose1] Trial #6: GFLOPs: 0.0001. Time: 10.4021 us. Best GFLOPs: 0.0001
+2026-08-10 00:41:44 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-10 00:41:44 [INFO] [evolutionary_search.cc:713] Picked top 6 candidate(s) from database
+2026-08-10 00:41:44 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:44 [INFO] [evolutionary_search.cc:721] Sampled 506 candidate(s)
+2026-08-10 00:41:45 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:45 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:45 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:45 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:647] Scores of the best 0 candidates:
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:725] Got 0 candidate(s) with evolutionary search
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:728] Sending 0 candidates(s) for measurement
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:713] Picked top 6 candidate(s) from database
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:721] Sampled 506 candidate(s)
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:46 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:47 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:41:47 [INFO] [evolutionary_search.cc:647] Scores of the best 0 candidates:
+2026-08-10 00:41:47 [INFO] [evolutionary_search.cc:725] Got 0 candidate(s) with evolutionary search
+2026-08-10 00:41:47 [INFO] [evolutionary_search.cc:728] Sending 0 candidates(s) for measurement
+2026-08-10 00:43:53 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-10 00:43:53 [INFO] [evolutionary_search.cc:713] Picked top 6 candidate(s) from database
+2026-08-10 00:43:53 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:43:53 [INFO] [evolutionary_search.cc:721] Sampled 506 candidate(s)
+2026-08-10 00:43:53 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:43:53 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:43:54 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:43:54 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:43:54 [INFO] [evolutionary_search.cc:647] Scores of the best 0 candidates:
+2026-08-10 00:43:54 [INFO] [evolutionary_search.cc:725] Got 0 candidate(s) with evolutionary search
+2026-08-10 00:43:54 [INFO] [evolutionary_search.cc:728] Sending 0 candidates(s) for measurement
+2026-08-10 00:45:58 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-10 00:45:58 [INFO] [evolutionary_search.cc:713] Picked top 6 candidate(s) from database
+2026-08-10 00:45:58 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:45:58 [INFO] [evolutionary_search.cc:721] Sampled 506 candidate(s)
+2026-08-10 00:45:59 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:45:59 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:45:59 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:45:59 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:46:00 [INFO] [evolutionary_search.cc:647] Scores of the best 0 candidates:
+2026-08-10 00:46:00 [INFO] [evolutionary_search.cc:725] Got 0 candidate(s) with evolutionary search
+2026-08-10 00:46:00 [INFO] [evolutionary_search.cc:728] Sending 0 candidates(s) for measurement
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:713] Picked top 6 candidate(s) from database
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:721] Sampled 506 candidate(s)
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:47:00 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:47:01 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x557024a6a678)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x557024b8f398)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x557024b8f4e8)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x557024902978)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x5570248a4258)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x557024b81728)]: 0 failure(s)
+2026-08-10 00:47:01 [INFO] [evolutionary_search.cc:647] Scores of the best 0 candidates:
+2026-08-10 00:47:01 [INFO] [evolutionary_search.cc:725] Got 0 candidate(s) with evolutionary search
+2026-08-10 00:47:01 [INFO] [evolutionary_search.cc:728] Sending 0 candidates(s) for measurement

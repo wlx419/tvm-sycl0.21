@@ -1,0 +1,200 @@
+{
+  "cuda": {
+    "task_log_files": 19,
+    "measurement_error_blocks": 215,
+    "measurement_errors": {
+      "device_execution": 192,
+      "other_runtime": 19,
+      "build_or_compile": 1,
+      "timeout": 3
+    },
+    "measurement_errors_by_task": {
+      "adaptive_avg_pool2d": {
+        "device_execution": 2,
+        "other_runtime": 1
+      },
+      "fused_conv2d10_add7": {
+        "build_or_compile": 1,
+        "device_execution": 4
+      },
+      "fused_conv2d1_add1_add2_relu1": {
+        "device_execution": 9,
+        "other_runtime": 2
+      },
+      "fused_conv2d1_add1_relu1": {
+        "other_runtime": 1
+      },
+      "fused_conv2d2_add3_relu2": {
+        "device_execution": 8,
+        "other_runtime": 1
+      },
+      "fused_conv2d3_add3_add4_relu2": {
+        "device_execution": 7,
+        "timeout": 1
+      },
+      "fused_conv2d5_add5_relu3": {
+        "device_execution": 7,
+        "other_runtime": 1
+      },
+      "fused_conv2d6_add5_add6_relu3": {
+        "other_runtime": 1,
+        "timeout": 2
+      },
+      "fused_conv2d6_add5_relu3": {
+        "device_execution": 7
+      },
+      "fused_conv2d7_add5": {
+        "device_execution": 15
+      },
+      "fused_conv2d8_add7_relu4": {
+        "device_execution": 32,
+        "other_runtime": 1
+      },
+      "fused_conv2d9_add7_add8_relu4": {
+        "device_execution": 18,
+        "other_runtime": 6
+      },
+      "fused_conv2d9_add7_relu4": {
+        "device_execution": 19,
+        "other_runtime": 3
+      },
+      "fused_conv2d_add_relu": {
+        "device_execution": 47,
+        "other_runtime": 1
+      },
+      "fused_matmul_add9": {
+        "device_execution": 8
+      },
+      "max_pool2d": {
+        "device_execution": 4,
+        "other_runtime": 1
+      },
+      "reshape4": {
+        "device_execution": 5
+      }
+    },
+    "postprocessor_rejections": {
+      "meta_schedule.DisallowDynamicLoop": 0,
+      "meta_schedule.RewriteCooperativeFetch": 0,
+      "meta_schedule.RewriteUnboundBlock": 0,
+      "meta_schedule.RewriteParallelVectorizeUnroll": 0,
+      "meta_schedule.RewriteReductionBlock": 0,
+      "meta_schedule.VerifyGPUCode": 531733,
+      "meta_schedule.RewriteTensorize": 0
+    },
+    "examples": {
+      "device_execution": "[Task #0: fused_matmul_add9] Trial #1: Error in running:\nLocalRunner: An exception occurred\nTraceback (most recent call last):\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/exec/popen_worker.py\", line 87, in main\n    result = fn(*args, **kwargs)\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py\", line 159, in _worker_func\n    costs: List[float] = f_run_evaluator(\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py\", line 391, in default_run_evaluator",
+      "other_runtime": "[Task #1: adaptive_avg_pool2d] Trial #3: Error in running:\nLocalRunner: An exception occurred\nSubprocess terminated\n# from tvm.script import ir as I\n# from tvm.script import tir as T\n\n@I.ir_module\nclass Module:",
+      "build_or_compile": "[Task #12: fused_conv2d10_add7] Trial #1: Error in building:\nLocalBuilder: An exception occurred\nTraceback (most recent call last):\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/exec/popen_worker.py\", line 87, in main\n    result = fn(*args, **kwargs)\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/builder/local_builder.py\", line 165, in <lambda>\n    lambda x: _worker_func(*x),\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/builder/local_builder.py\", line 231, in _worker_func",
+      "timeout": "[Task #13: fused_conv2d3_add3_add4_relu2] Trial #3: Error in building:\nLocalBuilder: Timeout, killed after 30.0 seconds\n# from tvm.script import ir as I\n# from tvm.script import tir as T\n\n@I.ir_module\nclass Module:\n    @T.prim_func"
+    }
+  },
+  "sycl": {
+    "task_log_files": 19,
+    "measurement_error_blocks": 439,
+    "measurement_errors": {
+      "device_allocation": 335,
+      "other_runtime": 54,
+      "device_execution": 36,
+      "timeout": 14
+    },
+    "measurement_errors_by_task": {
+      "fused_conv2d1_add1_add2_relu1": {
+        "device_allocation": 24,
+        "timeout": 3,
+        "other_runtime": 4,
+        "device_execution": 1
+      },
+      "fused_conv2d1_add1_relu1": {
+        "timeout": 2,
+        "device_allocation": 36,
+        "other_runtime": 3,
+        "device_execution": 4
+      },
+      "fused_conv2d2_add3_relu2": {
+        "device_execution": 1,
+        "device_allocation": 6,
+        "timeout": 1
+      },
+      "fused_conv2d3_add3_add4_relu2": {
+        "device_execution": 3,
+        "device_allocation": 17,
+        "other_runtime": 1
+      },
+      "fused_conv2d3_add3_relu2": {
+        "device_allocation": 33,
+        "other_runtime": 8,
+        "timeout": 2,
+        "device_execution": 3
+      },
+      "fused_conv2d4_add3": {
+        "device_allocation": 7,
+        "other_runtime": 4,
+        "device_execution": 3,
+        "timeout": 4
+      },
+      "fused_conv2d5_add5_relu3": {
+        "device_allocation": 32,
+        "other_runtime": 3,
+        "device_execution": 4
+      },
+      "fused_conv2d6_add5_add6_relu3": {
+        "device_allocation": 8
+      },
+      "fused_conv2d6_add5_relu3": {
+        "device_execution": 1,
+        "device_allocation": 6,
+        "timeout": 1
+      },
+      "fused_conv2d7_add5": {
+        "device_execution": 3,
+        "device_allocation": 27,
+        "other_runtime": 2
+      },
+      "fused_conv2d8_add7_relu4": {
+        "device_execution": 2,
+        "device_allocation": 19,
+        "other_runtime": 3
+      },
+      "fused_conv2d9_add7_add8_relu4": {
+        "device_execution": 9,
+        "device_allocation": 85,
+        "timeout": 1,
+        "other_runtime": 8
+      },
+      "fused_conv2d9_add7_relu4": {
+        "device_allocation": 21,
+        "other_runtime": 3,
+        "device_execution": 2
+      },
+      "fused_conv2d_add_relu": {
+        "device_allocation": 4,
+        "other_runtime": 1
+      },
+      "fused_matmul_add9": {
+        "device_allocation": 5,
+        "other_runtime": 1
+      },
+      "max_pool2d": {
+        "other_runtime": 13
+      },
+      "reshape4": {
+        "device_allocation": 5
+      }
+    },
+    "postprocessor_rejections": {
+      "meta_schedule.DisallowDynamicLoop": 0,
+      "meta_schedule.RewriteCooperativeFetch": 0,
+      "meta_schedule.RewriteUnboundBlock": 0,
+      "meta_schedule.RewriteParallelVectorizeUnroll": 0,
+      "meta_schedule.RewriteReductionBlock": 0,
+      "meta_schedule.VerifyGPUCode": 284233
+    },
+    "examples": {
+      "device_allocation": "[Task #0: fused_matmul_add9] Trial #41: Error in running:\nLocalRunner: An exception occurred\nTraceback (most recent call last):\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/exec/popen_worker.py\", line 87, in main\n    result = fn(*args, **kwargs)\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py\", line 152, in _worker_func\n    repeated_args: List[T_ARGUMENT_LIST] = f_alloc_argument(\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py\", line 364, in default_alloc_argument",
+      "other_runtime": "[Task #0: fused_matmul_add9] Trial #46: Error in running:\nLocalRunner: An exception occurred\nSubprocess terminated\n# from tvm.script import ir as I\n# from tvm.script import tir as T\n\n@I.ir_module\nclass Module:",
+      "device_execution": "[Task #2: fused_conv2d9_add7_add8_relu4] Trial #2: Error in running:\nLocalRunner: An exception occurred\nTraceback (most recent call last):\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/exec/popen_worker.py\", line 87, in main\n    result = fn(*args, **kwargs)\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py\", line 159, in _worker_func\n    costs: List[float] = f_run_evaluator(\n  File \"/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py\", line 391, in default_run_evaluator",
+      "timeout": "[Task #2: fused_conv2d9_add7_add8_relu4] Trial #7: Error in building:\nLocalBuilder: Timeout, killed after 30.0 seconds\n# from tvm.script import ir as I\n# from tvm.script import tir as T\n\n@I.ir_module\nclass Module:\n    @T.prim_func"
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "workload_key": "5769126934908556840",
+  "protocol": {
+    "warmup": 10,
+    "measure": 100,
+    "wall": "host perf_counter around one launch followed by device synchronization",
+    "device_event": "TVM target timer; the SYCL path brackets dispatch with profiling events"
+  },
+  "cuda": {
+    "target": "cuda",
+    "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+    "log_best_ms": 0.016499037318234464,
+    "wall_p50_ms": 0.0252275,
+    "wall_p90_ms": 0.0270729,
+    "device_event_p50_ms": 0.022528,
+    "device_event_p90_ms": 0.022528,
+    "barrier_tokens": 4,
+    "generated_source_bytes": 358188,
+    "argument_shapes": [
+      [
+        1,
+        64,
+        56,
+        56
+      ],
+      [
+        64,
+        64,
+        3,
+        3
+      ],
+      [
+        1,
+        64,
+        1,
+        1
+      ],
+      [
+        1,
+        64,
+        56,
+        56
+      ]
+    ],
+    "argument_dtypes": [
+      "float32",
+      "float32",
+      "float32",
+      "float32"
+    ]
+  },
+  "sycl": {
+    "target": "sycl",
+    "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+    "log_best_ms": 0.0384699831737743,
+    "wall_p50_ms": 0.0560075,
+    "wall_p90_ms": 0.06272140000000001,
+    "device_event_p50_ms": 0.04625,
+    "device_event_p90_ms": 0.0489331,
+    "barrier_tokens": 2,
+    "generated_source_bytes": 100767,
+    "argument_shapes": [
+      [
+        1,
+        64,
+        56,
+        56
+      ],
+      [
+        64,
+        64,
+        3,
+        3
+      ],
+      [
+        1,
+        64,
+        1,
+        1
+      ],
+      [
+        1,
+        64,
+        56,
+        56
+      ]
+    ],
+    "argument_dtypes": [
+      "float32",
+      "float32",
+      "float32",
+      "float32"
+    ]
+  },
+  "ratios": {
+    "log_best": 2.3316501703561765,
+    "wall_p50": 2.2200971162421963,
+    "device_event_p50": 2.053000710227273
+  },
+  "output_comparison": {
+    "allclose": true,
+    "arguments": [
+      {
+        "argument": 0,
+        "allclose": true,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      {
+        "argument": 1,
+        "allclose": true,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      {
+        "argument": 2,
+        "allclose": true,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0
+      },
+      {
+        "argument": 3,
+        "allclose": true,
+        "max_abs_error": 8.7738037109375e-05,
+        "max_rel_error": 0.007925854905720677
+      }
+    ]
+  }
+}

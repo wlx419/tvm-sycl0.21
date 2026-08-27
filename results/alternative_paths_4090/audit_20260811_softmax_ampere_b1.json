@@ -1,0 +1,182 @@
+{
+  "context": {
+    "date": "2026-08-11T18:40:53+08:00",
+    "host_name": "inspur",
+    "executable": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/iree_pkgs/iree/_runtime_libs/iree-benchmark-module",
+    "num_cpus": 64,
+    "mhz_per_cpu": 3900,
+    "cpu_scaling_enabled": true,
+    "aslr_enabled": true,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 1048576,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 23068672,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [1.17627,1.10547,0.962891],
+    "library_version": "v1.9.5",
+    "library_build_type": "release",
+    "json_schema_version": 1
+  },
+  "benchmarks": [
+    {
+      "name": "BM_softmax/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 448,
+      "real_time": 1.5553649810889121e+00,
+      "cpu_time": 1.5287185714285680e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.4293591032241147e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 1,
+      "threads": 1,
+      "iterations": 448,
+      "real_time": 1.5574136406420231e+00,
+      "cpu_time": 1.5307144107142754e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.4209017688310678e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 2,
+      "threads": 1,
+      "iterations": 448,
+      "real_time": 1.5697270707408149e+00,
+      "cpu_time": 1.5426268415178677e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.3705342071221423e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 3,
+      "threads": 1,
+      "iterations": 448,
+      "real_time": 1.5531159689479475e+00,
+      "cpu_time": 1.5270352187500043e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.4386692300728953e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 4,
+      "threads": 1,
+      "iterations": 448,
+      "real_time": 1.5500425718398350e+00,
+      "cpu_time": 1.5240322834821112e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.4514357100079019e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time_mean",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "mean",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 1.5571328466519065e+00,
+      "cpu_time": 1.5306254651785653e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.4221800038516255e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time_median",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "median",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 1.5553649810889121e+00,
+      "cpu_time": 1.5287185714285680e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.4293591032241147e+02
+    },
+    {
+      "name": "BM_softmax/process_time/real_time_stddev",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "stddev",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 7.5535749436174259e-03,
+      "cpu_time": 7.1420778387780021e-03,
+      "time_unit": "ms",
+      "items_per_second": 3.1017142826152728e+00
+    },
+    {
+      "name": "BM_softmax/process_time/real_time_cv",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_softmax/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "cv",
+      "aggregate_unit": "percentage",
+      "iterations": 5,
+      "real_time": 4.8509508741395209e-03,
+      "cpu_time": 4.6661172189140301e-03,
+      "time_unit": "ms",
+      "items_per_second": 4.8296906669620856e-03
+    }
+  ]
+}

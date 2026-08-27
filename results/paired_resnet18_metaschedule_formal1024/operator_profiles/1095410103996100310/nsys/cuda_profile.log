@@ -1,0 +1,47 @@
+{
+  "target": "cuda",
+  "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+  "log_best_ms": 0.008338379859417587,
+  "wall_p50_ms": 0.0187525,
+  "wall_p90_ms": 0.019534600000000003,
+  "device_event_p50_ms": 0.015855,
+  "device_event_p90_ms": 0.0162655,
+  "barrier_tokens": 4,
+  "generated_source_bytes": 361525,
+  "argument_shapes": [
+    [
+      1,
+      64,
+      56,
+      56
+    ],
+    [
+      128,
+      64,
+      1,
+      1
+    ],
+    [
+      1,
+      128,
+      1,
+      1
+    ],
+    [
+      1,
+      128,
+      28,
+      28
+    ]
+  ],
+  "argument_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ]
+}
+Generating '/tmp/nsys-report-172a.qdstrm'
+[1/1] [0%                          ] cuda.nsys-rep[1/1] [0%                          ] cuda.nsys-rep[1/1] [10%                         ] cuda.nsys-rep[1/1] [=======38%                  ] cuda.nsys-rep[1/1] [===============65%          ] cuda.nsys-rep[1/1] [===============66%          ] cuda.nsys-rep[1/1] [===============67%          ] cuda.nsys-rep[1/1] [================68%         ] cuda.nsys-rep[1/1] [================69%         ] cuda.nsys-rep[1/1] [================70%         ] cuda.nsys-rep[1/1] [================71%         ] cuda.nsys-rep[1/1] [=================72%        ] cuda.nsys-rep[1/1] [=================73%        ] cuda.nsys-rep[1/1] [=================74%        ] cuda.nsys-rep[1/1] [==================75%       ] cuda.nsys-rep[1/1] [==================76%       ] cuda.nsys-rep[1/1] [==================77%       ] cuda.nsys-rep[1/1] [==================78%       ] cuda.nsys-rep[1/1] [===================79%      ] cuda.nsys-rep[1/1] [===================80%      ] cuda.nsys-rep[1/1] [===================81%      ] cuda.nsys-rep[1/1] [===================82%      ] cuda.nsys-rep[1/1] [====================83%     ] cuda.nsys-rep[1/1] [====================84%     ] cuda.nsys-rep[1/1] [====================85%     ] cuda.nsys-rep[1/1] [=====================86%    ] cuda.nsys-rep[1/1] [=====================87%    ] cuda.nsys-rep[1/1] [=====================88%    ] cuda.nsys-rep[1/1] [=====================89%    ] cuda.nsys-rep[1/1] [======================90%   ] cuda.nsys-rep[1/1] [======================91%   ] cuda.nsys-rep[1/1] [======================92%   ] cuda.nsys-rep[1/1] [=======================93%  ] cuda.nsys-rep[1/1] [=======================94%  ] cuda.nsys-rep[1/1] [=======================95%  ] cuda.nsys-rep[1/1] [=======================96%  ] cuda.nsys-rep[1/1] [========================97% ] cuda.nsys-rep[1/1] [========================100%] cuda.nsys-rep[1/1] [========================100%] cuda.nsys-rep
+Generated:
+    /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/operator_profiles/1095410103996100310/nsys/cuda.nsys-rep

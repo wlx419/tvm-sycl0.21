@@ -1,0 +1,83 @@
+{
+  "workloads": 19,
+  "paired_successful_workloads": 12,
+  "cuda_workloads_with_success": 15,
+  "sycl_workloads_with_success": 15,
+  "cuda_trials": 1029,
+  "cuda_failed": 215,
+  "sycl_trials": 1029,
+  "sycl_failed": 439,
+  "matched_weighted_cuda_ms": 0.3282198968610823,
+  "matched_weighted_sycl_ms": 0.6819324959690846,
+  "all_finite_weighted_cuda_ms": 0.4238321348774643,
+  "all_finite_weighted_sycl_ms": 0.8595968472220982,
+  "groups": {
+    "Conv2d 1x1": {
+      "workloads": 3,
+      "weighted_cuda_ms": 0.02885719941511164,
+      "weighted_sycl_ms": 0.09872814537203806,
+      "sycl_over_cuda": 3.4212656589376835,
+      "weighted_gap_ms": 0.06987094595692642,
+      "share_of_matched_gap": 0.19753592643611798
+    },
+    "Conv2d 3x3": {
+      "workloads": 6,
+      "weighted_cuda_ms": 0.2682901586841185,
+      "weighted_sycl_ms": 0.5296537975774475,
+      "sycl_over_cuda": 1.9741827287860203,
+      "weighted_gap_ms": 0.261363638893329,
+      "share_of_matched_gap": 0.7389152649705997
+    },
+    "Conv2d 7x7": {
+      "workloads": 1,
+      "weighted_cuda_ms": 0.025175450758206968,
+      "weighted_sycl_ms": 0.032465045465253244,
+      "sycl_over_cuda": 1.289551705630134,
+      "weighted_gap_ms": 0.007289594707046276,
+      "share_of_matched_gap": 0.02060880705247505
+    },
+    "Pooling": {
+      "workloads": 2,
+      "weighted_cuda_ms": 0.005897088003645173,
+      "weighted_sycl_ms": 0.02108550755434573,
+      "sycl_over_cuda": 3.575579598152872,
+      "weighted_gap_ms": 0.015188419550700556,
+      "share_of_matched_gap": 0.04294000154080726
+    }
+  },
+  "lowest_ratio_workload": {
+    "task_id": 3,
+    "workload_key": "7990226299771950393",
+    "name": "fused_conv2d_add_relu",
+    "operator_group": "Conv2d 7x7",
+    "weight": 1,
+    "cuda_trials": 72,
+    "cuda_failed": 48,
+    "cuda_best_ms": 0.025175450758206968,
+    "sycl_trials": 48,
+    "sycl_failed": 5,
+    "sycl_best_ms": 0.032465045465253244,
+    "sycl_over_cuda": 1.289551705630134,
+    "weighted_gap_ms": 0.007289594707046276,
+    "cuda_scheduled_tir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/record_analysis/scheduled_tir/07990226299771950393_fused_conv2d_add_relu_cuda.py",
+    "sycl_scheduled_tir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/record_analysis/scheduled_tir/07990226299771950393_fused_conv2d_add_relu_sycl.py"
+  },
+  "highest_ratio_workload": {
+    "task_id": 15,
+    "workload_key": "1095410103996100310",
+    "name": "fused_conv2d4_add3",
+    "operator_group": "Conv2d 1x1",
+    "weight": 1,
+    "cuda_trials": 24,
+    "cuda_failed": 0,
+    "cuda_best_ms": 0.008338379859417587,
+    "sycl_trials": 48,
+    "sycl_failed": 18,
+    "sycl_best_ms": 0.04597049289617486,
+    "sycl_over_cuda": 5.513120494775081,
+    "weighted_gap_ms": 0.03763211303675727,
+    "cuda_scheduled_tir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/record_analysis/scheduled_tir/01095410103996100310_fused_conv2d4_add3_cuda.py",
+    "sycl_scheduled_tir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/record_analysis/scheduled_tir/01095410103996100310_fused_conv2d4_add3_sycl.py"
+  },
+  "matched_weighted_sycl_over_cuda": 2.0776695821634164
+}

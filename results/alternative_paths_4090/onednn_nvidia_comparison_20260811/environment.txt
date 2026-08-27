@@ -1,0 +1,3 @@
+0, NVIDIA GeForce RTX 4090, 580.173.02, 24564 MiB
+1, NVIDIA GeForce RTX 4090, 580.173.02, 24564 MiB
+clang version 18.0.0 (https://github.com/intel/llvm.git 646ab086e503961db479a5bc0ab1b6e40cb96b33)

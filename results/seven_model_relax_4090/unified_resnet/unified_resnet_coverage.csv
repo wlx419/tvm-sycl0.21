@@ -1,0 +1,4 @@
+all_workloads_have_success,execution_status,failed_trials,failure_rate,fallback_workloads,latency_p50_ms,max_abs_err,model,stack,sum_best_ms,trials,work_dir,workloads,workloads_with_success
+False,pass,661,0.6423712342079689,4,1.643291,7.748603820800781e-07,resnet18,TVM v0.21 Relax/MetaSchedule,0.6905219203397399,1029,/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/unified_resnet_relax_4090/formal_20260810/coverage/resnet18,19,15
+False,pass,609,0.5918367346938775,6,3.8074945,6.556510925292969e-06,resnet34,TVM v0.21 Relax/MetaSchedule,0.4557169844340085,1029,/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/unified_resnet_relax_4090/formal_20260810/coverage/resnet34,19,13
+False,pass,310,0.30097087378640774,2,3.345244,2.765655517578125e-05,resnet50,TVM v0.21 Relax/MetaSchedule,1.2743429409041465,1030,/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/unified_resnet_relax_4090/formal_20260810/coverage/resnet50,28,26

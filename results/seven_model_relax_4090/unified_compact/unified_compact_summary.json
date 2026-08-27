@@ -1,0 +1,212 @@
+{
+  "checks": {
+    "all_pass": true,
+    "coverage_pass": true,
+    "metaschedule_full_coverage": false,
+    "sweep_pass": true
+  },
+  "coverage": [
+    {
+      "all_workloads_have_success": true,
+      "execution_status": "pass",
+      "failed_trials": 1,
+      "failure_rate": 0.0009727626459143969,
+      "fallback_workloads": 0,
+      "latency_p50_ms": 0.1170825,
+      "max_abs_err": 1.30385160446167e-08,
+      "model": "mlp",
+      "sum_best_ms": 0.0676759688838334,
+      "trials": 1028,
+      "workloads": 4,
+      "workloads_with_success": 4
+    },
+    {
+      "all_workloads_have_success": false,
+      "execution_status": "pass",
+      "failed_trials": 324,
+      "failure_rate": 0.3151750972762646,
+      "fallback_workloads": 1,
+      "latency_p50_ms": 0.114699,
+      "max_abs_err": 1.4551915228366852e-11,
+      "model": "cnn",
+      "sum_best_ms": 0.07920869716788308,
+      "trials": 1028,
+      "workloads": 8,
+      "workloads_with_success": 7
+    },
+    {
+      "all_workloads_have_success": true,
+      "execution_status": "pass",
+      "failed_trials": 1,
+      "failure_rate": 0.0009746588693957114,
+      "fallback_workloads": 0,
+      "latency_p50_ms": 0.5451105,
+      "max_abs_err": 1.4901161193847656e-08,
+      "model": "transformer",
+      "sum_best_ms": 0.21991805644059476,
+      "trials": 1026,
+      "workloads": 18,
+      "workloads_with_success": 18
+    },
+    {
+      "all_workloads_have_success": true,
+      "execution_status": "pass",
+      "failed_trials": 1,
+      "failure_rate": 0.0009746588693957114,
+      "fallback_workloads": 0,
+      "latency_p50_ms": 0.6279185,
+      "max_abs_err": 5.2852556109428406e-08,
+      "model": "vit",
+      "sum_best_ms": 0.31088970064607624,
+      "trials": 1026,
+      "workloads": 21,
+      "workloads_with_success": 21
+    }
+  ],
+  "pairs": [
+    {
+      "batch": 1,
+      "cuda_max_abs_err": 8.381903171539307e-09,
+      "cuda_p50_ms": 0.028545,
+      "cuda_status": "pass",
+      "model": "mlp",
+      "pair_pass": true,
+      "sycl_max_abs_err": 8.381903171539307e-09,
+      "sycl_over_cuda": 3.0281135049921177,
+      "sycl_p50_ms": 0.0864375,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 8,
+      "cuda_max_abs_err": 1.9907020032405853e-08,
+      "cuda_p50_ms": 0.055231,
+      "cuda_status": "pass",
+      "model": "mlp",
+      "pair_pass": true,
+      "sycl_max_abs_err": 1.9907020032405853e-08,
+      "sycl_over_cuda": 2.81197153772338,
+      "sycl_p50_ms": 0.155308,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 16,
+      "cuda_max_abs_err": 2.2351741790771484e-08,
+      "cuda_p50_ms": 0.0552505,
+      "cuda_status": "pass",
+      "model": "mlp",
+      "pair_pass": true,
+      "sycl_max_abs_err": 2.2351741790771484e-08,
+      "sycl_over_cuda": 2.847241201437091,
+      "sycl_p50_ms": 0.1573115,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 1,
+      "cuda_max_abs_err": 1.0913936421275139e-11,
+      "cuda_p50_ms": 0.038423,
+      "cuda_status": "pass",
+      "model": "cnn",
+      "pair_pass": true,
+      "sycl_max_abs_err": 2.1827872842550278e-11,
+      "sycl_over_cuda": 3.5544595684876246,
+      "sycl_p50_ms": 0.136573,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 8,
+      "cuda_max_abs_err": 3.2741809263825417e-11,
+      "cuda_p50_ms": 0.03927,
+      "cuda_status": "pass",
+      "model": "cnn",
+      "pair_pass": true,
+      "sycl_max_abs_err": 2.9103830456733704e-11,
+      "sycl_over_cuda": 3.857957728545964,
+      "sycl_p50_ms": 0.151502,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 16,
+      "cuda_max_abs_err": 5.820766091346741e-11,
+      "cuda_p50_ms": 0.040371500000000005,
+      "cuda_status": "pass",
+      "model": "cnn",
+      "pair_pass": true,
+      "sycl_max_abs_err": 4.3655745685100555e-11,
+      "sycl_over_cuda": 3.7954993002489377,
+      "sycl_p50_ms": 0.15323,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 1,
+      "cuda_max_abs_err": 1.1175870895385742e-08,
+      "cuda_p50_ms": 0.107871,
+      "cuda_status": "pass",
+      "model": "transformer",
+      "pair_pass": true,
+      "sycl_max_abs_err": 1.4901161193847656e-08,
+      "sycl_over_cuda": 3.897687979160293,
+      "sycl_p50_ms": 0.4204475,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 8,
+      "cuda_max_abs_err": 2.9802322387695312e-08,
+      "cuda_p50_ms": 0.10813,
+      "cuda_status": "pass",
+      "model": "transformer",
+      "pair_pass": true,
+      "sycl_max_abs_err": 2.2351741790771484e-08,
+      "sycl_over_cuda": 4.020271894941274,
+      "sycl_p50_ms": 0.434712,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 16,
+      "cuda_max_abs_err": 3.725290298461914e-08,
+      "cuda_p50_ms": 0.1101125,
+      "cuda_status": "pass",
+      "model": "transformer",
+      "pair_pass": true,
+      "sycl_max_abs_err": 2.9802322387695312e-08,
+      "sycl_over_cuda": 3.9407923714383015,
+      "sycl_p50_ms": 0.4339305,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 1,
+      "cuda_max_abs_err": 2.421438694000244e-08,
+      "cuda_p50_ms": 0.17235699999999998,
+      "cuda_status": "pass",
+      "model": "vit",
+      "pair_pass": true,
+      "sycl_max_abs_err": 2.2351741790771484e-08,
+      "sycl_over_cuda": 3.2477532099073443,
+      "sycl_p50_ms": 0.5597730000000001,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 8,
+      "cuda_max_abs_err": 6.705522537231445e-08,
+      "cuda_p50_ms": 0.121843,
+      "cuda_status": "pass",
+      "model": "vit",
+      "pair_pass": true,
+      "sycl_max_abs_err": 6.332993507385254e-08,
+      "sycl_over_cuda": 5.071546990799635,
+      "sycl_p50_ms": 0.6179325,
+      "sycl_status": "pass"
+    },
+    {
+      "batch": 16,
+      "cuda_max_abs_err": 9.685754776000977e-08,
+      "cuda_p50_ms": 0.1722745,
+      "cuda_status": "pass",
+      "model": "vit",
+      "pair_pass": true,
+      "sycl_max_abs_err": 1.0058283805847168e-07,
+      "sycl_over_cuda": 3.158357737215897,
+      "sycl_p50_ms": 0.5441045,
+      "sycl_status": "pass"
+    }
+  ]
+}

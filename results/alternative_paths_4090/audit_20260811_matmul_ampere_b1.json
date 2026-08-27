@@ -1,0 +1,182 @@
+{
+  "context": {
+    "date": "2026-08-11T18:39:28+08:00",
+    "host_name": "inspur",
+    "executable": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/iree_pkgs/iree/_runtime_libs/iree-benchmark-module",
+    "num_cpus": 64,
+    "mhz_per_cpu": 3900,
+    "cpu_scaling_enabled": true,
+    "aslr_enabled": true,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 1048576,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 23068672,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [1.00342,1.0332,0.927246],
+    "library_version": "v1.9.5",
+    "library_build_type": "release",
+    "json_schema_version": 1
+  },
+  "benchmarks": [
+    {
+      "name": "BM_matmul/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 461,
+      "real_time": 1.5266071255025888e+00,
+      "cpu_time": 1.4867672190889389e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5504738140848156e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 1,
+      "threads": 1,
+      "iterations": 461,
+      "real_time": 1.5254781557218760e+00,
+      "cpu_time": 1.4863079088937097e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5553216625824905e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 2,
+      "threads": 1,
+      "iterations": 461,
+      "real_time": 1.5207378252070001e+00,
+      "cpu_time": 1.4817086984815695e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5757554222989211e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 3,
+      "threads": 1,
+      "iterations": 461,
+      "real_time": 1.5223920485459332e+00,
+      "cpu_time": 1.4835568394793839e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5686102404115923e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 4,
+      "threads": 1,
+      "iterations": 461,
+      "real_time": 1.5227036679935300e+00,
+      "cpu_time": 1.4837921344902498e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5672659823411482e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time_mean",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "mean",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 1.5235837645941859e+00,
+      "cpu_time": 1.4844265600867703e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5634854243437940e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time_median",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "median",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 1.5227036679935302e+00,
+      "cpu_time": 1.4837921344902498e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.5672659823411482e+02
+    },
+    {
+      "name": "BM_matmul/process_time/real_time_stddev",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "stddev",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 2.3991434453446590e-03,
+      "cpu_time": 2.0954617256421833e-03,
+      "time_unit": "ms",
+      "items_per_second": 1.0332693452368109e+00
+    },
+    {
+      "name": "BM_matmul/process_time/real_time_cv",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_matmul/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "cv",
+      "aggregate_unit": "percentage",
+      "iterations": 5,
+      "real_time": 1.5746711806053427e-03,
+      "cpu_time": 1.4116304450384504e-03,
+      "time_unit": "ms",
+      "items_per_second": 1.5742692768150931e-03
+    }
+  ]
+}

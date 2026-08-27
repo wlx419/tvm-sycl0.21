@@ -1,0 +1,162 @@
+{
+  "device_id": 0,
+  "device_name": "Z100L",
+  "probes": {
+    "identity": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "generated_math_lines": []
+    },
+    "tanh_builtin": {
+      "size": 256,
+      "finite": 192,
+      "nan": 0,
+      "pos_inf": 64,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "nonfinite_local_ids": [
+        8,
+        9,
+        10,
+        11,
+        24,
+        25,
+        26,
+        27,
+        40,
+        41,
+        42,
+        43,
+        56,
+        57,
+        58,
+        59,
+        72,
+        73,
+        74,
+        75,
+        88,
+        89,
+        90,
+        91,
+        104,
+        105,
+        106,
+        107,
+        120,
+        121,
+        122,
+        123,
+        136,
+        137,
+        138,
+        139,
+        152,
+        153,
+        154,
+        155,
+        168,
+        169,
+        170,
+        171,
+        184,
+        185,
+        186,
+        187,
+        200,
+        201,
+        202,
+        203,
+        216,
+        217,
+        218,
+        219,
+        232,
+        233,
+        234,
+        235,
+        248,
+        249,
+        250,
+        251
+      ],
+      "generated_math_lines": [
+        "// Function: tanh_builtin_probe_kernel",
+        "void tanh_builtin_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = tanh(x);"
+      ]
+    },
+    "tanh_stable_exp": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 5.960464477539063e-08,
+      "max_rel_err_finite": 7.826299963653582e-08,
+      "generated_math_lines": [
+        "// Function: tanh_stable_exp_probe_kernel",
+        "void tanh_stable_exp_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = select(((exp(cse_v2) - 1.000000e+00f) / (exp(cse_v2) + 1.000000e+00f)), ((1.000000e+00f - exp(cse_v1)) / (1.000000e+00f + exp(cse_v1))), (0.000000e+00f <= x));"
+      ]
+    },
+    "divide_sqrt": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "generated_math_lines": [
+        "// Function: divide_sqrt_probe_kernel",
+        "void divide_sqrt_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = ((x - 1.000000e-01f) / sqrt(3.000000e+00f));"
+      ]
+    },
+    "multiply_reciprocal_sqrt": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "generated_math_lines": [
+        "// Function: multiply_reciprocal_sqrt_probe_kernel",
+        "void multiply_reciprocal_sqrt_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = ((x - 1.000000e-01f) * (1.000000e+00f / sqrt(3.000000e+00f)));"
+      ]
+    },
+    "multiply_sycl_rsqrt": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "generated_math_lines": [
+        "// Function: multiply_sycl_rsqrt_probe_kernel",
+        "void multiply_sycl_rsqrt_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = ((x - 1.000000e-01f) * sycl::rsqrt(3.000000e+00f));"
+      ]
+    },
+    "divide_constant": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 5.960464477539063e-08,
+      "max_rel_err_finite": 1.1470919503153709e-07,
+      "generated_math_lines": []
+    }
+  }
+}

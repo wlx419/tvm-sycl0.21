@@ -1,0 +1,113 @@
+{
+  "device_id": 0,
+  "device_name": "Z100L",
+  "broadcast_normalization": {
+    "divide_sqrt": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "actual_min_finite": 0.5196143388748169,
+      "actual_max_finite": 0.5196143388748169,
+      "generated_math_lines": [
+        "// Function: broadcast_divide_sqrt_kernel",
+        "void broadcast_divide_sqrt_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = ((x - m) * sycl::rsqrt((v + 1.000000e-05f)));"
+      ]
+    },
+    "multiply_reciprocal_sqrt": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "actual_min_finite": 0.5196143388748169,
+      "actual_max_finite": 0.5196143388748169,
+      "generated_math_lines": [
+        "// Function: broadcast_multiply_reciprocal_sqrt_kernel",
+        "void broadcast_multiply_reciprocal_sqrt_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = ((x - m) * (1.000000e+00f * sycl::rsqrt((v + 1.000000e-05f))));"
+      ]
+    },
+    "multiply_sycl_rsqrt": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "actual_min_finite": 0.5196143388748169,
+      "actual_max_finite": 0.5196143388748169,
+      "generated_math_lines": [
+        "// Function: broadcast_multiply_sycl_rsqrt_kernel",
+        "void broadcast_multiply_sycl_rsqrt_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = ((x - m) * sycl::rsqrt((v + 1.000000e-05f)));"
+      ]
+    }
+  },
+  "erf": {
+    "builtin": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 2.384185791015625e-07,
+      "max_rel_err_finite": 4.580569168410875e-07,
+      "actual_min_finite": -0.9999778866767883,
+      "actual_max_finite": 0.9999778866767883,
+      "generated_math_lines": [
+        "Out[((int)item.get_local_id(2))] = ((x >= 0.000000e+00f ? 1.000000e+00f : -1.000000e+00f) * (1.000000e+00f - (((((1.061405429e+00f * (1.000000e+00f / (1.000000e+00f + 3.275911e-01f * fabs(x))) - 1.453152027e+00f) * (1.000000e+00f / (1.000000e+00f + 3.275911e-01f * fabs(x))) + 1.421413741e+00f) * (1.000000e+00f / (1.000000e+00f + 3.275911e-01f * fabs(x))) - 2.84496736e-01f) * (1.000000e+00f / (1.000000e+00f + 3.275911e-01f * fabs(x))) + 2.54829592e-01f) * (1.000000e+00f / (1.000000e+00f + 3.275911e-01f * fabs(x)))) * exp(-fabs(x) * fabs(x))));"
+      ]
+    },
+    "explicit_sycl": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0322992205619812,
+      "max_rel_err_finite": 0.03832821920514107,
+      "actual_min_finite": -0.9999778866767883,
+      "actual_max_finite": 0.9999778866767883,
+      "generated_math_lines": [
+        "// Function: erf_explicit_sycl_probe_kernel",
+        "void erf_explicit_sycl_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {"
+      ]
+    },
+    "double_precision_sycl": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 0.0,
+      "max_rel_err_finite": 0.0,
+      "actual_min_finite": -0.9999778866767883,
+      "actual_max_finite": 0.9999778866767883,
+      "generated_math_lines": []
+    },
+    "stable_exp_approximation": {
+      "size": 256,
+      "finite": 256,
+      "nan": 0,
+      "pos_inf": 0,
+      "neg_inf": 0,
+      "max_abs_err_finite": 2.384185791015625e-07,
+      "max_rel_err_finite": 0.5960464477539062,
+      "actual_min_finite": -0.9999778866767883,
+      "actual_max_finite": 0.9999778866767883,
+      "generated_math_lines": [
+        "// Function: erf_stable_exp_probe_kernel",
+        "void erf_stable_exp_probe_kernel(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {",
+        "Out[((int)item.get_local_id(2))] = (select(-1.000000e+00f, 1.000000e+00f, (0.000000e+00f <= x)) * (1.000000e+00f - ((((((((((1.061405e+00f * (1.000000e+00f / (1.000000e+00f + (3.275911e-01f * fabs(x))))) + -1.453152e+00f) * (1.000000e+00f / (1.000000e+00f + (3.275911e-01f * fabs(x))))) + 1.421414e+00f) * (1.000000e+00f / (1.000000e+00f + (3.275911e-01f * fabs(x))))) + -2.844967e-01f) * (1.000000e+00f / (1.000000e+00f + (3.275911e-01f * fabs(x))))) + 2.548296e-01f) * (1.000000e+00f / (1.000000e+00f + (3.275911e-01f * fabs(x))))) * exp(((fabs(x) * -1.000000e+00f) * fabs(x))))));"
+      ]
+    }
+  }
+}

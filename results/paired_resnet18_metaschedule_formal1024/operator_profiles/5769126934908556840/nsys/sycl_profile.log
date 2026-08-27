@@ -1,0 +1,47 @@
+{
+  "target": "sycl",
+  "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+  "log_best_ms": 0.0384699831737743,
+  "wall_p50_ms": 0.0550705,
+  "wall_p90_ms": 0.08212950000000013,
+  "device_event_p50_ms": 0.0495145,
+  "device_event_p90_ms": 0.0570962,
+  "barrier_tokens": 2,
+  "generated_source_bytes": 100767,
+  "argument_shapes": [
+    [
+      1,
+      64,
+      56,
+      56
+    ],
+    [
+      64,
+      64,
+      3,
+      3
+    ],
+    [
+      1,
+      64,
+      1,
+      1
+    ],
+    [
+      1,
+      64,
+      56,
+      56
+    ]
+  ],
+  "argument_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ]
+}
+Generating '/tmp/nsys-report-eca8.qdstrm'
+[1/1] [0%                          ] sycl.nsys-rep[1/1] [0%                          ] sycl.nsys-rep[1/1] [=16%                        ] sycl.nsys-rep[1/1] [=========45%                ] sycl.nsys-rep[1/1] [=================74%        ] sycl.nsys-rep[1/1] [==================75%       ] sycl.nsys-rep[1/1] [==================76%       ] sycl.nsys-rep[1/1] [==================77%       ] sycl.nsys-rep[1/1] [==================78%       ] sycl.nsys-rep[1/1] [===================79%      ] sycl.nsys-rep[1/1] [===================80%      ] sycl.nsys-rep[1/1] [===================81%      ] sycl.nsys-rep[1/1] [===================82%      ] sycl.nsys-rep[1/1] [====================83%     ] sycl.nsys-rep[1/1] [====================84%     ] sycl.nsys-rep[1/1] [====================85%     ] sycl.nsys-rep[1/1] [=====================86%    ] sycl.nsys-rep[1/1] [=====================87%    ] sycl.nsys-rep[1/1] [=====================88%    ] sycl.nsys-rep[1/1] [=====================89%    ] sycl.nsys-rep[1/1] [======================90%   ] sycl.nsys-rep[1/1] [======================91%   ] sycl.nsys-rep[1/1] [======================92%   ] sycl.nsys-rep[1/1] [=======================93%  ] sycl.nsys-rep[1/1] [=======================94%  ] sycl.nsys-rep[1/1] [========================100%] sycl.nsys-rep[1/1] [========================100%] sycl.nsys-rep
+Generated:
+    /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/operator_profiles/5769126934908556840/nsys/sycl.nsys-rep

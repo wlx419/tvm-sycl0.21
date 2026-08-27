@@ -1,0 +1,5 @@
+op,shape,iree_version,backend,target,metric,batch_size_1_ms,batch_size_100_ms_per_invocation,correctness
+matmul,256x256x256,3.11.0rc20260316,Vulkan/SPIR-V,ampere,process_time,1.522704,0.0150071,pass
+row_sum,1024x1024,3.11.0rc20260316,Vulkan/SPIR-V,ampere,process_time,1.497854,0.0148697,pass
+softmax,512x512,3.11.0rc20260316,Vulkan/SPIR-V,ampere,process_time,1.555365,0.0155939,pass
+conv2d_nhwc,8x32x32x16_to_32_k3,3.11.0rc20260316,Vulkan/SPIR-V,ampere,process_time,2.729656,0.0273120,pass

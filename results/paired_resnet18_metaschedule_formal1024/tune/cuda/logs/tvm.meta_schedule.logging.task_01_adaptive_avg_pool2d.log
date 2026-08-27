@@ -1,0 +1,441 @@
+2026-08-13 22:25:46 [INFO] [task_scheduler.cc:259] Initializing Task #1: "adaptive_avg_pool2d"
+2026-08-13 22:25:46 [INFO] [task_scheduler.cc:41] 
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(lv85: T.Buffer((T.int64(1), T.int64(512), T.int64(7), T.int64(7)), "float32"), adaptive_pool_avg: T.Buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), "float32")):
+        T.func_attr({"op_pattern": 4, "tir.noalias": True})
+        # with T.block("root"):
+        adaptive_pool_sum = T.alloc_buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)))
+        for ax0, ax1, ax2, ax3, rv0, rv1 in T.grid(T.int64(1), T.int64(512), T.int64(1), T.int64(1), T.int64(7), T.int64(7)):
+            with T.block("adaptive_pool_sum"):
+                v_ax0, v_ax1, v_ax2, v_ax3, v_rv0, v_rv1 = T.axis.remap("SSSSRR", [ax0, ax1, ax2, ax3, rv0, rv1])
+                T.reads(lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1])
+                T.writes(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                with T.init():
+                    adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = T.float32(0.0)
+                adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] + lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1]
+        for ax0, ax1, ax2, ax3 in T.grid(T.int64(1), T.int64(512), T.int64(1), T.int64(1)):
+            with T.block("adaptive_pool_avg"):
+                v_ax0, v_ax1, v_ax2, v_ax3 = T.axis.remap("SSSS", [ax0, ax1, ax2, ax3])
+                T.reads(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                T.writes(adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3])
+                T.block_attr({"schedule_rule": "meta_schedule.adaptive_pool_avg"})
+                adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] * T.float32(0.020408163265306121)
+2026-08-13 22:25:46 [INFO] [task_scheduler.cc:263] Total 2 design space(s) generated
+2026-08-13 22:25:46 [INFO] [task_scheduler.cc:269] Design space #0:
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(lv85: T.Buffer((T.int64(1), T.int64(512), T.int64(7), T.int64(7)), "float32"), adaptive_pool_avg: T.Buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), "float32")):
+        T.func_attr({"op_pattern": 4, "tir.noalias": True})
+        with T.block("root"):
+            T.reads()
+            T.writes()
+            T.block_attr({"meta_schedule.unroll_explicit": 512})
+            adaptive_pool_sum = T.alloc_buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)))
+            for ax0_ax1_ax2_ax3_fused_0 in T.thread_binding(T.int64(16), thread="blockIdx.x"):
+                for ax0_ax1_ax2_ax3_fused_1 in T.thread_binding(T.int64(32), thread="threadIdx.x"):
+                    for rv0, rv1 in T.grid(T.int64(7), T.int64(7)):
+                        with T.block("adaptive_pool_sum"):
+                            v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                            v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(32) + ax0_ax1_ax2_ax3_fused_1)
+                            v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                            v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                            v_rv0, v_rv1 = T.axis.remap("RR", [rv0, rv1])
+                            T.reads(lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1])
+                            T.writes(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                            with T.init():
+                                adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = T.float32(0.0)
+                            adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] + lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1]
+            for ax0_ax1_ax2_ax3_fused_0 in T.thread_binding(T.int64(1), thread="blockIdx.x"):
+                for ax0_ax1_ax2_ax3_fused_1 in T.thread_binding(T.int64(512), thread="threadIdx.x"):
+                    with T.block("adaptive_pool_avg"):
+                        v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(512) + ax0_ax1_ax2_ax3_fused_1)
+                        v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                        T.reads(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                        T.writes(adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3])
+                        adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] * T.float32(0.020408163265306121)
+b0 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+b1 = sch.get_block(name="adaptive_pool_avg", func_name="main")
+b2 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b1, ann_key="schedule_rule")
+v3 = sch.sample_categorical(candidates=[0, 16, 64, 512, 1024], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=3)
+sch.annotate(block_or_loop=b2, ann_key="meta_schedule.unroll_explicit", ann_val=v3)
+l4, l5, l6, l7 = sch.get_loops(block=b1)
+l8 = sch.fuse(l4, l5, l6, l7, preserve_unit_iters=True)
+v9 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=4)
+l10, l11 = sch.split(loop=l8, factors=[None, v9], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l10, thread_axis="blockIdx.x")
+sch.bind(loop=l11, thread_axis="threadIdx.x")
+l12, l13, l14, l15, l16, l17 = sch.get_loops(block=b0)
+l18 = sch.fuse(l12, l13, l14, l15, preserve_unit_iters=True)
+v19 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=0)
+l20, l21 = sch.split(loop=l18, factors=[None, v19], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l20, thread_axis="blockIdx.x")
+sch.bind(loop=l21, thread_axis="threadIdx.x")
+2026-08-13 22:25:46 [INFO] [task_scheduler.cc:269] Design space #1:
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(lv85: T.Buffer((T.int64(1), T.int64(512), T.int64(7), T.int64(7)), "float32"), adaptive_pool_avg: T.Buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), "float32")):
+        T.func_attr({"op_pattern": 4, "tir.noalias": True})
+        with T.block("root"):
+            T.reads()
+            T.writes()
+            T.block_attr({"meta_schedule.unroll_explicit": 0})
+            adaptive_pool_sum_shared = T.alloc_buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), scope="shared")
+            for ax0_ax1_ax2_ax3_0_fused in T.thread_binding(T.int64(512), thread="blockIdx.x"):
+                for ax0, ax1, ax2, ax3, ax4_ax5_fused_0 in T.grid(T.int64(1), T.int64(1), T.int64(1), T.int64(1), T.int64(7)):
+                    for ax4_ax5_fused_1 in T.thread_binding(T.int64(8), thread="threadIdx.x"):
+                        with T.block("adaptive_pool_sum"):
+                            v_ax0 = T.axis.spatial(T.int64(1), ax0)
+                            v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_0_fused + ax1)
+                            v_ax2, v_ax3 = T.axis.remap("SS", [ax2, ax3])
+                            v_rv0 = T.axis.reduce(T.int64(7), (ax4_ax5_fused_0 * T.int64(8) + ax4_ax5_fused_1) // T.int64(7))
+                            v_rv1 = T.axis.reduce(T.int64(7), (ax4_ax5_fused_0 * T.int64(8) + ax4_ax5_fused_1) % T.int64(7))
+                            T.where(ax4_ax5_fused_0 * T.int64(8) + ax4_ax5_fused_1 < T.int64(49))
+                            T.reads(lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1])
+                            T.writes(adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3])
+                            with T.init():
+                                adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] = T.float32(0.0)
+                            adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] + lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1]
+                for ax3_1 in T.thread_binding(T.int64(8), thread="threadIdx.x"):
+                    with T.block("adaptive_pool_avg"):
+                        v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_0_fused)
+                        v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax3 = T.axis.spatial(T.int64(1), ax3_1)
+                        T.where(T.Mul(T.int64(0), T.int64(8)) + ax3_1 < T.int64(1))
+                        T.reads(adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3])
+                        T.writes(adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3])
+                        adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] * T.float32(0.020408163265306121)
+b0 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+b1 = sch.get_block(name="adaptive_pool_avg", func_name="main")
+b2 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b1, ann_key="schedule_rule")
+b3, = sch.get_consumers(block=b0)
+l4, l5, l6, l7 = sch.get_loops(block=b3)
+v8 = sch.sample_categorical(candidates=[4, 8, 16, 32, 64, 128, 256, 512], probs=[0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125], decision=1)
+l9, l10 = sch.split(loop=l7, factors=[None, v8], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l10, thread_axis="threadIdx.x")
+sch.compute_at(block=b0, loop=l9, preserve_unit_loops=True, index=-1)
+sch.set_scope(block=b0, buffer_index=0, storage_scope="shared")
+l11, l12, l13, l14, l15, l16, l17, l18, l19, l20 = sch.get_loops(block=b0)
+l21 = sch.fuse(l19, l20, preserve_unit_iters=True)
+l22, l23 = sch.split(loop=l21, factors=[None, v8], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l23, thread_axis="threadIdx.x")
+v24 = sch.sample_categorical(candidates=[0, 16, 64, 512, 1024], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=0)
+sch.annotate(block_or_loop=b2, ann_key="meta_schedule.unroll_explicit", ann_val=v24)
+l25, l26, l27, l28, l29 = sch.get_loops(block=b1)
+l30 = sch.fuse(l25, l26, l27, l28, preserve_unit_iters=True)
+sch.bind(loop=l30, thread_axis="blockIdx.x")
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:711] Generating candidates......
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:713] Picked top 0 candidate(s) from database
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:530] Sample-Init-Population summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x55c4015f7eb8)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x55c4011ec548)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x55c4011ec608)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x55c401323e28)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x55c4013688c8)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x55c4011fab58)]: 0 failure(s)
+Postproc #6 [meta_schedule.RewriteTensorize(0x55c4011ec668)]: 0 failure(s)
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:721] Sampled 512 candidate(s)
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:619] Evolve iter #0 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x55c4015f7eb8)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x55c4011ec548)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x55c4011ec608)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x55c401323e28)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x55c4013688c8)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x55c4011fab58)]: 0 failure(s)
+Postproc #6 [meta_schedule.RewriteTensorize(0x55c4011ec668)]: 0 failure(s)
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:619] Evolve iter #1 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x55c4015f7eb8)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x55c4011ec548)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x55c4011ec608)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x55c401323e28)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x55c4013688c8)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x55c4011fab58)]: 0 failure(s)
+Postproc #6 [meta_schedule.RewriteTensorize(0x55c4011ec668)]: 0 failure(s)
+2026-08-13 22:25:57 [INFO] [evolutionary_search.cc:619] Evolve iter #2 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x55c4015f7eb8)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x55c4011ec548)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x55c4011ec608)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x55c401323e28)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x55c4013688c8)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x55c4011fab58)]: 0 failure(s)
+Postproc #6 [meta_schedule.RewriteTensorize(0x55c4011ec668)]: 0 failure(s)
+2026-08-13 22:25:58 [INFO] [evolutionary_search.cc:619] Evolve iter #3 done. Summary:
+Postproc #0 [meta_schedule.DisallowDynamicLoop(0x55c4015f7eb8)]: 0 failure(s)
+Postproc #1 [meta_schedule.RewriteCooperativeFetch(0x55c4011ec548)]: 0 failure(s)
+Postproc #2 [meta_schedule.RewriteUnboundBlock(0x55c4011ec608)]: 0 failure(s)
+Postproc #3 [meta_schedule.RewriteParallelVectorizeUnroll(0x55c401323e28)]: 0 failure(s)
+Postproc #4 [meta_schedule.RewriteReductionBlock(0x55c4013688c8)]: 0 failure(s)
+Postproc #5 [meta_schedule.VerifyGPUCode(0x55c4011fab58)]: 0 failure(s)
+Postproc #6 [meta_schedule.RewriteTensorize(0x55c4011ec668)]: 0 failure(s)
+2026-08-13 22:25:58 [INFO] [evolutionary_search.cc:647] Scores of the best 8 candidates:
+[1 : 8]:	0.9964  0.9929  0.9899  0.9830  0.9715  0.9697  0.9641  0.9570
+2026-08-13 22:25:58 [INFO] [evolutionary_search.cc:725] Got 8 candidate(s) with evolutionary search
+2026-08-13 22:25:58 [INFO] [evolutionary_search.cc:728] Sending 8 candidates(s) for measurement
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:200] [Task #1: adaptive_avg_pool2d] Trial #1: Error in running:
+LocalRunner: An exception occurred
+Traceback (most recent call last):
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/exec/popen_worker.py", line 87, in main
+    result = fn(*args, **kwargs)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py", line 152, in _worker_func
+    repeated_args: List[T_ARGUMENT_LIST] = f_alloc_argument(
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py", line 364, in default_alloc_argument
+    return alloc_argument_common(f_random_fill, device, args_info, alloc_repeat)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/utils.py", line 74, in alloc_argument_common
+    arg: Any = dispatcher.get(arg_type, None)(*arg_info)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/utils.py", line 56, in alloc_tensor
+    arg = ndarray.empty(shape=shape, dtype=dtype, device=device)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/runtime/ndarray.py", line 334, in empty
+    arr = _ffi_api.TVMArrayAllocWithScope(shape, dtype, device, mem_scope)
+  File "tvm/ffi/cython/function.pxi", line 228, in tvm.ffi.core.Function.__call__
+  File "tvm/ffi/cython/core.cpp", line 22178, in __pyx_pw_3tvm_3ffi_4core_8Function_1__call__
+  File "tvm/ffi/cython/core.cpp", line 22229, in __pyx_pf_3tvm_3ffi_4core_8Function___call__
+  File "tvm/ffi/cython/core.cpp", line 21947, in __pyx_f_3tvm_3ffi_4core_FuncCall
+tvm.error.InternalError: Check failed: (e == cudaSuccess || e == cudaErrorCudartUnloading) is false: CUDA: misaligned address
+
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(lv85: T.Buffer((T.int64(1), T.int64(512), T.int64(7), T.int64(7)), "float32"), adaptive_pool_avg: T.Buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), "float32")):
+        T.func_attr({"op_pattern": 4, "tir.noalias": True})
+        # with T.block("root"):
+        adaptive_pool_sum_shared = T.alloc_buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), scope="shared")
+        for ax0_ax1_ax2_ax3_0_fused in T.thread_binding(T.int64(512), thread="blockIdx.x", annotations={"pragma_auto_unroll_max_step": 1024, "pragma_unroll_explicit": 1}):
+            for ax0, ax1, ax2, ax3, ax4_ax5_fused_0 in T.grid(T.int64(1), T.int64(1), T.int64(1), T.int64(1), T.int64(2)):
+                for ax4_ax5_fused_1 in T.thread_binding(T.int64(32), thread="threadIdx.x"):
+                    with T.block("adaptive_pool_sum"):
+                        v_ax0 = T.axis.spatial(T.int64(1), ax0)
+                        v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_0_fused + ax1)
+                        v_ax2, v_ax3 = T.axis.remap("SS", [ax2, ax3])
+                        v_rv0 = T.axis.reduce(T.int64(7), (ax4_ax5_fused_0 * T.int64(32) + ax4_ax5_fused_1) // T.int64(7))
+                        v_rv1 = T.axis.reduce(T.int64(7), (ax4_ax5_fused_0 * T.int64(32) + ax4_ax5_fused_1) % T.int64(7))
+                        T.where(ax4_ax5_fused_0 * T.int64(32) + ax4_ax5_fused_1 < T.int64(49))
+                        T.reads(lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1])
+                        T.writes(adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3])
+                        with T.init():
+                            adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] = T.float32(0.0)
+                        adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] + lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1]
+            for ax3_1 in T.thread_binding(T.int64(32), thread="threadIdx.x"):
+                with T.block("adaptive_pool_avg"):
+                    v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_0_fused)
+                    v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax3 = T.axis.spatial(T.int64(1), ax3_1)
+                    T.where(T.Mul(T.int64(0), T.int64(32)) + ax3_1 < T.int64(1))
+                    T.reads(adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3])
+                    T.writes(adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3])
+                    adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum_shared[v_ax0, v_ax1, v_ax2, v_ax3] * T.float32(0.020408163265306121)
+b0 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+b1 = sch.get_block(name="adaptive_pool_avg", func_name="main")
+b2 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b1, ann_key="schedule_rule")
+b3, = sch.get_consumers(block=b0)
+l4, l5, l6, l7 = sch.get_loops(block=b3)
+v8 = sch.sample_categorical(candidates=[4, 8, 16, 32, 64, 128, 256, 512], probs=[0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125], decision=3)
+l9, l10 = sch.split(loop=l7, factors=[None, v8], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l10, thread_axis="threadIdx.x")
+sch.compute_at(block=b0, loop=l9, preserve_unit_loops=True, index=-1)
+sch.set_scope(block=b0, buffer_index=0, storage_scope="shared")
+l11, l12, l13, l14, l15, l16, l17, l18, l19, l20 = sch.get_loops(block=b0)
+l21 = sch.fuse(l19, l20, preserve_unit_iters=True)
+l22, l23 = sch.split(loop=l21, factors=[None, v8], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l23, thread_axis="threadIdx.x")
+v24 = sch.sample_categorical(candidates=[0, 16, 64, 512, 1024], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=4)
+sch.annotate(block_or_loop=b2, ann_key="meta_schedule.unroll_explicit", ann_val=v24)
+l25, l26, l27, l28, l29 = sch.get_loops(block=b1)
+l30 = sch.fuse(l25, l26, l27, l28, preserve_unit_iters=True)
+sch.bind(loop=l30, thread_axis="blockIdx.x")
+sch.enter_postproc()
+b31 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b31, ann_key="meta_schedule.unroll_explicit")
+b32, b33 = sch.get_child_blocks(b31)
+l34, l35, l36, l37, l38, l39, l40 = sch.get_loops(block=b32)
+sch.annotate(block_or_loop=l34, ann_key="pragma_auto_unroll_max_step", ann_val=1024)
+sch.annotate(block_or_loop=l34, ann_key="pragma_unroll_explicit", ann_val=1)
+l41, l42 = sch.get_loops(block=b33)
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:200] [Task #1: adaptive_avg_pool2d] Trial #2: Error in running:
+LocalRunner: An exception occurred
+Traceback (most recent call last):
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/exec/popen_worker.py", line 87, in main
+    result = fn(*args, **kwargs)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py", line 152, in _worker_func
+    repeated_args: List[T_ARGUMENT_LIST] = f_alloc_argument(
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/local_runner.py", line 364, in default_alloc_argument
+    return alloc_argument_common(f_random_fill, device, args_info, alloc_repeat)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/utils.py", line 74, in alloc_argument_common
+    arg: Any = dispatcher.get(arg_type, None)(*arg_info)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/meta_schedule/runner/utils.py", line 56, in alloc_tensor
+    arg = ndarray.empty(shape=shape, dtype=dtype, device=device)
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809/python/tvm/runtime/ndarray.py", line 334, in empty
+    arr = _ffi_api.TVMArrayAllocWithScope(shape, dtype, device, mem_scope)
+  File "tvm/ffi/cython/function.pxi", line 228, in tvm.ffi.core.Function.__call__
+  File "tvm/ffi/cython/core.cpp", line 22178, in __pyx_pw_3tvm_3ffi_4core_8Function_1__call__
+  File "tvm/ffi/cython/core.cpp", line 22229, in __pyx_pf_3tvm_3ffi_4core_8Function___call__
+  File "tvm/ffi/cython/core.cpp", line 21947, in __pyx_f_3tvm_3ffi_4core_FuncCall
+tvm.error.InternalError: Check failed: (e == cudaSuccess || e == cudaErrorCudartUnloading) is false: CUDA: misaligned address
+
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(lv85: T.Buffer((T.int64(1), T.int64(512), T.int64(7), T.int64(7)), "float32"), adaptive_pool_avg: T.Buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), "float32")):
+        T.func_attr({"op_pattern": 4, "tir.noalias": True})
+        # with T.block("root"):
+        adaptive_pool_sum = T.alloc_buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)))
+        for ax0_ax1_ax2_ax3_fused_0 in T.thread_binding(T.int64(2), thread="blockIdx.x", annotations={"pragma_auto_unroll_max_step": 512, "pragma_unroll_explicit": 1}):
+            for ax0_ax1_ax2_ax3_fused_1 in T.thread_binding(T.int64(256), thread="threadIdx.x"):
+                with T.block("adaptive_pool_sum_init"):
+                    v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(256) + ax0_ax1_ax2_ax3_fused_1)
+                    v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                    T.reads()
+                    T.writes(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                    adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = T.float32(0.0)
+                for rv0, rv1 in T.grid(T.int64(7), T.int64(7)):
+                    with T.block("adaptive_pool_sum_update"):
+                        v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(256) + ax0_ax1_ax2_ax3_fused_1)
+                        v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_rv0, v_rv1 = T.axis.remap("RR", [rv0, rv1])
+                        T.reads(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3], lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1])
+                        T.writes(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                        adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] + lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1]
+        for ax0_ax1_ax2_ax3_fused_0 in T.thread_binding(T.int64(1), thread="blockIdx.x"):
+            for ax0_ax1_ax2_ax3_fused_1 in T.thread_binding(T.int64(512), thread="threadIdx.x"):
+                with T.block("adaptive_pool_avg"):
+                    v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(512) + ax0_ax1_ax2_ax3_fused_1)
+                    v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                    T.reads(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                    T.writes(adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3])
+                    adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] * T.float32(0.020408163265306121)
+b0 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+b1 = sch.get_block(name="adaptive_pool_avg", func_name="main")
+b2 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b1, ann_key="schedule_rule")
+v3 = sch.sample_categorical(candidates=[0, 16, 64, 512, 1024], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=3)
+sch.annotate(block_or_loop=b2, ann_key="meta_schedule.unroll_explicit", ann_val=v3)
+l4, l5, l6, l7 = sch.get_loops(block=b1)
+l8 = sch.fuse(l4, l5, l6, l7, preserve_unit_iters=True)
+v9 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=4)
+l10, l11 = sch.split(loop=l8, factors=[None, v9], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l10, thread_axis="blockIdx.x")
+sch.bind(loop=l11, thread_axis="threadIdx.x")
+l12, l13, l14, l15, l16, l17 = sch.get_loops(block=b0)
+l18 = sch.fuse(l12, l13, l14, l15, preserve_unit_iters=True)
+v19 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=3)
+l20, l21 = sch.split(loop=l18, factors=[None, v19], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l20, thread_axis="blockIdx.x")
+sch.bind(loop=l21, thread_axis="threadIdx.x")
+sch.enter_postproc()
+b22 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b22, ann_key="meta_schedule.unroll_explicit")
+b23, b24 = sch.get_child_blocks(b22)
+l25, l26, l27, l28 = sch.get_loops(block=b23)
+sch.annotate(block_or_loop=l25, ann_key="pragma_auto_unroll_max_step", ann_val=512)
+sch.annotate(block_or_loop=l25, ann_key="pragma_unroll_explicit", ann_val=1)
+l29, l30 = sch.get_loops(block=b24)
+b31 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+l32, l33, l34, l35 = sch.get_loops(block=b31)
+b36 = sch.decompose_reduction(block=b31, loop=l34)
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:200] [Task #1: adaptive_avg_pool2d] Trial #3: Error in running:
+LocalRunner: An exception occurred
+Subprocess terminated
+# from tvm.script import ir as I
+# from tvm.script import tir as T
+
+@I.ir_module
+class Module:
+    @T.prim_func
+    def main(lv85: T.Buffer((T.int64(1), T.int64(512), T.int64(7), T.int64(7)), "float32"), adaptive_pool_avg: T.Buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)), "float32")):
+        T.func_attr({"op_pattern": 4, "tir.noalias": True})
+        # with T.block("root"):
+        adaptive_pool_sum = T.alloc_buffer((T.int64(1), T.int64(512), T.int64(1), T.int64(1)))
+        for ax0_ax1_ax2_ax3_fused_0 in T.thread_binding(T.int64(1), thread="blockIdx.x", annotations={"pragma_auto_unroll_max_step": 512, "pragma_unroll_explicit": 1}):
+            for ax0_ax1_ax2_ax3_fused_1 in T.thread_binding(T.int64(512), thread="threadIdx.x"):
+                with T.block("adaptive_pool_sum_init"):
+                    v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(512) + ax0_ax1_ax2_ax3_fused_1)
+                    v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                    T.reads()
+                    T.writes(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                    adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = T.float32(0.0)
+                for rv0, rv1 in T.grid(T.int64(7), T.int64(7)):
+                    with T.block("adaptive_pool_sum_update"):
+                        v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(512) + ax0_ax1_ax2_ax3_fused_1)
+                        v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                        v_rv0, v_rv1 = T.axis.remap("RR", [rv0, rv1])
+                        T.reads(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3], lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1])
+                        T.writes(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                        adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] + lv85[v_ax0, v_ax1, v_ax2 * T.int64(7) + v_rv0, v_ax3 * T.int64(7) + v_rv1]
+        for ax0_ax1_ax2_ax3_fused_0 in T.thread_binding(T.int64(1), thread="blockIdx.x"):
+            for ax0_ax1_ax2_ax3_fused_1 in T.thread_binding(T.int64(512), thread="threadIdx.x"):
+                with T.block("adaptive_pool_avg"):
+                    v_ax0 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax1 = T.axis.spatial(T.int64(512), ax0_ax1_ax2_ax3_fused_0 * T.int64(512) + ax0_ax1_ax2_ax3_fused_1)
+                    v_ax2 = T.axis.spatial(T.int64(1), T.int64(0))
+                    v_ax3 = T.axis.spatial(T.int64(1), T.int64(0))
+                    T.reads(adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3])
+                    T.writes(adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3])
+                    adaptive_pool_avg[v_ax0, v_ax1, v_ax2, v_ax3] = adaptive_pool_sum[v_ax0, v_ax1, v_ax2, v_ax3] * T.float32(0.020408163265306121)
+b0 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+b1 = sch.get_block(name="adaptive_pool_avg", func_name="main")
+b2 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b1, ann_key="schedule_rule")
+v3 = sch.sample_categorical(candidates=[0, 16, 64, 512, 1024], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=3)
+sch.annotate(block_or_loop=b2, ann_key="meta_schedule.unroll_explicit", ann_val=v3)
+l4, l5, l6, l7 = sch.get_loops(block=b1)
+l8 = sch.fuse(l4, l5, l6, l7, preserve_unit_iters=True)
+v9 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=4)
+l10, l11 = sch.split(loop=l8, factors=[None, v9], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l10, thread_axis="blockIdx.x")
+sch.bind(loop=l11, thread_axis="threadIdx.x")
+l12, l13, l14, l15, l16, l17 = sch.get_loops(block=b0)
+l18 = sch.fuse(l12, l13, l14, l15, preserve_unit_iters=True)
+v19 = sch.sample_categorical(candidates=[32, 64, 128, 256, 512], probs=[0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001, 0.20000000000000001], decision=4)
+l20, l21 = sch.split(loop=l18, factors=[None, v19], preserve_unit_iters=True, disable_predication=False)
+sch.bind(loop=l20, thread_axis="blockIdx.x")
+sch.bind(loop=l21, thread_axis="threadIdx.x")
+sch.enter_postproc()
+b22 = sch.get_block(name="root", func_name="main")
+sch.unannotate(block_or_loop=b22, ann_key="meta_schedule.unroll_explicit")
+b23, b24 = sch.get_child_blocks(b22)
+l25, l26, l27, l28 = sch.get_loops(block=b23)
+sch.annotate(block_or_loop=l25, ann_key="pragma_auto_unroll_max_step", ann_val=512)
+sch.annotate(block_or_loop=l25, ann_key="pragma_unroll_explicit", ann_val=1)
+l29, l30 = sch.get_loops(block=b24)
+b31 = sch.get_block(name="adaptive_pool_sum", func_name="main")
+l32, l33, l34, l35 = sch.get_loops(block=b31)
+b36 = sch.decompose_reduction(block=b31, loop=l34)
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:210] [Task #1: adaptive_avg_pool2d] Trial #4: GFLOPs: 8.6791. Time: 2.9496 us. Best GFLOPs: 8.6791
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:210] [Task #1: adaptive_avg_pool2d] Trial #5: GFLOPs: 4.4597. Time: 5.7403 us. Best GFLOPs: 8.6791
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:210] [Task #1: adaptive_avg_pool2d] Trial #6: GFLOPs: 4.0649. Time: 6.2977 us. Best GFLOPs: 8.6791
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:210] [Task #1: adaptive_avg_pool2d] Trial #7: GFLOPs: 8.5132. Time: 3.0071 us. Best GFLOPs: 8.6791
+2026-08-13 22:32:08 [INFO] [task_scheduler.cc:210] [Task #1: adaptive_avg_pool2d] Trial #8: GFLOPs: 4.4574. Time: 5.7433 us. Best GFLOPs: 8.6791

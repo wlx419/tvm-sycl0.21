@@ -1,0 +1,47 @@
+{
+  "protocol": {
+    "atol": 0.0002,
+    "batch_norm_folded": true,
+    "fallback_schedule": true,
+    "image_size": 224,
+    "measure": 50,
+    "num_classes": 1000,
+    "parameter_mode": "bound",
+    "pipeline": "static_shape_tuning",
+    "reference": "PyTorch CPU",
+    "rtol": 0.002,
+    "seed": 321,
+    "total_trials": 0,
+    "warmup": 10
+  },
+  "results": [
+    {
+      "atol": 0.0002,
+      "batch": 1,
+      "batch_norm_folded": true,
+      "compile_s": 66.86038672295399,
+      "export_s": 1.250914496020414,
+      "fallback_schedule": true,
+      "fusion_max_abs_err": 1.1920928955078125e-06,
+      "input_shape": "(1, 3, 224, 224)",
+      "latency_mean_ms": 0.7820620399999999,
+      "latency_p50_ms": 0.781963,
+      "latency_p90_ms": 0.7832383,
+      "latency_p99_ms": 0.7852249,
+      "max_abs_err": 2.1457672119140625e-06,
+      "max_rel_err": 8.333665027748793e-05,
+      "model": "resnet18",
+      "num_params": 42,
+      "output_shape": "(1, 1000)",
+      "parameter_mode": "bound",
+      "pipeline": "static_shape_tuning",
+      "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+      "rtol": 0.002,
+      "runtime_device": "cuda",
+      "status": "pass",
+      "target": "cuda",
+      "total_s": 69.0384961119853,
+      "work_dir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/cuda"
+    }
+  ]
+}

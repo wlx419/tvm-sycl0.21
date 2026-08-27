@@ -1,0 +1,170 @@
+oneDNN engine kind: gpu
+onednn_verbose,v1,info,oneDNN v3.9.0 (commit c05b778115a8f1c78d3df6d815b321c90e12fc6c)
+onednn_verbose,v1,info,gpu,runtime:DPC++
+onednn_verbose,v1,info,gpu,engine,sycl gpu device count:1 
+onednn_verbose,v1,info,gpu,engine,0,backend:Nvidia,name:NVIDIA GeForce RTX 4090,driver_version:0.0.0
+onednn_verbose,v1,primitive,info,template:operation,engine,primitive,implementation,prop_kind,memory_descriptors,attributes,auxiliary,problem_desc,exec_time
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,22.061
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.138916
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.065918
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0588379
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0551758
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0541992
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0539551
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0532227
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0539551
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0541992
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.0529785
+onednn_verbose,v1,primitive,exec,gpu,matmul,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 wei:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,,256x256:256x256,0.052002
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.411133
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0981445
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0859375
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.079834
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.079834
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0849609
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.079834
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.079834
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0808105
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0817871
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0791016
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0788574
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0830078
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.079834
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0810547
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0969238
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0830078
+onednn_verbose,v1,primitive,exec,gpu,reduction,cuda:cudnn:any,undef,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:reduction_sum p:0 eps:0,1024x1024:1024x1,0.0800781
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.161133
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0439453
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0361328
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0380859
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0380859
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0368652
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0390625
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0380859
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0361328
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0390625
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0380859
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0380859
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.052002
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0400391
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0358887
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0388184
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0361328
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0380859
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0378418
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0368652
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0368652
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0368652
+onednn_verbose,v1,primitive,exec,gpu,softmax,cuda:cudnn:any,forward_inference,src:f32::blocked:ab::f0 dst:f32::blocked:ab::f0,,alg:softmax_accurate axis:1,512x512,0.0371094
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.604004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.147949
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.114014
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.102051
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.10083
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0991211
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0981445
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0991211
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0981445
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0998535
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0969238
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.10498
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.118896
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.103027
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0969238
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0969238
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0991211
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0991211
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0969238
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0981445
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0981445
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0959473
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.098877
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+onednn_verbose,v1,primitive,exec,gpu,convolution,cuda:cudnn:any,forward_inference,src:f32::blocked:acdb::f0 wei:f32::blocked:cdba::f0 bia:undef::undef::: dst:f32::blocked:acdb::f0,,alg:convolution_direct,mb8_ic16oc32_ih32oh32kh3sh1dh0ph1_iw32ow32kw3sw1dw0pw1,0.0979004
+matmul pass p50_ms=0.064123 max_abs=7.62939e-06 notes=
+row_sum pass p50_ms=0.090695 max_abs=4.88758e-06 notes=
+softmax pass p50_ms=0.044437 max_abs=1.86265e-09 notes=
+conv2d_nhwc pass p50_ms=0.105024 max_abs=9.68575e-08 notes=

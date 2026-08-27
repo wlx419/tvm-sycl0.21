@@ -1,0 +1,43 @@
+{
+  "target": "cuda",
+  "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+  "log_best_ms": 0.008338379859417587,
+  "wall_p50_ms": 0.0187525,
+  "wall_p90_ms": 0.019534600000000003,
+  "device_event_p50_ms": 0.015855,
+  "device_event_p90_ms": 0.0162655,
+  "barrier_tokens": 4,
+  "generated_source_bytes": 361525,
+  "argument_shapes": [
+    [
+      1,
+      64,
+      56,
+      56
+    ],
+    [
+      128,
+      64,
+      1,
+      1
+    ],
+    [
+      1,
+      128,
+      1,
+      1
+    ],
+    [
+      1,
+      128,
+      28,
+      28
+    ]
+  ],
+  "argument_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ]
+}

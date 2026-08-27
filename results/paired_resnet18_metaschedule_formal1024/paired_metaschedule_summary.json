@@ -1,0 +1,302 @@
+{
+  "checks": {
+    "all_apply_runs_pass": true,
+    "both_databases_nonempty": true,
+    "workload_sets_identical": true
+  },
+  "comparison": {
+    "cuda_median_p50_ms": 0.781963,
+    "cuda_workloads": 19,
+    "matched_workloads_with_success": 12,
+    "sycl_median_p50_ms": 2.0376585,
+    "sycl_over_cuda_complete_model": 2.6058247001456594,
+    "sycl_workloads": 19,
+    "workload_sets_identical": true
+  },
+  "databases": {
+    "cuda": {
+      "all_workloads_have_success": false,
+      "best_by_key": {
+        "1095410103996100310": 0.008338379859417587,
+        "12886181851029727370": 0.04291567184850197,
+        "14509505237938146982": 0.007890196613001214,
+        "16652132948453233707": 0.01638231493670886,
+        "17841047602822596074": 0.012628622942692841,
+        "17934828423704101932": 0.019466530371589193,
+        "18379739659063157803": 0.04100633716976196,
+        "3455558204643618684": 0.0029474628388462274,
+        "3660358610648974650": 0.024322105462323135,
+        "416902033691294171": 0.01793098090504839,
+        "5723255348158796890": 0.0029496251647989453,
+        "5769126934908556840": 0.016499037318234464,
+        "618321772778924114": 0.029037046186687367,
+        "641994571723794759": 0.05313902750099641,
+        "7990226299771950393": 0.025175450758206968
+      },
+      "failed_trials": 215,
+      "failure_rate": 0.20894071914480078,
+      "fallback_workloads": 4,
+      "sum_best_ms": 0.32062878987681553,
+      "trials": 1029,
+      "work_dir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/cuda",
+      "workload_keys": [
+        "1095410103996100310",
+        "12886181851029727370",
+        "13938407249372800637",
+        "14509505237938146982",
+        "14794182676145012300",
+        "15732018828921079721",
+        "16652132948453233707",
+        "17841047602822596074",
+        "17934828423704101932",
+        "18379739659063157803",
+        "3455558204643618684",
+        "3660358610648974650",
+        "416902033691294171",
+        "5723255348158796890",
+        "5769126934908556840",
+        "618321772778924114",
+        "641994571723794759",
+        "6454301243536674629",
+        "7990226299771950393"
+      ],
+      "workloads": 19,
+      "workloads_with_success": 15
+    },
+    "sycl": {
+      "all_workloads_have_success": false,
+      "best_by_key": {
+        "1095410103996100310": 0.04597049289617486,
+        "12886181851029727370": 0.08623431187569368,
+        "14509505237938146982": 0.017617179379715006,
+        "14794182676145012300": 0.04321673721453844,
+        "15732018828921079721": 0.04712016854327937,
+        "16652132948453233707": 0.07297863032650803,
+        "17841047602822596074": 0.03514047309614819,
+        "17934828423704101932": 0.032900048028673835,
+        "18379739659063157803": 0.0627790695404636,
+        "3455558204643618684": 0.011168549454682212,
+        "5723255348158796890": 0.009916958099663517,
+        "5769126934908556840": 0.0384699831737743,
+        "641994571723794759": 0.07868741155419223,
+        "6454301243536674629": 0.0441107082806574,
+        "7990226299771950393": 0.032465045465253244
+      },
+      "failed_trials": 439,
+      "failure_rate": 0.42662779397473277,
+      "fallback_workloads": 4,
+      "sum_best_ms": 0.658775766929418,
+      "trials": 1029,
+      "work_dir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/sycl",
+      "workload_keys": [
+        "1095410103996100310",
+        "12886181851029727370",
+        "13938407249372800637",
+        "14509505237938146982",
+        "14794182676145012300",
+        "15732018828921079721",
+        "16652132948453233707",
+        "17841047602822596074",
+        "17934828423704101932",
+        "18379739659063157803",
+        "3455558204643618684",
+        "3660358610648974650",
+        "416902033691294171",
+        "5723255348158796890",
+        "5769126934908556840",
+        "618321772778924114",
+        "641994571723794759",
+        "6454301243536674629",
+        "7990226299771950393"
+      ],
+      "workloads": 19,
+      "workloads_with_success": 15
+    }
+  },
+  "execution": {
+    "cuda": {
+      "all_pass": true,
+      "max_abs_error": 2.1457672119140625e-06,
+      "max_p50_ms": 0.7824395,
+      "median_p50_ms": 0.781963,
+      "min_p50_ms": 0.7770144999999999,
+      "p50_ms_by_run": [
+        0.7770144999999999,
+        0.7824395,
+        0.781963
+      ],
+      "runs": 3
+    },
+    "sycl": {
+      "all_pass": true,
+      "max_abs_error": 3.814697265625e-06,
+      "max_p50_ms": 2.0390555,
+      "median_p50_ms": 2.0376585,
+      "min_p50_ms": 2.0343545,
+      "p50_ms_by_run": [
+        2.0343545,
+        2.0390555,
+        2.0376585
+      ],
+      "runs": 3
+    }
+  },
+  "matched_workloads": [
+    {
+      "cuda_best_ms": 0.01638231493670886,
+      "gap_ms": 0.05659631538979917,
+      "sycl_best_ms": 0.07297863032650803,
+      "sycl_over_cuda": 4.4547202644102715,
+      "workload_key": "16652132948453233707"
+    },
+    {
+      "cuda_best_ms": 0.04291567184850197,
+      "gap_ms": 0.043318640027191706,
+      "sycl_best_ms": 0.08623431187569368,
+      "sycl_over_cuda": 2.009389767451673,
+      "workload_key": "12886181851029727370"
+    },
+    {
+      "cuda_best_ms": 0.008338379859417587,
+      "gap_ms": 0.03763211303675727,
+      "sycl_best_ms": 0.04597049289617486,
+      "sycl_over_cuda": 5.513120494775081,
+      "workload_key": "1095410103996100310"
+    },
+    {
+      "cuda_best_ms": 0.05313902750099641,
+      "gap_ms": 0.025548384053195823,
+      "sycl_best_ms": 0.07868741155419223,
+      "sycl_over_cuda": 1.4807838090886545,
+      "workload_key": "641994571723794759"
+    },
+    {
+      "cuda_best_ms": 0.012628622942692841,
+      "gap_ms": 0.022511850153455353,
+      "sycl_best_ms": 0.03514047309614819,
+      "sycl_over_cuda": 2.7826052971580033,
+      "workload_key": "17841047602822596074"
+    },
+    {
+      "cuda_best_ms": 0.016499037318234464,
+      "gap_ms": 0.021970945855539836,
+      "sycl_best_ms": 0.0384699831737743,
+      "sycl_over_cuda": 2.3316501703561765,
+      "workload_key": "5769126934908556840"
+    },
+    {
+      "cuda_best_ms": 0.04100633716976196,
+      "gap_ms": 0.02177273237070164,
+      "sycl_best_ms": 0.0627790695404636,
+      "sycl_over_cuda": 1.530960185021276,
+      "workload_key": "18379739659063157803"
+    },
+    {
+      "cuda_best_ms": 0.019466530371589193,
+      "gap_ms": 0.013433517657084643,
+      "sycl_best_ms": 0.032900048028673835,
+      "sycl_over_cuda": 1.6900827934232416,
+      "workload_key": "17934828423704101932"
+    },
+    {
+      "cuda_best_ms": 0.007890196613001214,
+      "gap_ms": 0.009726982766713792,
+      "sycl_best_ms": 0.017617179379715006,
+      "sycl_over_cuda": 2.2327934579837945,
+      "workload_key": "14509505237938146982"
+    },
+    {
+      "cuda_best_ms": 0.0029474628388462274,
+      "gap_ms": 0.008221086615835985,
+      "sycl_best_ms": 0.011168549454682212,
+      "sycl_over_cuda": 3.7892078934756293,
+      "workload_key": "3455558204643618684"
+    },
+    {
+      "cuda_best_ms": 0.025175450758206968,
+      "gap_ms": 0.007289594707046276,
+      "sycl_best_ms": 0.032465045465253244,
+      "sycl_over_cuda": 1.289551705630134,
+      "workload_key": "7990226299771950393"
+    },
+    {
+      "cuda_best_ms": 0.0029496251647989453,
+      "gap_ms": 0.006967332934864572,
+      "sycl_best_ms": 0.009916958099663517,
+      "sycl_over_cuda": 3.3621079105281786,
+      "workload_key": "5723255348158796890"
+    }
+  ],
+  "protocol": {
+    "apply_only_runs_per_target": 3,
+    "equal_global_trial_budget": 1024,
+    "input_shape": "(1, 3, 224, 224)",
+    "model": "torchvision ResNet-18 with folded batch normalization",
+    "reported_latency": "median of independent synchronized p50 runs",
+    "stack": "TVM v0.21 Relax/MetaSchedule with DLight fallback",
+    "targets": [
+      "cuda",
+      "sycl"
+    ]
+  },
+  "tuning_results": {
+    "cuda": {
+      "atol": 0.0002,
+      "batch": 1,
+      "batch_norm_folded": true,
+      "compile_s": 3090.877486890997,
+      "export_s": 1.2892497869906947,
+      "fallback_schedule": true,
+      "fusion_max_abs_err": 1.1920928955078125e-06,
+      "input_shape": "(1, 3, 224, 224)",
+      "latency_mean_ms": 0.7783770799999999,
+      "latency_p50_ms": 0.7782724999999999,
+      "latency_p90_ms": 0.7796874,
+      "latency_p99_ms": 0.78297958,
+      "max_abs_err": 2.1457672119140625e-06,
+      "max_rel_err": 8.333665027748793e-05,
+      "model": "resnet18",
+      "num_params": 42,
+      "output_shape": "(1, 1000)",
+      "parameter_mode": "bound",
+      "pipeline": "static_shape_tuning",
+      "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+      "result_path": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/cuda/probe.json",
+      "rtol": 0.002,
+      "runtime_device": "cuda",
+      "status": "pass",
+      "target": "cuda",
+      "total_s": 3092.9566585249268,
+      "work_dir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/cuda"
+    },
+    "sycl": {
+      "atol": 0.0002,
+      "batch": 1,
+      "batch_norm_folded": true,
+      "compile_s": 3989.7125905759167,
+      "export_s": 1.3161312299780548,
+      "fallback_schedule": true,
+      "fusion_max_abs_err": 1.1920928955078125e-06,
+      "input_shape": "(1, 3, 224, 224)",
+      "latency_mean_ms": 2.02278634,
+      "latency_p50_ms": 2.0221175000000002,
+      "latency_p90_ms": 2.026812,
+      "latency_p99_ms": 2.0315046,
+      "max_abs_err": 3.814697265625e-06,
+      "max_rel_err": 0.0004121313395444304,
+      "model": "resnet18",
+      "num_params": 42,
+      "output_shape": "(1, 1000)",
+      "parameter_mode": "bound",
+      "pipeline": "static_shape_tuning",
+      "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+      "result_path": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/sycl/probe.json",
+      "rtol": 0.002,
+      "runtime_device": "oneapi",
+      "status": "pass",
+      "target": "sycl",
+      "total_s": 3991.9135450189933,
+      "work_dir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/sycl"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+op,shape,wg_size,status,max_abs_err,max_rel_err,latency_mean_ms,latency_p50_ms,latency_p90_ms,latency_p99_ms,tail_ratio_p99_p50,build_s,warmup,measure,tol_abs,tol_rel,elapsed_s,error
+matmul,64x64x64,256,pass,0.0,0.0,0.04727555,0.017321,0.0263098,1.2444401000000005,71.84574216269272,8.944084385875612,20,100,0.0001,0.001,11.868046245072037,
+matmul,128x128x128,256,pass,0.0,0.0,0.06136883,0.023698,0.03458380000000001,1.5705654300000007,66.27417630179765,8.990768115967512,20,100,0.0001,0.001,11.825804009102285,
+matmul,256x256x256,256,pass,0.0,0.0,0.05524833000000001,0.027241,0.035547600000000006,1.1699988500000003,42.94992291031901,8.980996622238308,20,100,0.0001,0.001,11.80213049100712,
+row_sum,256x1024,256,pass,5.340576171875e-05,7.369142258539796e-05,0.15234229,0.122839,0.1318419,1.2827310100000002,10.442375874111644,8.906674592290074,20,100,0.0001,0.001,11.726782636716962,
+row_sum,1024x1024,256,pass,5.91278076171875e-05,7.369142258539796e-05,0.14993183999999998,0.118536,0.1276948,1.3820178000000003,11.659055476817171,8.851826471742243,20,100,0.0001,0.001,11.665481198113412,
+conv2d_nhwc,1x32x32x3x16x3x3,256,pass,1.1920928955078125e-06,0.0022500085178762674,0.04445473999999999,0.016045,0.024956100000000005,1.1837682200000004,73.7780130881895,9.27935627521947,20,100,0.0001,0.001,12.086697644088417,
+conv2d_nhwc,1x32x32x16x32x3x3,256,pass,7.62939453125e-06,0.002612886019051075,0.04826975,0.01799,0.02620990000000003,1.2560530200000004,69.81951195108397,9.360070870257914,20,100,0.0001,0.001,12.118494909722358,
+conv2d_nhwc,8x32x32x16x32x3x3,256,pass,1.1444091796875e-05,0.08715180307626724,0.05889295,0.030116,0.03931490000000001,1.1601872700000007,38.523949727719504,11.433292258996516,20,100,0.0001,0.001,14.276226851157844,
+conv2d_nhwc,16x32x32x16x32x3x3,256,pass,9.5367431640625e-06,0.007951335981488228,0.07303919,0.0434045,0.05220750000000001,1.2497872900000004,28.79395661740143,12.410807756241411,20,100,0.0001,0.001,15.204808813985437,
+softmax,128x256,256,runtime_error,,,,,,,,,,,,,30.266778205055743,"le ""<unknown>"", in sycl::_V1::queue::submit_impl(std::function<void (sycl::_V1::handler&)>, sycl::_V1::detail::code_location const&)
+  File ""<unknown>"", in sycl::_V1::detail::queue_impl::submit_impl(std::function<void (sycl::_V1::handler&)> const&, std::shared_ptr<sycl::_V1::detail::queue_impl> const&, std::shared_ptr<sycl::_V1::detail::queue_impl> const&, std::shared_ptr<sycl::_V1::detail::queue_impl> const&, sycl::_V1::detail::code_location const&, std::function<void (bool, bool, sycl::_V1::event&)> const*)
+  File ""<unknown>"", in sycl::_V1::handler::finalize()
+  File ""<unknown>"", in sycl::_V1::handler::finalize()::{lambda()#1}::operator()() const
+  File ""<unknown>"", in sycl::_V1::detail::enqueueImpKernel(std::shared_ptr<sycl::_V1::detail::queue_impl> const&, sycl::_V1::detail::NDRDescT&, std::vector<sycl::_V1::detail::ArgDesc, std::allocator<sycl::_V1::detail::ArgDesc> >&, std::shared_ptr<sycl::_V1::detail::kernel_bundle_impl> const&, std::shared_ptr<sycl::_V1::detail::kernel_impl> const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<_pi_event*, std::allocator<_pi_event*> >&, std::shared_ptr<sycl::_V1::detail::event_impl> const&, std::function<void* (sycl::_V1::detail::AccessorImplHost*)> const&, _pi_kernel_cache_config)
+  File ""<unknown>"", in _pi_result sycl::_V1::detail::plugin::call_nocheck<(sycl::_V1::detail::PiApiKind)76, _pi_queue*, _pi_kernel*, unsigned long, unsigned long*, unsigned long*, unsigned long*, unsigned long, _pi_event**, _pi_event**>(_pi_queue*, _pi_kernel*, unsigned long, unsigned long*, unsigned long*, unsigned long*, unsigned long, _pi_event**, _pi_event**) const
+  File ""<unknown>"", in piEnqueueKernelLaunch
+  File ""<unknown>"", in urEnqueueKernelLaunch
+  File ""./signal/../sysdeps/unix/sysv/linux/x86_64/libc_sigaction.c"", in 0x00007f1ffa7c151f
+  File ""<unknown>"", in tvm::ffi::(anonymous namespace)::backtrace_handler(int)
+  File ""<unknown>"", in tvm::ffi::(anonymous namespace)::Traceback()
+
+"
+softmax,512x512,256,runtime_error,,,,,,,,,,,,,29.870420755352825,"le ""<unknown>"", in sycl::_V1::queue::submit_impl(std::function<void (sycl::_V1::handler&)>, sycl::_V1::detail::code_location const&)
+  File ""<unknown>"", in sycl::_V1::detail::queue_impl::submit_impl(std::function<void (sycl::_V1::handler&)> const&, std::shared_ptr<sycl::_V1::detail::queue_impl> const&, std::shared_ptr<sycl::_V1::detail::queue_impl> const&, std::shared_ptr<sycl::_V1::detail::queue_impl> const&, sycl::_V1::detail::code_location const&, std::function<void (bool, bool, sycl::_V1::event&)> const*)
+  File ""<unknown>"", in sycl::_V1::handler::finalize()
+  File ""<unknown>"", in sycl::_V1::handler::finalize()::{lambda()#1}::operator()() const
+  File ""<unknown>"", in sycl::_V1::detail::enqueueImpKernel(std::shared_ptr<sycl::_V1::detail::queue_impl> const&, sycl::_V1::detail::NDRDescT&, std::vector<sycl::_V1::detail::ArgDesc, std::allocator<sycl::_V1::detail::ArgDesc> >&, std::shared_ptr<sycl::_V1::detail::kernel_bundle_impl> const&, std::shared_ptr<sycl::_V1::detail::kernel_impl> const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<_pi_event*, std::allocator<_pi_event*> >&, std::shared_ptr<sycl::_V1::detail::event_impl> const&, std::function<void* (sycl::_V1::detail::AccessorImplHost*)> const&, _pi_kernel_cache_config)
+  File ""<unknown>"", in _pi_result sycl::_V1::detail::plugin::call_nocheck<(sycl::_V1::detail::PiApiKind)76, _pi_queue*, _pi_kernel*, unsigned long, unsigned long*, unsigned long*, unsigned long*, unsigned long, _pi_event**, _pi_event**>(_pi_queue*, _pi_kernel*, unsigned long, unsigned long*, unsigned long*, unsigned long*, unsigned long, _pi_event**, _pi_event**) const
+  File ""<unknown>"", in piEnqueueKernelLaunch
+  File ""<unknown>"", in urEnqueueKernelLaunch
+  File ""./signal/../sysdeps/unix/sysv/linux/x86_64/libc_sigaction.c"", in 0x00007f98120bb51f
+  File ""<unknown>"", in tvm::ffi::(anonymous namespace)::backtrace_handler(int)
+  File ""<unknown>"", in tvm::ffi::(anonymous namespace)::Traceback()
+
+"
+matmul,128x128x128,32,pass,0.0,0.0,0.04900257000000001,0.018502499999999998,0.02717360000000001,1.2366806700000006,66.83857154438593,8.963548713829368,20,100,0.0001,0.001,11.85098463203758,
+conv2d_nhwc,1x32x32x16x32x3x3,32,pass,7.62939453125e-06,0.002612886019051075,0.046873759999999993,0.017626,0.025625000000000002,1.1886633900000008,67.4380681947124,9.47235475666821,20,100,0.0001,0.001,12.383988038171083,
+row_sum,1024x1024,32,pass,5.91278076171875e-05,7.369142258539796e-05,0.07814496999999998,0.046825,0.055683500000000025,1.2857196800000004,27.45797501334758,9.137505385093391,20,100,0.0001,0.001,11.923922961112112,
+matmul,128x128x128,64,pass,0.0,0.0,0.04646746,0.017537,0.02554520000000001,1.1748115200000004,66.99044990591324,9.939396900124848,20,100,0.0001,0.001,12.838233395013958,
+conv2d_nhwc,1x32x32x16x32x3x3,64,pass,7.62939453125e-06,0.002612886019051075,0.04704280000000001,0.018478,0.027052800000000002,1.1890141600000004,64.34755709492372,9.270652587059885,20,100,0.0001,0.001,12.088352791033685,
+row_sum,1024x1024,64,pass,5.91278076171875e-05,7.369142258539796e-05,0.0779897,0.0473635,0.057130800000000016,1.2622476400000004,26.650218839401656,8.980896842200309,20,100,0.0001,0.001,11.731393825728446,
+matmul,128x128x128,128,pass,0.0,0.0,0.04913654,0.0200125,0.02875130000000001,1.1686385500000007,58.395430356027525,9.067709336988628,20,100,0.0001,0.001,11.866601548623294,
+conv2d_nhwc,1x32x32x16x32x3x3,128,pass,7.62939453125e-06,0.002612886019051075,0.04596640999999999,0.016857,0.025893600000000006,1.2055949800000005,71.51895236400311,9.386086021084338,20,100,0.0001,0.001,12.343693539965898,
+row_sum,1024x1024,128,pass,5.91278076171875e-05,7.369142258539796e-05,0.09673037000000001,0.06718099999999999,0.07627520000000002,1.2493466400000002,18.59672585999018,9.339464449789375,20,100,0.0001,0.001,12.245833047665656,
+matmul,128x128x128,256,pass,0.0,0.0,0.04935070999999999,0.01968,0.02691430000000001,1.2275104000000006,62.37349593495938,9.014986716210842,20,100,0.0001,0.001,11.802098360843956,
+conv2d_nhwc,1x32x32x16x32x3x3,256,pass,7.62939453125e-06,0.002612886019051075,0.04724443,0.0179065,0.027758500000000023,1.2019777400000002,67.1252193337615,9.338178995996714,20,100,0.0001,0.001,12.17952674627304,
+row_sum,1024x1024,256,pass,5.91278076171875e-05,7.369142258539796e-05,0.15088956,0.1188145,0.1290996,1.41799089,11.934493601370203,8.931127630639821,20,100,0.0001,0.001,11.702092762105167,
+matmul,128x128x128,512,pass,0.0,0.0,0.05060575999999999,0.020221,0.027875000000000004,1.31108792,64.83793679837792,8.938138017896563,20,100,0.0001,0.001,11.820936636067927,
+conv2d_nhwc,1x32x32x16x32x3x3,512,pass,7.62939453125e-06,0.002612886019051075,0.04790673,0.018867500000000002,0.02795360000000001,1.1957600700000006,63.37670968596796,9.440500988159329,20,100,0.0001,0.001,12.270723009947687,
+row_sum,1024x1024,512,pass,5.91278076171875e-05,7.369142258539796e-05,0.25396459,0.223261,0.23248170000000004,1.4531951500000002,6.508952078509011,9.176421366631985,20,100,0.0001,0.001,12.00327752996236,
+matmul,128x128x128,1024,pass,0.0,0.0,0.06351770999999999,0.025812,0.03909580000000001,1.5562625300000006,60.292210212304376,9.742215787991881,20,100,0.0001,0.001,12.557879311963916,
+conv2d_nhwc,1x32x32x16x32x3x3,1024,pass,7.62939453125e-06,0.002612886019051075,0.05158483000000001,0.022283499999999998,0.029861400000000014,1.2126071400000005,54.41726568986024,9.421116705052555,20,100,0.0001,0.001,12.178249092772603,
+row_sum,1024x1024,1024,pass,5.91278076171875e-05,7.369142258539796e-05,0.4716541900000001,0.440224,0.4501838,1.6936077900000004,3.8471500645126127,8.89508435735479,20,100,0.0001,0.001,11.834606065880507,

@@ -1,0 +1,43 @@
+{
+  "target": "sycl",
+  "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+  "log_best_ms": 0.04597049289617486,
+  "wall_p50_ms": 0.0641555,
+  "wall_p90_ms": 0.08981360000000013,
+  "device_event_p50_ms": 0.058697,
+  "device_event_p90_ms": 0.0656249,
+  "barrier_tokens": 2,
+  "generated_source_bytes": 78817,
+  "argument_shapes": [
+    [
+      1,
+      64,
+      56,
+      56
+    ],
+    [
+      128,
+      64,
+      1,
+      1
+    ],
+    [
+      1,
+      128,
+      1,
+      1
+    ],
+    [
+      1,
+      128,
+      28,
+      28
+    ]
+  ],
+  "argument_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ]
+}

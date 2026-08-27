@@ -1,0 +1,47 @@
+{
+  "target": "cuda",
+  "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+  "log_best_ms": 0.016499037318234464,
+  "wall_p50_ms": 0.027655,
+  "wall_p90_ms": 0.0282483,
+  "device_event_p50_ms": 0.024607,
+  "device_event_p90_ms": 0.0252863,
+  "barrier_tokens": 4,
+  "generated_source_bytes": 358188,
+  "argument_shapes": [
+    [
+      1,
+      64,
+      56,
+      56
+    ],
+    [
+      64,
+      64,
+      3,
+      3
+    ],
+    [
+      1,
+      64,
+      1,
+      1
+    ],
+    [
+      1,
+      64,
+      56,
+      56
+    ]
+  ],
+  "argument_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ]
+}
+Generating '/tmp/nsys-report-38e6.qdstrm'
+[1/1] [0%                          ] cuda.nsys-rep[1/1] [0%                          ] cuda.nsys-rep[1/1] [13%                         ] cuda.nsys-rep[1/1] [=========46%                ] cuda.nsys-rep[1/1] [===================80%      ] cuda.nsys-rep[1/1] [===================81%      ] cuda.nsys-rep[1/1] [===================82%      ] cuda.nsys-rep[1/1] [====================83%     ] cuda.nsys-rep[1/1] [====================85%     ] cuda.nsys-rep[1/1] [=====================86%    ] cuda.nsys-rep[1/1] [=====================87%    ] cuda.nsys-rep[1/1] [=====================88%    ] cuda.nsys-rep[1/1] [=====================89%    ] cuda.nsys-rep[1/1] [======================90%   ] cuda.nsys-rep[1/1] [======================91%   ] cuda.nsys-rep[1/1] [======================92%   ] cuda.nsys-rep[1/1] [=======================93%  ] cuda.nsys-rep[1/1] [=======================94%  ] cuda.nsys-rep[1/1] [=======================95%  ] cuda.nsys-rep[1/1] [=======================96%  ] cuda.nsys-rep[1/1] [========================100%] cuda.nsys-rep[1/1] [========================100%] cuda.nsys-rep
+Generated:
+    /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/operator_profiles/5769126934908556840/nsys/cuda.nsys-rep

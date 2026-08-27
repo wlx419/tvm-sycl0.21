@@ -1,0 +1,19 @@
+TVM-SYCL: a SYCL 2020 backend for Apache TVM v0.21
+Copyright 2026 Longxiang Wang and co-authors,
+Xi'an Jiaotong University.
+
+This product contains modified source files derived from Apache TVM,
+which is licensed under the Apache License, Version 2.0. See LICENSE
+for the full license text and NOTICE.tvm for the upstream Apache TVM
+notice.
+
+Modified upstream files are located under source_overlay/ and retain
+their original Apache Software Foundation license headers. The
+modifications add a SYCL code-generation target, a SYCL runtime module
+and device API, and the associated target metadata and build
+integration.
+
+Apache TVM, TVM, Apache, and the Apache feather logo are trademarks of
+The Apache Software Foundation. This repository is an independent
+research artifact and is not endorsed by or affiliated with the
+Apache Software Foundation.

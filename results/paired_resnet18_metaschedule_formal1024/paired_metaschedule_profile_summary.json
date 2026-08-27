@@ -1,0 +1,366 @@
+{
+  "profiles": [
+    {
+      "workload_key": "1095410103996100310",
+      "target": "cuda",
+      "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+      "log_best_ms": 0.008338379859417587,
+      "wall_p50_ms": 0.015235499999999999,
+      "wall_p90_ms": 0.0156846,
+      "device_event_p50_ms": 0.012288,
+      "device_event_p90_ms": 0.012288,
+      "barrier_tokens": 4,
+      "generated_source_bytes": 361525,
+      "argument_shapes": [
+        [
+          1,
+          64,
+          56,
+          56
+        ],
+        [
+          128,
+          64,
+          1,
+          1
+        ],
+        [
+          1,
+          128,
+          1,
+          1
+        ],
+        [
+          1,
+          128,
+          28,
+          28
+        ]
+      ],
+      "argument_dtypes": [
+        "float32",
+        "float32",
+        "float32",
+        "float32"
+      ],
+      "kernel_avg_us": 8.7425,
+      "kernel_median_us": 8.704,
+      "kernel_instances": 61,
+      "launch_api_avg_us": 5.1411999999999995,
+      "launch_api_median_us": 4.545,
+      "launch_api_calls": 61,
+      "grid_xyz": "28 1 1",
+      "block_xyz": "56 1 1",
+      "kernel_name": "main_kernel"
+    },
+    {
+      "workload_key": "1095410103996100310",
+      "target": "sycl",
+      "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+      "log_best_ms": 0.04597049289617486,
+      "wall_p50_ms": 0.0583995,
+      "wall_p90_ms": 0.0673475,
+      "device_event_p50_ms": 0.050707,
+      "device_event_p90_ms": 0.0535741,
+      "barrier_tokens": 2,
+      "generated_source_bytes": 78817,
+      "argument_shapes": [
+        [
+          1,
+          64,
+          56,
+          56
+        ],
+        [
+          128,
+          64,
+          1,
+          1
+        ],
+        [
+          1,
+          128,
+          1,
+          1
+        ],
+        [
+          1,
+          128,
+          28,
+          28
+        ]
+      ],
+      "argument_dtypes": [
+        "float32",
+        "float32",
+        "float32",
+        "float32"
+      ],
+      "kernel_avg_us": 41.3857,
+      "kernel_median_us": 41.343,
+      "kernel_instances": 61,
+      "launch_api_avg_us": 6.979100000000001,
+      "launch_api_median_us": 6.126,
+      "launch_api_calls": 61,
+      "grid_xyz": "1 1 4",
+      "block_xyz": "224 1 1",
+      "kernel_name": "Typeinfo name for h874766378_m904311_1"
+    },
+    {
+      "workload_key": "5769126934908556840",
+      "target": "cuda",
+      "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+      "log_best_ms": 0.016499037318234464,
+      "wall_p50_ms": 0.0252275,
+      "wall_p90_ms": 0.0270729,
+      "device_event_p50_ms": 0.022528,
+      "device_event_p90_ms": 0.022528,
+      "barrier_tokens": 4,
+      "generated_source_bytes": 358188,
+      "argument_shapes": [
+        [
+          1,
+          64,
+          56,
+          56
+        ],
+        [
+          64,
+          64,
+          3,
+          3
+        ],
+        [
+          1,
+          64,
+          1,
+          1
+        ],
+        [
+          1,
+          64,
+          56,
+          56
+        ]
+      ],
+      "argument_dtypes": [
+        "float32",
+        "float32",
+        "float32",
+        "float32"
+      ],
+      "kernel_avg_us": 17.8883,
+      "kernel_median_us": 17.855,
+      "kernel_instances": 61,
+      "launch_api_avg_us": 5.0026,
+      "launch_api_median_us": 4.458,
+      "launch_api_calls": 61,
+      "grid_xyz": "112 1 1",
+      "block_xyz": "224 1 1",
+      "kernel_name": "main_kernel"
+    },
+    {
+      "workload_key": "5769126934908556840",
+      "target": "sycl",
+      "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+      "log_best_ms": 0.0384699831737743,
+      "wall_p50_ms": 0.0560075,
+      "wall_p90_ms": 0.06272140000000001,
+      "device_event_p50_ms": 0.04625,
+      "device_event_p90_ms": 0.0489331,
+      "barrier_tokens": 2,
+      "generated_source_bytes": 100767,
+      "argument_shapes": [
+        [
+          1,
+          64,
+          56,
+          56
+        ],
+        [
+          64,
+          64,
+          3,
+          3
+        ],
+        [
+          1,
+          64,
+          1,
+          1
+        ],
+        [
+          1,
+          64,
+          56,
+          56
+        ]
+      ],
+      "argument_dtypes": [
+        "float32",
+        "float32",
+        "float32",
+        "float32"
+      ],
+      "kernel_avg_us": 32.902699999999996,
+      "kernel_median_us": 32.798,
+      "kernel_instances": 61,
+      "launch_api_avg_us": 6.6644,
+      "launch_api_median_us": 5.698,
+      "launch_api_calls": 61,
+      "grid_xyz": "1 1 112",
+      "block_xyz": "56 1 1",
+      "kernel_name": "Typeinfo name for h874766378_m901792_1"
+    },
+    {
+      "workload_key": "7990226299771950393",
+      "target": "cuda",
+      "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+      "log_best_ms": 0.025175450758206968,
+      "wall_p50_ms": 0.0347595,
+      "wall_p90_ms": 0.0352424,
+      "device_event_p50_ms": 0.031743,
+      "device_event_p90_ms": 0.031743,
+      "barrier_tokens": 4,
+      "generated_source_bytes": 454413,
+      "argument_shapes": [
+        [
+          1,
+          3,
+          224,
+          224
+        ],
+        [
+          64,
+          3,
+          7,
+          7
+        ],
+        [
+          1,
+          64,
+          1,
+          1
+        ],
+        [
+          1,
+          64,
+          112,
+          112
+        ]
+      ],
+      "argument_dtypes": [
+        "float32",
+        "float32",
+        "float32",
+        "float32"
+      ],
+      "kernel_avg_us": 27.7874,
+      "kernel_median_us": 27.743,
+      "kernel_instances": 61,
+      "launch_api_avg_us": 4.9186000000000005,
+      "launch_api_median_us": 4.318,
+      "launch_api_calls": 61,
+      "grid_xyz": "112 1 1",
+      "block_xyz": "112 1 1",
+      "kernel_name": "main_kernel"
+    },
+    {
+      "workload_key": "7990226299771950393",
+      "target": "sycl",
+      "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+      "log_best_ms": 0.032465045465253244,
+      "wall_p50_ms": 0.049207,
+      "wall_p90_ms": 0.0560114,
+      "device_event_p50_ms": 0.039646,
+      "device_event_p90_ms": 0.0425639,
+      "barrier_tokens": 2,
+      "generated_source_bytes": 65405,
+      "argument_shapes": [
+        [
+          1,
+          3,
+          224,
+          224
+        ],
+        [
+          64,
+          3,
+          7,
+          7
+        ],
+        [
+          1,
+          64,
+          1,
+          1
+        ],
+        [
+          1,
+          64,
+          112,
+          112
+        ]
+      ],
+      "argument_dtypes": [
+        "float32",
+        "float32",
+        "float32",
+        "float32"
+      ],
+      "kernel_avg_us": 26.781299999999998,
+      "kernel_median_us": 26.719,
+      "kernel_instances": 61,
+      "launch_api_avg_us": 6.9192,
+      "launch_api_median_us": 5.86,
+      "launch_api_calls": 61,
+      "grid_xyz": "1 1 784",
+      "block_xyz": "32 1 1",
+      "kernel_name": "Typeinfo name for h874766378_m899737_1"
+    }
+  ],
+  "pairs": [
+    {
+      "workload_key": "1095410103996100310",
+      "wall_p50_ratio": 3.8331200157526832,
+      "device_event_p50_ratio": 4.126546223958333,
+      "nsys_kernel_median_ratio": 4.749885110294118,
+      "launch_api_median_ratio": 1.3478547854785479,
+      "cuda_grid_xyz": "28 1 1",
+      "sycl_grid_xyz": "1 1 4",
+      "cuda_block_xyz": "56 1 1",
+      "sycl_block_xyz": "224 1 1",
+      "cuda_barrier_tokens": 4,
+      "sycl_barrier_tokens": 2,
+      "outputs_match": true
+    },
+    {
+      "workload_key": "5769126934908556840",
+      "wall_p50_ratio": 2.2200971162421963,
+      "device_event_p50_ratio": 2.053000710227273,
+      "nsys_kernel_median_ratio": 1.8369084290114814,
+      "launch_api_median_ratio": 1.278151637505608,
+      "cuda_grid_xyz": "112 1 1",
+      "sycl_grid_xyz": "1 1 112",
+      "cuda_block_xyz": "224 1 1",
+      "sycl_block_xyz": "56 1 1",
+      "cuda_barrier_tokens": 4,
+      "sycl_barrier_tokens": 2,
+      "outputs_match": true
+    },
+    {
+      "workload_key": "7990226299771950393",
+      "wall_p50_ratio": 1.41564176699895,
+      "device_event_p50_ratio": 1.2489682764704029,
+      "nsys_kernel_median_ratio": 0.9630897884150957,
+      "launch_api_median_ratio": 1.3571097730430757,
+      "cuda_grid_xyz": "112 1 1",
+      "sycl_grid_xyz": "1 1 784",
+      "cuda_block_xyz": "112 1 1",
+      "sycl_block_xyz": "32 1 1",
+      "cuda_barrier_tokens": 4,
+      "sycl_barrier_tokens": 2,
+      "outputs_match": true
+    }
+  ]
+}

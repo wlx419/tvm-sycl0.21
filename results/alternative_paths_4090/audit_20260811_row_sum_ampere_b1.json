@@ -1,0 +1,182 @@
+{
+  "context": {
+    "date": "2026-08-11T18:40:09+08:00",
+    "host_name": "inspur",
+    "executable": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/iree_pkgs/iree/_runtime_libs/iree-benchmark-module",
+    "num_cpus": 64,
+    "mhz_per_cpu": 3900,
+    "cpu_scaling_enabled": true,
+    "aslr_enabled": true,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 1048576,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 23068672,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [1.24951,1.09131,0.950195],
+    "library_version": "v1.9.5",
+    "library_build_type": "release",
+    "json_schema_version": 1
+  },
+  "benchmarks": [
+    {
+      "name": "BM_row_sum/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 468,
+      "real_time": 1.4978536411136802e+00,
+      "cpu_time": 1.4718154230769309e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.6762197089996232e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 1,
+      "threads": 1,
+      "iterations": 468,
+      "real_time": 1.5003763355163491e+00,
+      "cpu_time": 1.4746377713675278e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.6649944839062903e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 2,
+      "threads": 1,
+      "iterations": 468,
+      "real_time": 1.4988853707839933e+00,
+      "cpu_time": 1.4735058376068351e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.6716242582109464e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 3,
+      "threads": 1,
+      "iterations": 468,
+      "real_time": 1.4913365587892615e+00,
+      "cpu_time": 1.4645465641025657e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.7053945275226670e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "iteration",
+      "repetitions": 5,
+      "repetition_index": 4,
+      "threads": 1,
+      "iterations": 468,
+      "real_time": 1.4937639463559573e+00,
+      "cpu_time": 1.4665594829059789e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.6944981664573152e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time_mean",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "mean",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 1.4964431705118484e+00,
+      "cpu_time": 1.4702130158119677e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.6825462290193684e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time_median",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "median",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 1.4978536411136802e+00,
+      "cpu_time": 1.4718154230769309e+00,
+      "time_unit": "ms",
+      "items_per_second": 6.6762197089996232e+02
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time_stddev",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "stddev",
+      "aggregate_unit": "time",
+      "iterations": 5,
+      "real_time": 3.7642821959072126e-03,
+      "cpu_time": 4.4284823532498921e-03,
+      "time_unit": "ms",
+      "items_per_second": 1.6824621923112908e+00
+    },
+    {
+      "name": "BM_row_sum/process_time/real_time_cv",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_row_sum/process_time/real_time",
+      "run_type": "aggregate",
+      "repetitions": 5,
+      "threads": 1,
+      "aggregate_name": "cv",
+      "aggregate_unit": "percentage",
+      "iterations": 5,
+      "real_time": 2.5154862343483883e-03,
+      "cpu_time": 3.0121365445837348e-03,
+      "time_unit": "ms",
+      "items_per_second": 2.5176963011570280e-03
+    }
+  ]
+}

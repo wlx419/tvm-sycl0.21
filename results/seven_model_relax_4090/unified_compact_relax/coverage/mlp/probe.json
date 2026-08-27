@@ -1,0 +1,39 @@
+{
+  "protocol": {
+    "atol": 0.0002,
+    "measure": 30,
+    "pipeline": "static_shape_tuning",
+    "rtol": 0.002,
+    "seed": 123,
+    "seed_target_alias": null,
+    "target_string": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+    "total_trials": 1024,
+    "warmup": 5
+  },
+  "results": [
+    {
+      "atol": 0.0002,
+      "batch": 1,
+      "compile_s": 2665.128525144013,
+      "input_shape": "(1, 784)",
+      "latency_mean_ms": 0.16728976666666664,
+      "latency_p50_ms": 0.1170825,
+      "latency_p90_ms": 0.2500286,
+      "latency_p99_ms": 0.6796797,
+      "max_abs_err": 1.30385160446167e-08,
+      "max_rel_err": 1.7908487279783003e-06,
+      "model": "mlp",
+      "num_params": 3,
+      "output_shape": "(1, 10)",
+      "pipeline": "static_shape_tuning",
+      "resolved_target": "sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+      "rtol": 0.002,
+      "runtime_device": "oneapi",
+      "seed_target_alias": "sycl",
+      "status": "pass",
+      "target": "sycl",
+      "total_s": 2665.2352859109815,
+      "work_dir": "/mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/unified_compact_relax_4090/formal_20260810/coverage/mlp"
+    }
+  ]
+}

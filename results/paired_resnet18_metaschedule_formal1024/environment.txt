@@ -1,0 +1,8 @@
+2026-08-13T22:25:17+08:00
+inspur
+NVIDIA GeForce RTX 4090, 580.173.02, 24564 MiB
+NVIDIA GeForce RTX 4090, 580.173.02, 24564 MiB
+clang version 18.0.0 (https://github.com/intel/llvm.git 646ab086e503961db479a5bc0ab1b6e40cb96b33)
+TVM 0.21.0
+PyTorch 2.6.0+cu124
+torchvision 0.21.0+cu124
