@@ -1,23 +1,13 @@
 # TVM-SYCL: a SYCL 2020 backend for Apache TVM v0.21
 
 This repository contains the source overlay, experiment entry points, raw
-records, derived summaries, and generated figures for the SYCL backend
-described in the paper below. The overlay adds a SYCL code-generation target,
-a SYCL runtime module and device API, and the associated target metadata and
-build integration to Apache TVM v0.21.
+records, derived summaries, and generated figures for a SYCL 2020 backend for
+Apache TVM v0.21. The overlay adds a SYCL code-generation target, a SYCL
+runtime module and device API, and the associated target metadata and build
+integration.
 
 The backend is evaluated on an NVIDIA RTX 4090 through the oneAPI CUDA adapter
 and on a Sugon DCU Z100L through the HIP adapter.
-
-## Paper
-
-> Longxiang Wang, Xingjun Zhang, Xiaoshe Dong, Qiang Wang, Jia Wei, Zhao Mao,
-> Weijun Xia, Zhixin Zhu, Yuchen Wu, Bolin Li, and Bowen Li.
-> *Toward SYCL Support in TVM: Backend Implementation and Initial Evaluation
-> for Deep Learning Inference.* Under review.
-
-Corresponding author: Longxiang Wang, `wlx419@xjtu.edu.cn`, School of Computer
-Science and Technology, Xi'an Jiaotong University.
 
 ## Quick Start
 
@@ -55,7 +45,7 @@ SYCL-on-NVIDIA (`ONEAPI_DEVICE_SELECTOR=cuda:*`) and SYCL-on-DCU
 | `source_overlay/` | TVM v0.21 files changed for the SYCL backend |
 | `experiments/` | Run, analysis, profiling, and figure-generation entry points |
 | `results/` | Raw records and derived summaries for every reported experiment |
-| `figures/` | Generated figures as they appear in the paper |
+| `figures/` | Generated figures summarizing the reported results |
 
 ## License
 
