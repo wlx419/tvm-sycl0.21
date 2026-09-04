@@ -72,7 +72,8 @@ reported as portability, correctness, and batch-robustness evidence.
 - `results/paired_resnet18_metaschedule_formal1024/` contains the formal paired
   CUDA/SYCL MetaSchedule databases, three independent complete-model runs per
   target, unsuccessful-record census, matched-workload analysis, generated
-  kernels, scheduled TIR, and direct operator profiles.
+  kernels, scheduled TIR, Nsight Systems operator profiles, and Nsight Compute
+  occupancy and bandwidth counters.
 - `results/seven_model_relax_4090/` contains scheduling coverage for seven B1
   models and the paired CUDA/SYCL B={1,8,16} sweep. All 42 backend runs pass
   reference-output validation.
@@ -122,11 +123,22 @@ WORKLOAD_KEYS="7990226299771950393 5769126934908556840 1095410103996100310" \
 bash experiments/run_paired_metaschedule_profiles_4090.sh
 ```
 
+Collect Nsight Compute counters for the same rebuilt schedules:
+
+```bash
+ROOT=/path/to/output \
+WORKLOAD_KEYS="7990226299771950393 5769126934908556840 1095410103996100310" \
+PAUSE_PID=<optional pid to suspend during profiling> \
+bash experiments/run_paired_metaschedule_ncu_4090.sh
+```
+
 The scripts provide defaults matching the experiment host; every path can be
 overridden through the documented environment variables. Nsight Systems
-intervals are included. Hardware-counter collection was unavailable under the
-host profiling permissions, so no occupancy or bandwidth-counter claim is
-made.
+intervals and Nsight Compute counters are both included. Nsight Compute
+serializes and replays each profiled launch, so its instrumented durations are
+not comparable with the Nsight Systems intervals; only the counters from that
+pass are used. On this host, counter collection requires administrative
+privileges because the driver is loaded with `RmProfilingAdminOnly=1`.
 
 The `results/` tree records the outputs of these scripts as they were collected
 on the evaluation hosts, so the reported numbers can be checked without access

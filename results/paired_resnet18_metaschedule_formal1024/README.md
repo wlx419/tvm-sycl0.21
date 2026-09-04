@@ -56,7 +56,10 @@ The high-ratio SYCL 1x1 schedule exposes four 224-thread work-groups and a
 64-way serial outer reduction with two barriers inside the loop. The CUDA
 schedule exposes 28 blocks and an eight-way tiled reduction.
 
-Nsight Compute hardware counters were unavailable under the host profiling
-permissions. The manuscript therefore relies only on synchronized wall time,
-device-kernel intervals, driver launch intervals, launch geometry, and
-generated-code structure.
+Nsight Compute counters for the same three schedules are under
+`operator_profiles/<key>/ncu/`, with the aggregated medians in
+`ncu_summary.json`. Nsight Compute serializes and replays each profiled
+launch, so the durations inside those CSV files are instrumented and are not
+comparable with the Nsight Systems intervals; only the counters from that
+pass are used. On this host, counter collection requires administrative
+privileges because the driver is loaded with `RmProfilingAdminOnly=1`.

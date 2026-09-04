@@ -1,0 +1,136 @@
+==PROF== Target process 1162474 terminated before first instrumented API call.
+==PROF== Target process 1162475 terminated before first instrumented API call.
+==PROF== Target process 1162476 terminated before first instrumented API call.
+==PROF== Target process 1162477 terminated before first instrumented API call.
+==PROF== Target process 1162478 terminated before first instrumented API call.
+==PROF== Connected to process 1162191 (/mnt/data/wlx/anaconda3/envs/tvm-sycl/bin/python3.10)
+==PROF== Target process 1162479 terminated before first instrumented API call.
+==PROF== Target process 1162480 terminated before first instrumented API call.
+==PROF== Target process 1162473 terminated before first instrumented API call.
+==PROF== Target process 1162516 terminated before first instrumented API call.
+==PROF== Target process 1162517 terminated before first instrumented API call.
+==PROF== Target process 1162524 terminated before first instrumented API call.
+==PROF== Target process 1162525 terminated before first instrumented API call.
+{
+  "target": "cuda",
+  "resolved_target": "cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32",
+  "log_best_ms": 0.016499037318234464,
+  "wall_p50_ms": 120.625769,
+  "wall_p90_ms": 496.1472510000001,
+  "device_event_p50_ms": 0.034816,
+  "device_event_p90_ms": 0.0379897,
+  "barrier_tokens": 4,
+  "generated_source_bytes": 358188,
+  "argument_shapes": [
+    [
+      1,
+      64,
+      56,
+      56
+    ],
+    [
+      64,
+      64,
+      3,
+      3
+    ],
+    [
+      1,
+      64,
+      1,
+      1
+    ],
+    [
+      1,
+      64,
+      56,
+      56
+    ]
+  ],
+  "argument_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ]
+}
+==PROF== Disconnected from process 1162191
+"ID","Process ID","Process Name","Host Name","Kernel Name","Context","Stream","Block Size","Grid Size","Device","CC","Section Name","Metric Name","Metric Unit","Metric Value","Rule Name","Rule Type","Rule Description","Estimated Speedup"
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","DRAM Frequency","cycle/second","10,054,818,744.47",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","SM Frequency","cycle/second","2,173,220,098.87",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Elapsed Cycles","cycle","52,498",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Memory Throughput","%","36.91",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","DRAM Throughput","%","4.08",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Duration","nsecond","24,128",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","L1/TEX Cache Throughput","%","33.28",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","L2 Cache Throughput","%","36.91",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","SM Active Cycles","cycle","41,275.98",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Compute (SM) Throughput","%","24.69",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","SpeedOfLight","","","","SOLBottleneck","OPT","This kernel grid is too small to fill the available resources on this device, resulting in only 0.4 full waves across all SMs. Look at Launch Statistics for more details.",""
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Memory Throughput","byte/second","39,400,530,503.98",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Mem Busy","%","27.27",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Max Bandwidth","%","36.91",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L1/TEX Hit Rate","%","12.03",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L2 Compression Success Rate","%","0",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L2 Compression Ratio","","0",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L2 Hit Rate","%","95.77",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Mem Pipes Busy","%","24.69",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Block Size","","224",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Function Cache Configuration","","CachePreferNone",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Grid Size","","112",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Registers Per Thread","register/thread","72",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Shared Memory Configuration Size","byte","102,400",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Driver Shared Memory Per Block","byte/block","1,024",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Dynamic Shared Memory Per Block","byte/block","0",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Static Shared Memory Per Block","byte/block","36,864",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Threads","thread","25,088",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Waves Per SM","","0.44",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","LaunchStats","","","","LaunchConfiguration","OPT","The grid for this launch is configured to execute only 112 blocks, which is less than the GPU's 128 multiprocessors. This can underutilize some multiprocessors. If you do not intend to execute this kernel concurrently with other workloads, consider reducing the block size to have at least one block per multiprocessor or increase the size of the grid to fully utilize the available hardware resources. See the Hardware Model (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-hw-model) description for more details on launch configurations.","12.5"
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit SM","block","24",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit Registers","block","4",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit Shared Mem","block","2",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit Warps","block","6",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Theoretical Active Warps per SM","warp","14",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Theoretical Occupancy","%","29.17",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Achieved Occupancy","%","13.75",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Achieved Active Warps Per SM","warp","6.60",
+"0","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","","","","Occupancy","OPT","This kernel's theoretical occupancy (29.2%) is limited by the required amount of shared memory. The difference between calculated theoretical (29.2%) and measured achieved occupancy (13.8%) can be the result of warp scheduling overheads or workload imbalances during the kernel execution. Load imbalances can occur between warps within a block as well as across blocks of the same kernel. See the CUDA Best Practices Guide (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#occupancy) for more details on optimizing occupancy.","52.84"
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","DRAM Frequency","cycle/second","10,074,856,891.24",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","SM Frequency","cycle/second","2,178,091,599.62",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Elapsed Cycles","cycle","52,827",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Memory Throughput","%","36.70",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","DRAM Throughput","%","4.06",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Duration","nsecond","24,224",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","L1/TEX Cache Throughput","%","32.82",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","L2 Cache Throughput","%","36.70",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","SM Active Cycles","cycle","41,864.93",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","GPU Speed Of Light Throughput","Compute (SM) Throughput","%","24.54",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","SpeedOfLight","","","","SOLBottleneck","OPT","This kernel grid is too small to fill the available resources on this device, resulting in only 0.4 full waves across all SMs. Look at Launch Statistics for more details.",""
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Memory Throughput","byte/second","39,249,669,749.01",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Mem Busy","%","27.10",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Max Bandwidth","%","36.70",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L1/TEX Hit Rate","%","12.14",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L2 Compression Success Rate","%","0",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L2 Compression Ratio","","0",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","L2 Hit Rate","%","95.77",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Memory Workload Analysis","Mem Pipes Busy","%","24.54",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Block Size","","224",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Function Cache Configuration","","CachePreferNone",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Grid Size","","112",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Registers Per Thread","register/thread","72",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Shared Memory Configuration Size","byte","102,400",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Driver Shared Memory Per Block","byte/block","1,024",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Dynamic Shared Memory Per Block","byte/block","0",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Static Shared Memory Per Block","byte/block","36,864",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Threads","thread","25,088",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Launch Statistics","Waves Per SM","","0.44",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","LaunchStats","","","","LaunchConfiguration","OPT","The grid for this launch is configured to execute only 112 blocks, which is less than the GPU's 128 multiprocessors. This can underutilize some multiprocessors. If you do not intend to execute this kernel concurrently with other workloads, consider reducing the block size to have at least one block per multiprocessor or increase the size of the grid to fully utilize the available hardware resources. See the Hardware Model (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-hw-model) description for more details on launch configurations.","12.5"
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit SM","block","24",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit Registers","block","4",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit Shared Mem","block","2",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Block Limit Warps","block","6",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Theoretical Active Warps per SM","warp","14",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Theoretical Occupancy","%","29.17",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Achieved Occupancy","%","13.77",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","Achieved Active Warps Per SM","warp","6.61",
+"1","1162191","python3.10","127.0.0.1","main_kernel","1","7","(224, 1, 1)","(112, 1, 1)","0","8.9","Occupancy","","","","Occupancy","OPT","This kernel's theoretical occupancy (29.2%) is limited by the required amount of shared memory. The difference between calculated theoretical (29.2%) and measured achieved occupancy (13.8%) can be the result of warp scheduling overheads or workload imbalances during the kernel execution. Load imbalances can occur between warps within a block as well as across blocks of the same kernel. See the CUDA Best Practices Guide (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#occupancy) for more details on optimizing occupancy.","52.78"

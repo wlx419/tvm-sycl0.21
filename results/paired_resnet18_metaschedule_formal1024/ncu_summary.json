@@ -1,0 +1,98 @@
+{
+  "7x7": {
+    "cuda": {
+      "Memory Throughput %": 48.45,
+      "DRAM Throughput": 2.08,
+      "Compute (SM) Throughput": 21.975,
+      "Memory Throughput GB/s": 19.984095760765,
+      "L1/TEX Hit Rate": 46.59,
+      "L2 Hit Rate": 98.35,
+      "Block Size": 112.0,
+      "Grid Size": 112.0,
+      "Registers Per Thread": 168.0,
+      "Waves Per SM": 0.44,
+      "Theoretical Occupancy": 16.67,
+      "Achieved Occupancy": 8.265,
+      "Duration us": 32.032
+    },
+    "sycl": {
+      "Memory Throughput %": 48.57,
+      "DRAM Throughput": 2.1550000000000002,
+      "Compute (SM) Throughput": 48.57,
+      "Memory Throughput GB/s": 20.676107045564997,
+      "L1/TEX Hit Rate": 79.41,
+      "L2 Hit Rate": 94.53999999999999,
+      "Block Size": 32.0,
+      "Grid Size": 784.0,
+      "Registers Per Thread": 128.0,
+      "Waves Per SM": 0.38,
+      "Theoretical Occupancy": 33.33,
+      "Achieved Occupancy": 12.155000000000001,
+      "Duration us": 30.96
+    }
+  },
+  "3x3": {
+    "cuda": {
+      "Memory Throughput %": 36.805,
+      "DRAM Throughput": 4.07,
+      "Compute (SM) Throughput": 24.615000000000002,
+      "Memory Throughput GB/s": 39.325100126495,
+      "L1/TEX Hit Rate": 12.085,
+      "L2 Hit Rate": 95.77,
+      "Block Size": 224.0,
+      "Grid Size": 112.0,
+      "Registers Per Thread": 72.0,
+      "Waves Per SM": 0.44,
+      "Theoretical Occupancy": 29.17,
+      "Achieved Occupancy": 13.76,
+      "Duration us": 24.176
+    },
+    "sycl": {
+      "Memory Throughput %": 27.04,
+      "DRAM Throughput": 2.51,
+      "Compute (SM) Throughput": 24.435000000000002,
+      "Memory Throughput GB/s": 21.165945599324996,
+      "L1/TEX Hit Rate": 89.155,
+      "L2 Hit Rate": 92.08,
+      "Block Size": 56.0,
+      "Grid Size": 112.0,
+      "Registers Per Thread": 128.0,
+      "Waves Per SM": 0.11,
+      "Theoretical Occupancy": 33.33,
+      "Achieved Occupancy": 4.17,
+      "Duration us": 44.928
+    }
+  },
+  "1x1": {
+    "cuda": {
+      "Memory Throughput %": 13.99,
+      "DRAM Throughput": 5.89,
+      "Compute (SM) Throughput": 4.62,
+      "Memory Throughput GB/s": 53.273858921165,
+      "L1/TEX Hit Rate": 22.450000000000003,
+      "L2 Hit Rate": 80.87,
+      "Block Size": 56.0,
+      "Grid Size": 28.0,
+      "Registers Per Thread": 255.0,
+      "Waves Per SM": 0.11,
+      "Theoretical Occupancy": 8.33,
+      "Achieved Occupancy": 4.17,
+      "Duration us": 15.424
+    },
+    "sycl": {
+      "Memory Throughput %": 1.5150000000000001,
+      "DRAM Throughput": 1.5150000000000001,
+      "Compute (SM) Throughput": 1.105,
+      "Memory Throughput GB/s": 13.15324688197,
+      "L1/TEX Hit Rate": 31.799999999999997,
+      "L2 Hit Rate": 68.20500000000001,
+      "Block Size": 224.0,
+      "Grid Size": 4.0,
+      "Registers Per Thread": 161.0,
+      "Waves Per SM": 0.03,
+      "Theoretical Occupancy": 14.58,
+      "Achieved Occupancy": 14.52,
+      "Duration us": 62.656
+    }
+  }
+}
