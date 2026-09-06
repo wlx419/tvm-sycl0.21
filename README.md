@@ -82,6 +82,10 @@ reported as portability, correctness, and batch-robustness evidence.
 - `results/dcu_validation_20260819/` contains the final dual-card DCU operator
   regression (32/32 device-configuration runs), the seven-model B={1,8,16}
   sweep (21/21 runs), math-lowering diagnostics, and the tested source snapshot.
+- `results/dcu_hip_paired_20260904/` contains the paired TVM-HIP/SYCL DCU sweep
+  in which both backends run from one `libtvm.so`, together with the LayerNorm
+  math-lowering diagnostics and generated AMDGPU ISA that explain why the
+  Transformer and ViT-style points have no valid HIP baseline.
 - `results/alternative_paths_4090/` contains the IREE timing audit and the
   verified oneDNN NVIDIA vendor-backend comparison.
 - `source_overlay/` contains the TVM v0.21 files changed for SYCL code
