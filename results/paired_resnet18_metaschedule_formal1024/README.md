@@ -1,7 +1,7 @@
 # Paired ResNet-18 Relax/MetaSchedule Experiment
 
-This directory contains the formal RTX 4090 evidence used for the paired
-ResNet-18 B1 result in the manuscript.
+This directory contains the formal RTX 4090 evidence for the paired
+ResNet-18 B1 result.
 
 ## Experimental Control
 

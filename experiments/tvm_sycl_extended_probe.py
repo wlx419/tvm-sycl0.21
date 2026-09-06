@@ -3,9 +3,9 @@
 This script is intentionally self-contained so it can be copied to the
 NVIDIA and DCU machines and run against an existing TVM-SYCL build.
 
-It exercises nontrivial kernels that complement the elementwise checks in
-the paper: matmul, batched matmul, row-wise reduction, conv2d, softmax,
-layer normalization, GELU, max-pooling, and transpose/layout conversion.
+It exercises nontrivial kernels that complement basic elementwise checks:
+matmul, batched matmul, row-wise reduction, conv2d, softmax, layer
+normalization, GELU, max-pooling, and transpose/layout conversion.
 Each experiment is executed in a subprocess to avoid cross-case state
 contamination in TVM/SYCL runtime setup.
 """

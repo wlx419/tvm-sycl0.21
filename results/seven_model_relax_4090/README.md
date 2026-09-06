@@ -1,6 +1,6 @@
-# RTX 4090 Supplemental Experiments (2026-08-10)
+# RTX 4090 Seven-Model Experiments (2026-08-10)
 
-This directory contains the formal RTX 4090 evidence used in the manuscript and response to Reviewer 1.
+This directory contains the formal RTX 4090 seven-model evidence.
 
 ## Protocol and outcome
 

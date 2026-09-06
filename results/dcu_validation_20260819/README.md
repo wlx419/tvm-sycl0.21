@@ -2,10 +2,9 @@
 
 Date: 2026-08-19
 
-This directory contains the final DCU Z100L validation records used in the
-manuscript and reviewer response. TVM reports version 0.21.0 and is built for
-the HIP-backed DPC++ target `gfx906`. Cases run in isolated subprocesses with
-one visible accelerator per process.
+This directory contains the final DCU Z100L validation records. TVM reports
+version 0.21.0 and is built for the HIP-backed DPC++ target `gfx906`. Cases
+run in isolated subprocesses with one visible accelerator per process.
 
 ## Operator Validation
 

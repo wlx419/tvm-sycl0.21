@@ -198,8 +198,8 @@ from the source; `scripts/dcu_layernorm_stages.py` and
 
 ### Why the models pass on the SYCL backend
 
-Not luck: this is the mitigation the paper already describes in the response to
-Reviewer 1. `CodeGenSYCL::VisitExpr_(const DivNode*)` pattern-matches float32
+Not luck: this is a deliberate mitigation in the SYCL code generator.
+`CodeGenSYCL::VisitExpr_(const DivNode*)` pattern-matches float32
 `a / sqrt(b)` and emits `a * sycl::rsqrt(b)` instead:
 
 ```cpp
@@ -220,9 +220,11 @@ on SYCL too: the rewrite only fires on the `a / sqrt(b)` pattern, which is what
 LayerNorm produces but not what those tests wrote.
 
 It also reproduces, from the ROCm side and at kernel granularity, the earlier
-256-lane SYCL diagnostic already reported in the response: that diagnostic found
-broadcast `a/sqrt(b)` nonfinite in 64 of 256 lanes, and this one finds 16 of 64,
-the same one-quarter-of-each-16-lane-group signature.
+256-lane SYCL diagnostic in
+`results/dcu_validation_20260819/dcu_broadcast_math_codegenfix_device0_20260819.json`
+(`broadcast_normalization/divide_sqrt`): that diagnostic found broadcast
+`a/sqrt(b)` nonfinite in 64 of 256 lanes, and this one finds 16 of 64, the same
+one-quarter-of-each-16-lane-group signature.
 
 ### Consequence for the evaluation
 

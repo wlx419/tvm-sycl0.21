@@ -48,13 +48,13 @@ vendor-tuned oneDNN primitive path. The subsequent dedicated NVIDIA build and
 matched five-repeat experiment are stored under
 `onednn_nvidia_comparison_20260811/`; that experiment selects
 `backend:Nvidia` and `cuda:cudnn:any` and supersedes the generic-control values
-for the manuscript comparison.
+for the reported comparison.
 
 ## Reporting decision
 
-The manuscript retains the IREE measurements quantitatively at both invocation
-batch sizes, because they document batching sensitivity and observed deployment
-behavior. It does not convert either IREE point into a TVM/IREE speedup: such a
+The IREE measurements are retained quantitatively at both invocation batch
+sizes, because they document batching sensitivity and observed deployment
+behavior. Neither IREE point is converted into a TVM/IREE speedup: such a
 ratio would mix IREE host/VM invocation semantics with synchronized TVM-SYCL
 device submission and completion. The oneDNN NVIDIA vendor result is reported
 separately under its matched timing protocol. The resulting comparison is
