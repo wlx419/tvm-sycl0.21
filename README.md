@@ -2,9 +2,22 @@
 
 This repository contains the source overlay, experiment entry points, raw
 records, derived summaries, and generated figures for a SYCL 2020 backend for
-Apache TVM v0.21. The overlay adds a SYCL code-generation target, a SYCL
-runtime module and device API, and the associated target metadata and build
-integration.
+Apache TVM v0.21.
+
+**The backend is a fork of the `sycl` branch of
+[RELOAD22/tvm](https://github.com/RELOAD22/tvm/tree/sycl)** (TVM v0.10), forked
+at the branch's last commit, `5b36163df4` (2023-09-13). We ported it to TVM
+v0.21 and a current DPC++ and changed it as described in
+[`source_overlay/README.md`](source_overlay/README.md); 937 of its 2,177 code
+lines (43%) are still identical to the branch
+(`experiments/round2/analysis/lineage_compare.py`). The kernel-emission
+template, the mapping of TIR thread bindings to `nd_range` indices, shared
+buffers as work-group local memory, the DPC++ just-in-time compile-and-load path
+and the runtime workspace come from that branch. The RELOAD22 authors were not
+involved in this work.
+
+The overlay contains the SYCL code-generation target, the SYCL runtime module
+and device API, and the associated target metadata and build integration.
 
 The backend is evaluated on an NVIDIA RTX 4090 through the oneAPI CUDA adapter
 and on a Sugon DCU Z100L through the HIP adapter.
@@ -21,14 +34,10 @@ ResNet-18 B1 tuned with equal budgets and identical settings runs at 1.03-1.06x 
 models at 1.06-2.14x without and 1.10-1.26x with command graphs; built against DPC++ v7.1.1, the
 compact models run at 1.06-1.11x without graphs.
 
-The backend descends from the `sycl` branch of RELOAD22/tvm (commit `5b36163df4`), ported to TVM
-v0.21 and changed as described in the overlay README; 937 of its 2,177 code lines (43%) are
-identical to that branch (`experiments/round2/analysis/lineage_compare.py`).
-
 ## Quick Start
 
 The backend is distributed as an overlay over an unmodified Apache TVM v0.21
-tree rather than as a fork:
+tree rather than as a complete TVM source tree:
 
 ```bash
 git clone --recursive --branch v0.21.0 https://github.com/apache/tvm.git

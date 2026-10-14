@@ -1,5 +1,7 @@
 # TVM v0.21 SYCL Source Overlay
 
+The SYCL backend is a fork of the `sycl` branch of RELOAD22/tvm
+(https://github.com/RELOAD22/tvm/tree/sycl, forked at commit `5b36163df4`), ported to TVM v0.21.
 This directory contains the TVM source files changed for the SYCL backend. Apply the files over an
 Apache TVM v0.21 source tree while preserving their relative paths (see the top-level README). Since
 v2.0 the overlay also adds new files: the SYCL command-graph builtins

@@ -7,9 +7,15 @@ which is licensed under the Apache License, Version 2.0. See LICENSE
 for the full license text and NOTICE.tvm for the upstream Apache TVM
 notice.
 
+The SYCL backend is a fork of the sycl branch of RELOAD22/tvm
+(https://github.com/RELOAD22/tvm/tree/sycl, forked at commit 5b36163df4),
+a fork of Apache TVM distributed under the Apache License, Version 2.0.
+Code inherited from that branch is part of the files under
+source_overlay/.
+
 Modified upstream files are located under source_overlay/ and retain
 their original Apache Software Foundation license headers. The
-modifications add a SYCL code-generation target, a SYCL runtime module
+overlay contains a SYCL code-generation target, a SYCL runtime module
 and device API, and the associated target metadata and build
 integration.
 
