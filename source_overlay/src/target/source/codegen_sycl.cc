@@ -22,8 +22,11 @@
  */
 #include "codegen_sycl.h"
 
+#include <tvm/tir/stmt_functor.h>
+
 #include <cmath>
 #include <cstdint>
+#include <cstdlib>
 #include <functional>
 #include <string>
 #include <vector>
@@ -51,160 +54,67 @@ void CodeGenSYCL::InitFuncState(const PrimFunc& f) {
     }
   }
 }
-// void CodeGenSYCL::AddFunction(const GlobalVar& gvar, const PrimFunc& f) {
-//   // If the function has already been forward-declared, this is a
-//   // no-op.
-//   DeclareFunction(gvar, f);
-//   auto function_name = GetFunctionName(gvar);
-//   this->InitFuncState(f);
-//   // clear pre mem_allocate_code
-//   this->mem_allocate_code = std::ostringstream("");
-//   // reserve keywords
-//   ReserveKeywordsAsUnique();
-//   this->PrintExtraAttrs(f, stream);
 
-//   auto global_symbol = f->GetAttr<String>(tvm::attr::kGlobalSymbol);
-//   ICHECK(global_symbol.defined())
-//       << "CodeGenSYCL: Expect PrimFunc to have the global_symbol attribute";
-//   bool no_alias = f->HasNonzeroAttr(tir::attr::kNoAlias);
-//   // Print the packed function
-//   //stream << "// CodeGenSYCL: NOTE: Auto-generated packed function\n";
-//   stream << "// Function: " << static_cast<std::string>(global_symbol.value()) << "\n";
-//   PrintFuncPrefix(stream);
-//   stream << " " << static_cast<std::string>(global_symbol.value());
-//   stream << "(queue &Q, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {\n";
-//   int func_scope = this->BeginScope();
-//   // Print the packed function's void_args
-//   for (size_t i = 0; i < f->params.size(); ++i) {
-//     tir::Var v = f->params[i];
-//     std::string vid = AllocVarID(v.get());
-//     if (v.dtype().is_handle()) {
-//       // Register handle data type
-//       // TODO(tvm-team): consider simply keep type info in the
-//       // type annotation(via a normalizing rewriting).
-//       if (auto* ptr = v->type_annotation.as<PointerTypeNode>()) {
-//         if (auto* prim = ptr->element_type.as<PrimTypeNode>()) {
-//           RegisterHandleType(v.get(), prim->dtype);
-//         }
-//       }
-//     }
-//     this->PrintIndent();
-//     PrintType(GetType(v), stream);
-//     if (no_alias) {
-//       PrintRestrict(v, stream);
-//     }
-//     stream << ' ' << vid << " = (";
-//     PrintType(GetType(v), stream);
-//     stream << ")(*(int64_t *)(void_args[" << i << "]));\n";
-//   }
+namespace {
+// Collects the threadIdx.{x,y,z} extents of a kernel (1 when an axis is unbound) and whether it
+// uses the sub-group shuffle builtins (intrin_rule_sycl.cc).
+class ThreadExtentCollector : public tir::StmtExprVisitor {
+ public:
+  PrimExpr extent[3] = {1, 1, 1};
+  bool uses_sub_group_shuffle = false;
 
-//   // Print submit  
-//   this->PrintIndent();
-//   stream << "Q.submit([&](handler &h) {\n";
-//   int func_scope2 = this->BeginScope();
-  
-//   this->PrintIndent();
-//   stream << "h.parallel_for(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {\n";
-//   int func_scope3 = this->BeginScope();
-//   // Function code
-//   this->PrintStmt(f->body);
-//   this->EndScope(func_scope3);
-//   this->PrintIndent();
-//   stream << "});\n";
-//   this->EndScope(func_scope2);
-//   this->PrintIndent();
-//   stream << "});\n";
-//   this->PrintIndent();
-//   this->EndScope(func_scope);
-//   stream << "}\n";
+ private:
+  void VisitStmt_(const AttrStmtNode* op) final {
+    if (op->attr_key == tir::attr::thread_extent) {
+      if (const auto* iv = op->node.as<IterVarNode>()) {
+        const std::string& tag = iv->thread_tag;
+        if (tag.size() == 11 && tag.compare(0, 10, "threadIdx.") == 0) {
+          extent[tag[10] - 'x'] = op->value;
+        }
+      }
+    }
+    StmtExprVisitor::VisitStmt_(op);
+  }
+  void VisitExpr_(const CallNode* op) final {
+    if (op->op.same_as(builtin::call_pure_extern()) && !op->args.empty()) {
+      if (const auto* name = op->args[0].as<StringImmNode>()) {
+        if (std::string(name->value).rfind("tvm_sycl_shuffle", 0) == 0) uses_sub_group_shuffle = true;
+      }
+    }
+    StmtExprVisitor::VisitExpr_(op);
+  }
+};
+}  // namespace
 
-
-//   // // clear previous generated state.
-//   // InitFuncState(f);
-
-//   // PrintFunctionSignature(function_name, f, stream);
-//   // stream << " {\n";
-//   // this->PreFunctionBody(f);
-//   // int func_scope = this->BeginScope();
-//   // this->PrintStmt(f->body);
-//   // this->EndScope(func_scope);
-//   // this->PrintIndent();
-//   // this->stream << "}\n\n";
-// }
-
-// void CodeGenSYCL::AddFunction(const PrimFunc& f) {
-//   // from CodeGenC -------------------
-//   // clear previous generated state.
-//   this->InitFuncState(f);
-//   // clear pre mem_allocate_code
-//   this->mem_allocate_code = std::ostringstream("");
-//   // reserve keywords
-//   ReserveKeywordsAsUnique();
-//   this->PrintExtraAttrs(f, stream);
-
-//   auto global_symbol = f->GetAttr<String>(tvm::attr::kGlobalSymbol);
-//   ICHECK(global_symbol.defined())
-//       << "CodeGenSYCL: Expect PrimFunc to have the global_symbol attribute";
-//   bool no_alias = f->HasNonzeroAttr(tir::attr::kNoAlias);
-//   // Print the packed function
-//   stream << "// CodeGenSYCL: NOTE: Auto-generated packed function\n";
-//   stream << "// Function: " << static_cast<std::string>(global_symbol.value()) << "\n";
-//   //PrintFuncPrefix(stream);
-//   stream << " " << static_cast<std::string>(global_symbol.value());
-//   stream << "(queue &Q, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {\n";
-//   int func_scope = this->BeginScope();
-//   // Print the packed function's void_args
-//   for (size_t i = 0; i < f->params.size(); ++i) {
-//     tir::Var v = f->params[i];
-//     std::string vid = AllocVarID(v.get());
-//     if (v.dtype().is_handle()) {
-//       // Register handle data type
-//       // TODO(tvm-team): consider simply keep type info in the
-//       // type annotation(via a normalizing rewriting).
-//       if (auto* ptr = v->type_annotation.as<PointerTypeNode>()) {
-//         if (auto* prim = ptr->element_type.as<PrimTypeNode>()) {
-//           RegisterHandleType(v.get(), prim->dtype);
-//         }
-//       }
-//     }
-//     this->PrintIndent();
-//     PrintType(GetType(v), stream);
-//     if (no_alias) {
-//       PrintRestrict(v, stream);
-//     }
-//     stream << ' ' << vid << " = (";
-//     PrintType(GetType(v), stream);
-//     stream << ")(*(int64_t *)(void_args[" << i << "]));\n";
-//   }
-
-//   // Print submit  
-//   this->PrintIndent();
-//   stream << "Q.submit([&](handler &h) {\n";
-//   int func_scope2 = this->BeginScope();
-  
-//   this->PrintIndent();
-//   stream << "h.parallel_for(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {\n";
-//   int func_scope3 = this->BeginScope();
-//   // Function code
-//   this->PrintStmt(f->body);
-//   this->EndScope(func_scope3);
-//   this->PrintIndent();
-//   stream << "});\n";
-//   this->EndScope(func_scope2);
-//   this->PrintIndent();
-//   stream << "});\n";
-//   this->PrintIndent();
-//   this->EndScope(func_scope);
-//   stream << "}\n";
-//   /*
-//   // insert mem_allocate_code
-//   std::string preCode = stream.str();
-//   size_t start = preCode.find("Q.submit([&](handler &h) {\n");
-//   start += strlen("Q.submit([&](handler &h) {\n");
-//   preCode.insert(start, mem_allocate_code.str());
-//   stream = std::ostringstream(preCode);
-//   */
-// }
+std::string CodeGenSYCL::WorkGroupSizeAttr(const PrimFunc& f) {
+  // The SYCL counterpart of the __launch_bounds__ that CodeGenCUDA prints. DPC++ lowers
+  // intel::max_work_group_size to PTX .maxntid (the directive __launch_bounds__ produces), so
+  // ptxas sizes the register budget for the real work-group instead of assuming no bound;
+  // sycl::reqd_work_group_size is not lowered to .reqntid by the DPC++ versions we use.
+  // TVM launches every kernel with exactly these thread extents.
+  // TVM_SYCL_LAUNCH_BOUNDS=0 omits the attribute.
+  ThreadExtentCollector collector;
+  collector(f->body);
+  std::ostringstream os;
+  // Sub-group shuffles assume that the sub-group is exactly one TVM warp; require it, so a
+  // target whose thread_warp_size differs from the device's sub-group size fails to build or
+  // launch instead of reducing across the wrong lanes.
+  if (collector.uses_sub_group_shuffle) {
+    os << " [[sycl::reqd_sub_group_size(" << warp_size_ << ")]]";
+  }
+  const char* env = std::getenv("TVM_SYCL_LAUNCH_BOUNDS");
+  if (env != nullptr && std::string(env) == "0") return os.str();
+  int64_t ext[3];
+  for (int d = 0; d < 3; ++d) {
+    const auto* imm = collector.extent[d].as<IntImmNode>();
+    if (imm == nullptr) return os.str();  // dynamic extent
+    ext[d] = imm->value;
+  }
+  if (ext[0] * ext[1] * ext[2] <= 1) return os.str();
+  // nd_range dimension 0 is threadIdx.z (the block range is reversed at launch).
+  os << " [[intel::max_work_group_size(" << ext[2] << ", " << ext[1] << ", " << ext[0] << ")]]";
+  return os.str();
+}
 
 void CodeGenSYCL::AddFunction(const PrimFunc& f) {
   // from CodeGenC -------------------
@@ -255,35 +165,27 @@ void CodeGenSYCL::AddFunction(const PrimFunc& f) {
     stream << ")(*(int64_t *)(void_args[" << i << "]));\n";
   }
 
-  // Print submit  
+  // Submit the kernel through TVM_SYCL_LAUNCH (defined in the prelude of BuildSYCL): a
+  // handler-free, event-free submission where the DPC++ headers provide one, else
+  // queue::submit with handler::parallel_for.
   this->PrintIndent();
-  stream << "Qh.submit([=](handler &h) {\n";
+  stream << "TVM_SYCL_LAUNCH(Qh, TVM_SYCL_KERNEL_NAME(" << kernel_symbol
+         << ", TVM_SYCL_MODULE_ID), dimGrid, dimBlock)\n";
   int func_scope2 = this->BeginScope();
-  
   this->PrintIndent();
-  stream << "h.parallel_for<TVM_SYCL_KERNEL_NAME(" << kernel_symbol
-         << ", TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), "
-            "[=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {\n";
+  stream << "[=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]]" << WorkGroupSizeAttr(f)
+         << " {\n";
   int func_scope3 = this->BeginScope();
   // Function code
   this->PrintStmt(f->body);
   this->EndScope(func_scope3);
   this->PrintIndent();
-  stream << "});\n";
+  stream << "}\n";
   this->EndScope(func_scope2);
   this->PrintIndent();
-  stream << "});\n";
-  this->PrintIndent();
+  stream << "TVM_SYCL_LAUNCH_END\n";
   this->EndScope(func_scope);
   stream << "}\n";
-  /*
-  // insert mem_allocate_code
-  std::string preCode = stream.str();
-  size_t start = preCode.find("Q.submit([&](handler &h) {\n");
-  start += strlen("Q.submit([&](handler &h) {\n");
-  preCode.insert(start, mem_allocate_code.str());
-  stream = std::ostringstream(preCode);
-  */
 }
 
 void CodeGenSYCL::PrintFuncPrefix(std::ostream& os) {
@@ -312,13 +214,17 @@ void CodeGenSYCL::BindThreadIndex(const IterVar& iv) {
   ICHECK(!var_idmap_.count(iv->var.get()));
   runtime::ThreadScope ts = runtime::ThreadScope::Create(iv->thread_tag);
   std::ostringstream os;
+  // SYCL's rightmost nd_range dimension varies fastest and maps to the backend's x axis, so
+  // both threadIdx.d and blockIdx.d use SYCL dimension 2 - d. (The original mapping kept
+  // blockIdx.x on SYCL dimension 0, i.e. CUDA grid z, which limits it to 65,535 work-groups
+  // on NVIDIA; the runtime builds the grid range in the same reversed order.)
+  // The indices are read as 32-bit values (TVM_SYCL_LOCAL_ID/GROUP_ID, see BuildSYCL).
   if (ts.rank == 1) {
-    // swap the first(0) and third(2) dimension size in a SYCL workGroup.
-    os << "item.get_local_id(" << 2-ts.dim_index << ")";
+    os << "TVM_SYCL_LOCAL_ID(" << 2 - ts.dim_index << ")";
   } else {
-    os << "item.get_group(" << ts.dim_index << ")";
+    os << "TVM_SYCL_GROUP_ID(" << 2 - ts.dim_index << ")";
   }
-  var_idmap_[iv->var.get()] = CastFromTo(os.str(), DataType::UInt(64), iv->var.dtype());
+  var_idmap_[iv->var.get()] = CastFromTo(os.str(), DataType::Int(32), iv->var.dtype());
 }
 
 // This path targets Linux/LP64, where long and unsigned long are 64-bit.
@@ -421,66 +327,6 @@ void CodeGenSYCL::PrintType(DataType t, std::ostream& os) {  // NOLINT(*)
 }
 
 
-// void CodeGenSYCL::PrintType(DataType t, std::ostream& os) {  // NOLINT(*)
-//   int lanes = t.lanes();
-//   if (t.is_handle()) {
-//     ICHECK_EQ(lanes, 1) << "do not yet support vector types";
-//     os << "void*";
-//     return;
-//   }
-//   if (t.is_void()) {
-//     os << "void";
-//     return;
-//   }
-//   if (t == DataType::Bool()) {
-//     os << "bool";
-//     return;
-//   }
-//   bool fail = false;
-//   if (t.is_float()) {
-//     switch (t.bits()) {
-//       case 16:
-//         os << "half";
-//         enable_fp16_ = true;
-//         break;
-//       case 32:
-//         os << "float";
-//         break;
-//       case 64:
-//         os << "double";
-//         enable_fp64_ = true;
-//         break;
-//       default:
-//         fail = true;
-//         break;
-//     }
-//     if (!fail && lanes == 1) return;
-//     // Only use SYCL vector types for supported sizes
-//     if (!fail && ((lanes >= 2 && lanes <= 4) || lanes == 8 || lanes == 16)) {
-//       os << lanes;
-//       return;
-//     }
-//     // For larger sizes, we'll handle manually via arrays
-//     if (!fail) {
-//       os << "*";
-//       return;
-//     }
-//   } else if (t.is_int() && t.bits() == 32) {
-//     // Add support for int32
-//     os << "int";
-//     if (lanes > 1) {
-//       // Handle vector types
-//       if ((lanes >= 2 && lanes <= 4) || lanes == 8 || lanes == 16) {
-//         os << lanes;
-//       } else {
-//         os << "*";
-//       }
-//     }
-//     return;
-//   }
-//   LOG(FATAL) << "Cannot convert type " << t << " to SYCL type";
-// }
-
 void CodeGenSYCL::PrintType(const Type& type, std::ostream& os) {  // NOLINT(*)
   if (auto* ptr = type.as<PrimTypeNode>()) {
     return PrintType(ptr->dtype, os);
@@ -521,8 +367,22 @@ void CodeGenSYCL::PrintStorageSpace(const std::string& scope, std::ostream& os) 
 
 // ---------------- GetVecLoad ----------------
 std::string CodeGenSYCL::GetVecLoad(DataType t,const BufferNode* buf,PrimExpr base){
-  if(!(t.lanes()==2||t.lanes()==4||t.lanes()==8||t.lanes()==16))
-    return CodeGenC::GetVecLoad(t,buf,base);
+  if(!(t.lanes()==2||t.lanes()==4||t.lanes()==8||t.lanes()==16)) {
+    // sycl::vec<T, 3> has the size and alignment of sycl::vec<T, 4>, unlike CUDA's float3, so a
+    // cast access at a stride-3 address is misaligned and touches a fourth element. Load the
+    // lanes one by one instead.
+    std::ostringstream os;
+    os << "({ ";
+    PrintType(t.element_of(), os);
+    os << "* _p_ = ";
+    PrintVecAddr(buf, t, base, os);
+    os << "; ";
+    PrintType(t, os);
+    os << "(";
+    for (int i = 0; i < t.lanes(); ++i) os << (i ? ", " : "") << "_p_[" << i << "]";
+    os << "); })";
+    return os.str();
+  }
 
   std::ostringstream os;
   os<<"({\n"; this->PrintIndent();
@@ -534,13 +394,14 @@ std::string CodeGenSYCL::GetVecLoad(DataType t,const BufferNode* buf,PrimExpr ba
 
   auto it = alloc_storage_scope_.find(buf->data.get());
   std::string scope = (it!=alloc_storage_scope_.end())? it->second : "global";
-  const char* space = (scope=="shared") ?
-       "sycl::access::address_space::local_space" :
-       "sycl::access::address_space::global_space";
-
   this->PrintIndent();
-  os<<"auto _vptr_ = sycl::address_space_cast<"<<space
-    <<", sycl::access::decorated::no>(_raw_vec_);\n";    // Avoid the obsolete vec_t alias.
+  if (scope == "local") {
+    // Private array: keep the generic pointer (casting it to the global space is invalid).
+    os << "vec_t* _vptr_ = _raw_vec_;\n";
+  } else {
+    const char* space = (scope == "shared") ? "local_space" : "global_space";
+    os << "auto _vptr_ = TVM_SYCL_AS_CAST(" << space << ", _raw_vec_);\n";
+  }
 
   this->PrintIndent(); os<<"vec_t _v_ = *_vptr_;\n";
   this->PrintIndent(); os<<"_v_; })";
@@ -551,7 +412,19 @@ std::string CodeGenSYCL::GetVecLoad(DataType t,const BufferNode* buf,PrimExpr ba
 void CodeGenSYCL::PrintVecStore(const BufferNode* buf,DataType t,PrimExpr base,
                                 const std::string& value){
   if(!(t.lanes()==2||t.lanes()==4||t.lanes()==8||t.lanes()==16)){
-    CodeGenC::PrintVecStore(buf,t,base,value); return;
+    // Element-wise store for widths whose sycl::vec layout differs from the buffer's (see
+    // GetVecLoad).
+    this->PrintIndent();
+    stream << "{ ";
+    PrintType(t.element_of(), stream);
+    stream << "* _p_ = ";
+    PrintVecAddr(buf, t, base, stream);
+    stream << "; ";
+    PrintType(t, stream);
+    stream << " _v_ = " << value << ";";
+    for (int i = 0; i < t.lanes(); ++i) stream << " _p_[" << i << "] = _v_[" << i << "];";
+    stream << " }\n";
+    return;
   }
   this->PrintIndent();
   stream<<"{ using vec_t = sycl::vec<"; PrintType(t.element_of(),stream);
@@ -563,36 +436,30 @@ void CodeGenSYCL::PrintVecStore(const BufferNode* buf,DataType t,PrimExpr base,
 
   auto it = alloc_storage_scope_.find(buf->data.get());
   std::string scope = (it!=alloc_storage_scope_.end())? it->second : "global";
-  const char* space = (scope=="shared") ?
-       "sycl::access::address_space::local_space" :
-       "sycl::access::address_space::global_space";
-
   this->PrintIndent();
-  stream<<"auto _vptr_ = sycl::address_space_cast<"<<space
-        <<", sycl::access::decorated::no>(_raw_vec_);\n";  // Avoid the obsolete vec_t alias.
+  if (scope == "local") {
+    // Private array: keep the generic pointer (casting it to the global space is invalid).
+    stream << "vec_t* _vptr_ = _raw_vec_;\n";
+  } else {
+    const char* space = (scope == "shared") ? "local_space" : "global_space";
+    stream << "auto _vptr_ = TVM_SYCL_AS_CAST(" << space << ", _raw_vec_);\n";
+  }
 
   this->PrintIndent();
   stream<<"*_vptr_ = static_cast<vec_t>("<<value<<"); }\n";
 }
 
 
-// void CodeGenSYCL::PrintStorageSync(const CallNode* op) {
-//   const std::string& sync = op->args[0].as<StringImmNode>()->value;
-//   if (sync == "warp") {
-//     this->PrintIndent();
-//     this->stream << "group_barrier(item.get_sub_group());\n";
-//   } else if (sync == "shared") {
-//     this->PrintIndent();
-//     this->stream << "group_barrier(item.get_group());\n";
-//   } else if (sync == "global") {
-//     LOG(FATAL) << "global barrier is not supported";
-//   }
-// }
-
 void CodeGenSYCL::PrintStorageSync(const CallNode* op) {
   const std::string& sync = op->args[0].as<StringImmNode>()->value;
   if (sync == "warp") {
-    // Avoid a subgroup-barrier deadlock in potentially divergent control flow.
+    // LowerThreadAllreduce no longer emits warp-level syncs for SYCL. Any other producer would
+    // need a sub-group barrier at a position that may be divergent, which SYCL does not allow,
+    // so reject the schedule at compile time instead of emitting a silent no-op. The legacy
+    // no-op is kept only behind TVM_SYCL_LEGACY_WARP_SYNC=1 to reproduce earlier results.
+    const char* legacy = std::getenv("TVM_SYCL_LEGACY_WARP_SYNC");
+    ICHECK(legacy != nullptr && std::string(legacy) == "1")
+        << "CodeGenSYCL: storage_sync(\"warp\") is not supported by the SYCL backend";
     this->PrintIndent();
     this->stream << "/* warp storage_sync: no-op on SYCL to avoid divergence deadlock */\n";
   } else if (sync == "shared") {
@@ -632,6 +499,26 @@ std::string CodeGenSYCL::CastTo(std::string value, DataType target) {
   return os.str();
 }
 
+void CodeGenSYCL::VisitStmt_(const AttrStmtNode* op) {
+  // Software pipelines from InjectSoftwarePipeline. Without tir.use_async_copy the copies inside
+  // an async stage are ordinary loads and stores, so the commit/wait markers have nothing to
+  // wait for (on CUDA they become cp.async.commit_group / wait_group with no cp.async in
+  // flight). The stage bodies are emitted unchanged; the pipeline's work-group barriers come
+  // from storage_sync as usual.
+  if (op->attr_key == tir::attr::async_commit_queue_scope ||
+      op->attr_key == tir::attr::async_scope) {
+    this->VisitStmt(op->body);
+    return;
+  }
+  if (op->attr_key == tir::attr::async_wait_queue_scope) {
+    const auto* inner = op->body.as<AttrStmtNode>();
+    ICHECK(inner && inner->attr_key == tir::attr::async_wait_inflight_count);
+    this->VisitStmt(inner->body);
+    return;
+  }
+  CodeGenC::VisitStmt_(op);
+}
+
 void CodeGenSYCL::VisitStmt_(const AllocateNode* op) {
   allocation_size_.insert({op->buffer_var.get(), op->ConstantAllocationSize() * op->dtype.lanes()});
   ICHECK(!is_zero(op->condition));
@@ -648,31 +535,33 @@ void CodeGenSYCL::VisitStmt_(const AllocateNode* op) {
     size_t bytes_per_elem = (op->dtype.bits() / 8) * op->dtype.lanes();
     size_t required_bytes = constant_size * bytes_per_elem;
   
-    // Check whether this allocation would exceed the shared-memory budget.
-    if (current_shared_memory_usage_ + required_bytes > MAX_SHARED_MEMORY_SIZE) {
-      size_t remaining = (MAX_SHARED_MEMORY_SIZE > current_shared_memory_usage_)
-                             ? (MAX_SHARED_MEMORY_SIZE - current_shared_memory_usage_)
-                             : 0;
-      size_t max_elems = remaining / bytes_per_elem;
-      if (max_elems == 0) {
-        LOG(FATAL) << "Not enough shared memory left. Request " << required_bytes
-                   << " bytes, but only " << remaining << " bytes available.";
-      }
-      LOG(WARNING) << "Trimming shared memory allocation from " << required_bytes
-                   << " to " << (max_elems * bytes_per_elem) << " bytes.";
-      constant_size = max_elems;
-      required_bytes = constant_size * bytes_per_elem;
-    }
+    // Reject kernels whose group-local allocations exceed the budget. (An earlier version
+    // shrank the allocation and only warned, which turns an invalid schedule into
+    // out-of-bounds group-local accesses.)
+    ICHECK_LE(current_shared_memory_usage_ + required_bytes, shared_memory_budget_)
+        << "CodeGenSYCL: group-local allocation of " << required_bytes << " bytes exceeds the "
+        << shared_memory_budget_ << "-byte budget (" << current_shared_memory_usage_
+        << " bytes already allocated in this kernel)";
   
     current_shared_memory_usage_ += required_bytes;
   
+    // group_local_memory aligns to alignof(T); a plain float[N] is only 4-byte aligned, so vector
+    // accesses (sycl::vec, up to 64 bytes) into a later buffer could be misaligned. Allocate an
+    // over-aligned wrapper and use its array.
+    // group_local_memory<T>(g) value-initialises T: work-item 0 zero-fills the whole buffer and
+    // the work-group then waits at a barrier, at the start of every work-group. TIR never reads
+    // shared memory before writing it, so use the _for_overwrite form, which for a trivial T
+    // neither initialises nor synchronises. TVM_SYCL_LOCAL_ZERO_INIT=1 restores the old form.
+    const char* zero_init = std::getenv("TVM_SYCL_LOCAL_ZERO_INIT");
+    const bool for_overwrite = !(zero_init != nullptr && std::string(zero_init) == "1");
     this->PrintIndent();
-    stream << "auto " << vid << " = *sycl::ext::oneapi::group_local_memory<";
+    stream << "auto " << vid << " = (*sycl::ext::oneapi::group_local_memory"
+           << (for_overwrite ? "_for_overwrite" : "") << "<tvm_sycl_aligned_array<";
     PrintType(op->dtype, stream);
-    stream << '[' << constant_size << "]>(item.get_group());\n";
-  }
-   else {
+    stream << ", " << constant_size << ">>(item.get_group())).data;\n";
+  } else {
     this->PrintIndent();
+    stream << "alignas(64) ";
     PrintType(op->dtype, stream);
     stream << ' ' << vid << '[' << constant_size << "];\n";
   }
@@ -719,14 +608,17 @@ void CodeGenSYCL::VisitExpr_(const CallNode* op, std::ostream& os) {
   } else if (op->op.same_as(builtin_call_pure_extern_)) {
     ICHECK_GE(op->args.size(), 1U);
     auto func = Downcast<StringImm>(op->args[0]);
-    if ((func->value == "erf" || func->value == "erff") && op->dtype.is_float() &&
-        op->dtype.bits() == 32 && op->args.size() == 2) {
+    // Workarounds for the HIP plugin's float32 erf/tanh (see the overlay README, M1). Behind the CUDA
+    // plugin libdevice's float32 erf/tanh are accurate, and float64 runs at a small fraction of
+    // float32 throughput on consumer GPUs (GELU kernels were 7.5x slower), so they are skipped there.
+    if (math_workarounds_ && (func->value == "erf" || func->value == "erff") &&
+        op->dtype.is_float() && op->dtype.bits() == 32 && op->args.size() == 2) {
       const std::string x = PrintExpr(op->args[1]);
       os << "((float)sycl::erf((double)(" << x << ")))";
       return;
     }
-    if ((func->value == "tanh" || func->value == "tanhf") && op->dtype.is_float() &&
-        op->dtype.bits() == 32 && op->args.size() == 2) {
+    if (math_workarounds_ && (func->value == "tanh" || func->value == "tanhf") &&
+        op->dtype.is_float() && op->dtype.bits() == 32 && op->args.size() == 2) {
       const std::string x = PrintExpr(op->args[1]);
       const std::string positive_exp = "exp(-2.000000e+00f * (" + x + "))";
       const std::string negative_exp = "exp(2.000000e+00f * (" + x + "))";
@@ -734,6 +626,14 @@ void CodeGenSYCL::VisitExpr_(const CallNode* op, std::ostream& os) {
          << " + 1.000000e+00f)), ((1.000000e+00f - " << positive_exp
          << ") / (1.000000e+00f + " << positive_exp << ")), (0.000000e+00f <= " << x
          << "))";
+      return;
+    }
+    if ((func->value == "erf" || func->value == "erff" || func->value == "tanh" ||
+         func->value == "tanhf") &&
+        op->dtype.is_float() && op->args.size() == 2) {
+      // Explicit SYCL overloads (avoids ::erf(double) / C erff resolution).
+      const bool is_erf = func->value == "erf" || func->value == "erff";
+      os << (is_erf ? "sycl::erf(" : "sycl::tanh(") << PrintExpr(op->args[1]) << ')';
       return;
     }
     // default generated math function name is non-exist in SYCL. Not know where the function names are generated ?
@@ -794,12 +694,23 @@ inline void PrintBinaryExpr(const T* op, const char* opstr, std::ostream& os, Co
   }
 }
 
+// Floating-point min/max as sycl::fmin/fmax, the counterparts of CUDA's fminf/fmaxf (one
+// min/max instruction, NaN operands ignored). sycl::min/max are the "common" functions, which DPC++
+// lowers to a compare and a select; integers keep them. TVM_SYCL_FMINMAX=0 restores min/max.
+static bool UseFMinMax(DataType t) {
+  static const bool enabled = [] {
+    const char* v = std::getenv("TVM_SYCL_FMINMAX");
+    return !(v != nullptr && std::string(v) == "0");
+  }();
+  return enabled && t.is_float() && (t.bits() == 16 || t.bits() == 32 || t.bits() == 64);
+}
+
 void CodeGenSYCL::VisitExpr_(const MinNode* op, std::ostream& os) {
-  PrintBinaryExpr(op, "min", os, this);
+  PrintBinaryExpr(op, UseFMinMax(op->dtype) ? "sycl::fmin" : "min", os, this);
 }
 
 void CodeGenSYCL::VisitExpr_(const MaxNode* op, std::ostream& os) {
-  PrintBinaryExpr(op, "max", os, this);
+  PrintBinaryExpr(op, UseFMinMax(op->dtype) ? "sycl::fmax" : "max", os, this);
 }
 
 void CodeGenSYCL::VisitExpr_(const AndNode* op, std::ostream& os) {
@@ -859,7 +770,6 @@ void CodeGenSYCL::PrintVecElemLoad(const std::string& vec, DataType t, int i,
 void CodeGenSYCL::PrintVecElemStore(const std::string& vec, DataType t, int i,
                                  const std::string& value) {
   this->PrintIndent();
-  //stream << vec << "[" << std::hex << i << "]" << " = " << value << ";\n" << std::dec;
   stream << vec << "[" << i << "]" << " = " << value << ";\n" << std::dec;
 
 }
@@ -890,17 +800,6 @@ void CodeGenSYCL::PrintVecElemLoadExpr(DataType t, int i, const std::string& val
   return;
 }
 
-// void CodeGenSYCL::VisitExpr_(const RampNode* op, std::ostream& os) {  // NOLINT(*)
-//   // constraint of current logic
-//   ICHECK_EQ(op->base.dtype(), DataType::Int(32));
-//   os << "((int" << op->lanes << "){";
-//   for (int i = 0; i < op->lanes; i++) {
-//     os << "(" << PrintExpr(op->base) << ")"
-//        << "+(" << PrintExpr(op->stride) << "*" << i << ")";
-//     if (i != op->lanes - 1) os << ", ";
-//   }
-//   os << "})";
-// }
 
 void CodeGenSYCL::VisitExpr_(const RampNode* op, std::ostream& os) {  // NOLINT(*)
   // constraint of current logic
@@ -918,107 +817,36 @@ void CodeGenSYCL::VisitExpr_(const RampNode* op, std::ostream& os) {  // NOLINT(
   }
   os << "})";
 }
-// runtime::Module BuildSYCL(IRModule mod, Target target) {
-//   //print_stack_trace();
-//   //using tvm::runtime::Registry;
-//   //std::cout<<"[SYCL] Build SYCL module."<<std::endl;
-//   bool output_ssa = false;
-//   std::stringstream code;
-//   code << "// tvm target: " << target->str() << "\n";
-//   code << "#include <sycl/sycl.hpp>\n";
-//   code << "using namespace sycl;\n";
-//   //const auto fpostproc = tvm::ffi::Function::GetGlobal("tvm_callback_opencl_postproc");
-
-//   // Debug: Log target and initial module information
-//   VLOG(0) << "Target: " << target->str();
-  
-//   Map<GlobalVar, PrimFunc> functions;
-//   for (auto [gvar, base_func] : mod->functions) {
-//     ICHECK(base_func->IsInstance<PrimFuncNode>()) << "CodeGenOpenCL: Can only take PrimFunc";
-//     auto prim_func = Downcast<PrimFunc>(base_func);
-//     auto calling_conv = prim_func->GetAttr<Integer>(tvm::attr::kCallingConv);
-//     ICHECK(calling_conv == CallingConv::kDeviceKernelLaunch)
-//         << "CodeGenSYCL: expect calling_conv equals CallingConv::kDeviceKernelLaunch";
-//     functions.Set(gvar, prim_func);
-//   }
-
-//   //std::stringstream code;
-//   const auto fpostproc = tvm::ffi::Function::GetGlobal("tvm_callback_opencl_postproc");
-//   for (auto [gvar, prim_func] : functions) {
-//     code << "// Function: " << gvar->name_hint << std::endl;
-//     CodeGenSYCL cg;
-//     cg.Init(output_ssa);
-//     for (auto [other_gvar, other_prim_func] : functions) {
-//       cg.DeclareFunction(other_gvar, other_prim_func);
-//     }
-//     cg.AddFunction(prim_func);
-//     std::string fsource = cg.Finish();
-//     if (fpostproc) {
-//       fsource = (*fpostproc)(fsource, target).cast<std::string>();
-//     }
-//     code << fsource;
-//   // for (auto kv : mod->functions) {
-//   //   ICHECK(kv.second->IsInstance<PrimFuncNode>()) << "CodeGenSYCL: Can only take PrimFunc";
-//   //   auto f = Downcast<PrimFunc>(kv.second);
-//   //   auto calling_conv = f->GetAttr<Integer>(tvm::attr::kCallingConv);
-//   //   ICHECK(calling_conv == CallingConv::kDeviceKernelLaunch)
-//   //       << "CodeGenSYCL: expect calling_conv equals CallingConv::kDeviceKernelLaunch";
-    
-//   //   CodeGenSYCL cg;
-//   //   cg.Init(output_ssa);
-//   //   cg.AddFunction(f);
-//   //   std::string fsource = cg.Finish();
-    
-//   //   // Debug: Print the generated SYCL code before post-processing
-//   //   VLOG(0) << "BuildSYCL: code before post-processing:\n" << fsource;
-    
-//   //   if (fpostproc) {
-//   //     // Post-process the SYCL code
-//   //     std::string processed_source = (*fpostproc)(fsource, target).cast<std::string>();
-      
-//   //     // Debug: Log post-processed source
-//   //     VLOG(0) << "Post-processed source:\n" << processed_source;
-      
-//   //     if (processed_source.empty()) {
-//   //       // Handle empty post-processed source gracefully
-//   //       VLOG(0) << "Warning: Post-processing produced an empty string.";
-//   //     } else {
-//   //       fsource = processed_source;
-//   //     }
-//   //   } else {
-//   //     VLOG(0) << "Warning: Post-processing function 'fpostproc' is not available.";
-//   //   }
-    
-//     // Add the final function source to the overall code
-//     code << fsource;
-//     std::cout << fsource << std::endl;
-//     // std::ofstream temp_file("temp_output.txt", std::ios::app);
-
-//     // if (!temp_file.is_open()) {
-//     //     std::cerr << "Error opening file for writing!" << std::endl;
-//     // }
-
-//     // temp_file << "sycl code" << std::endl;
-
-//     // // Append fsource to the temporary file.
-//     // temp_file << fsource << std::endl;
-
-//     // // Close the file stream.
-//     // temp_file.close();
-
-//   }
-
-//   // Return the created SYCL module with the final code
-//   return SYCLModuleCreate(code.str(), "sycl", ExtractFuncInfo(mod), code.str());
-// }
 
 
 runtime::Module BuildSYCL(IRModule mod, Target target) {
   bool output_ssa = false;
   std::stringstream code;
   code << "// tvm target: " << target->str() << "\n";
+  // Kernel submission. DPC++ v7 submits sycl_khr_free_function_commands launches (and queue
+  // shortcuts) without a handler, and launch_grouped without an event: 2.5 us of host time per
+  // launch on the RTX 4090 against 4.0 us through queue::submit (CUDA: 2.2 us). DPC++ v7 still
+  // marks the extension unfinished, so it is enabled before the SYCL header is included. Older
+  // DPC++ (646ab08, the 2022 HIP build) has no such path and keeps queue::submit;
+  // TVM_SYCL_DIRECT_SUBMIT=0 keeps it everywhere.
+  const char* direct_env = std::getenv("TVM_SYCL_DIRECT_SUBMIT");
+  if (direct_env != nullptr && std::string(direct_env) == "0") {
+    code << "#define TVM_SYCL_HANDLER_SUBMIT\n";
+  }
+  code << "#if !defined(TVM_SYCL_HANDLER_SUBMIT) && !defined(__DPCPP_ENABLE_UNFINISHED_KHR_EXTENSIONS)\n"
+          "#define __DPCPP_ENABLE_UNFINISHED_KHR_EXTENSIONS\n"
+          "#endif\n";
   code << "#include <sycl/sycl.hpp>\n";
   code << "using namespace sycl;\n";
+  code << "#if !defined(TVM_SYCL_HANDLER_SUBMIT) && defined(SYCL_KHR_FREE_FUNCTION_COMMANDS)\n"
+          "#define TVM_SYCL_LAUNCH(q, name, grid, block) "
+          "sycl::khr::launch_grouped(q, (grid) * (block), (block),\n"
+          "#define TVM_SYCL_LAUNCH_END );\n"
+          "#else\n"
+          "#define TVM_SYCL_LAUNCH(q, name, grid, block) q.submit([=](sycl::handler& h) { "
+          "h.parallel_for<name>(sycl::nd_range<3>((grid) * (block), (block)),\n"
+          "#define TVM_SYCL_LAUNCH_END ); });\n"
+          "#endif\n";
   code << "#ifndef TVM_SYCL_MODULE_ID\n";
   code << "#define TVM_SYCL_MODULE_ID m0\n";
   code << "#endif\n";
@@ -1028,6 +856,68 @@ runtime::Module BuildSYCL(IRModule mod, Target target) {
   code << "#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id\n";
   code << "#define TVM_SYCL_WRAPPER_NAME(func, module_id) "
           "TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)\n";
+  code << "template <typename T, std::size_t N> struct alignas(64) tvm_sycl_aligned_array "
+          "{ T data[N]; };\n";
+  // Address-space qualification of vector accesses. DPC++ builds that predate SYCL 2020's
+  // address_space_cast (e.g. the 2022 HIP build on the DCU) define
+  // TVM_SYCL_NO_ADDRESS_SPACE_CAST in SYCL_FLAGS and use the generic pointer.
+  code << "#ifndef TVM_SYCL_NO_ADDRESS_SPACE_CAST\n"
+          "#define TVM_SYCL_AS_CAST(space, p) sycl::address_space_cast<"
+          "sycl::access::address_space::space, sycl::access::decorated::no>(p)\n"
+          "#else\n"
+          "#define TVM_SYCL_AS_CAST(space, p) (p)\n"
+          "#endif\n";
+  // Work-item and work-group indices as int. nd_item returns size_t; behind the CUDA plugin
+  // that is the sign-extended PTX register, and LLVM then evaluates `(int)id * c + k` index
+  // expressions in 64 bits (shl/ashr pairs, one live 64-bit address per shared-memory load,
+  // twice CUDA's registers in DLight matmuls). Opt-in (TVM_SYCL_NATIVE_IDS=1): NVPTX device code
+  // reads the 32-bit special registers directly, as CUDA's threadIdx/blockIdx do (SYCL dimension
+  // 2 is the x axis), masked to 31 bits so that `/` and `%` by constants stay unsigned (DPC++
+  // optimizes before the NVPTX backend attaches the registers' value ranges); "hw" masks to the
+  // hardware ranges, which lets LLVM narrow index arithmetic to 16 bits. On the RTX 4090 this
+  // brings DLight's 4096^3 matmul and ResNet stage-1 convolution to TVM-CUDA's time (1.00x and
+  // 1.04x, from 1.07x and 1.21x) and DLight ResNet-18 3% closer, but makes ResNet-18 schedules
+  // tuned with nd_item indices 5-24% slower (residual-add convolutions up to 1.9x), and a retune
+  // with it does not recover that (0.571 vs 0.530 ms), so the default keeps nd_item's indices.
+  const char* ids_env = std::getenv("TVM_SYCL_NATIVE_IDS");
+  const std::string ids_mode = ids_env != nullptr ? ids_env : "0";
+  if (ids_mode != "1" && ids_mode != "hw") {
+    code << "#define TVM_SYCL_PORTABLE_IDS\n";
+  }
+  const bool hw_ranges = ids_mode == "hw";
+  code << "#if defined(__SYCL_DEVICE_ONLY__) && defined(__NVPTX__) && !defined(TVM_SYCL_PORTABLE_IDS)\n"
+       << "#define TVM_SYCL_LOCAL_ID_2 ((int)(__nvvm_read_ptx_sreg_tid_x() & "
+       << (hw_ranges ? "0x3ff" : "0x7fffffff") << "))\n"
+       << "#define TVM_SYCL_LOCAL_ID_1 ((int)(__nvvm_read_ptx_sreg_tid_y() & "
+       << (hw_ranges ? "0x3ff" : "0x7fffffff") << "))\n"
+       << "#define TVM_SYCL_LOCAL_ID_0 ((int)(__nvvm_read_ptx_sreg_tid_z() & "
+       << (hw_ranges ? "0x3f" : "0x7fffffff") << "))\n"
+       << "#define TVM_SYCL_GROUP_ID_2 ((int)(__nvvm_read_ptx_sreg_ctaid_x() & 0x7fffffff))\n"
+       << "#define TVM_SYCL_GROUP_ID_1 ((int)(__nvvm_read_ptx_sreg_ctaid_y() & "
+       << (hw_ranges ? "0xffff" : "0x7fffffff") << "))\n"
+       << "#define TVM_SYCL_GROUP_ID_0 ((int)(__nvvm_read_ptx_sreg_ctaid_z() & "
+       << (hw_ranges ? "0xffff" : "0x7fffffff") << "))\n"
+          "#define TVM_SYCL_LOCAL_ID(d) TVM_SYCL_LOCAL_ID_##d\n"
+          "#define TVM_SYCL_GROUP_ID(d) TVM_SYCL_GROUP_ID_##d\n"
+          "#else\n"
+          "#define TVM_SYCL_LOCAL_ID(d) ((int)item.get_local_id(d))\n"
+          "#define TVM_SYCL_GROUP_ID(d) ((int)item.get_group(d))\n"
+          "#endif\n";
+  // Warp-shuffle builtins (intrin_rule_sycl.cc) on the kernel's sub-group; `item` is the
+  // nd_item in scope inside every generated kernel.
+  code << "#define tvm_sycl_shuffle(v, lane) "
+          "sycl::select_from_group(item.get_sub_group(), (v), (lane))\n";
+  code << "#define tvm_sycl_shuffle_down(v, delta) "
+          "sycl::shift_group_left(item.get_sub_group(), (v), (delta))\n";
+  code << "#define tvm_sycl_shuffle_up(v, delta) "
+          "sycl::shift_group_right(item.get_sub_group(), (v), (delta))\n";
+  // Whole-work-group reductions (lower_thread_allreduce.cc, TVM_SYCL_GROUP_REDUCE=1).
+  code << "#define tvm_sycl_group_reduce_add(v) "
+          "sycl::reduce_over_group(item.get_group(), (v), sycl::plus<>())\n";
+  code << "#define tvm_sycl_group_reduce_max(v) "
+          "sycl::reduce_over_group(item.get_group(), (v), sycl::maximum<>())\n";
+  code << "#define tvm_sycl_group_reduce_min(v) "
+          "sycl::reduce_over_group(item.get_group(), (v), sycl::minimum<>())\n";
   const auto fpostproc = tvm::ffi::Function::GetGlobal("tvm_callback_opencl_postproc");
 
   for (auto kv : mod->functions) {
@@ -1038,15 +928,32 @@ runtime::Module BuildSYCL(IRModule mod, Target target) {
         << "CodeGenSYCL: expect calling_conv equals CallingConv::kDeviceKernelLaunch";
     CodeGenSYCL cg;
     cg.Init(output_ssa);
+    // Group-local memory is allocated statically; budget = min(target limit, 48 KB static limit).
+    int64_t target_limit =
+        target->GetAttr<Integer>("max_shared_memory_per_block").value_or(Integer(MAX_SHARED_MEMORY_SIZE))->value;
+    cg.SetSharedMemoryBudget(static_cast<size_t>(
+        std::min<int64_t>(target_limit, static_cast<int64_t>(MAX_SHARED_MEMORY_SIZE))));
+    cg.SetWarpSize(target->GetAttr<Integer>("thread_warp_size").value_or(Integer(32))->value);
+    // erf/tanh workarounds unless the target names a CUDA architecture (behind the CUDA plugin);
+    // TVM_SYCL_MATH_WORKAROUNDS=0/1 overrides.
+    {
+      const std::string arch = target->GetAttr<String>("arch").value_or(String(""));
+      bool workarounds = arch.rfind("sm_", 0) != 0;
+      if (const char* env = std::getenv("TVM_SYCL_MATH_WORKAROUNDS")) {
+        workarounds = std::string(env) == "1";
+      }
+      cg.SetMathWorkarounds(workarounds);
+    }
     cg.AddFunction(f);
     std::string fsource = cg.Finish();
     // Debug for SYCL
     VLOG(0) << "BuildSYCL: code:\n" << fsource;
     if (fpostproc) {
-      //fsource = (*fpostproc)(fsource).operator std::string();
       fsource = (*fpostproc)(fsource, target).cast<std::string>();
     }
-    code << fsource;
+    // Each function is self-contained after the common prelude; the marker lets the runtime
+    // compile groups of functions as separate translation units in parallel.
+    code << "\n// TVM_SYCL_TU_BOUNDARY\n" << fsource;
   }
 
   return SYCLModuleCreate(code.str(), "sycl", ExtractFuncInfo(mod), code.str());

@@ -380,8 +380,11 @@ TVM_REGISTER_TARGET_KIND("sycl", kDLOneAPI)
     .add_attr_option<int64_t>("registers_per_block",65536)
     .add_attr_option<int64_t>("l2_cache_size_bytes",75497472)
     .add_attr_option<int64_t>("texture_spatial_limit", 16384)
-    //.add_attr_option<int64_t>("num-cores",32)
-    .set_default_keys({"sycl", "gpu"});    
+    // Architecture of the underlying device when known (e.g. "sm_89" behind the DPC++ CUDA
+    // plugin). MetaSchedule's MultiLevelTiling reads it to enable multi-stage software
+    // pipelining, as it does for CUDA targets.
+    .add_attr_option<String>("arch")
+    .set_default_keys({"sycl", "gpu"});
 
 // The metal has some limitations on the number of input parameters. This is why attribute
 // `max_function_args` was introduced. It specifies the maximum number of kernel argumetns. More

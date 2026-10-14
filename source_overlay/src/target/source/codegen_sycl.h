@@ -42,6 +42,12 @@ class CodeGenSYCL final : public CodeGenC {
   using CodeGenC::AddFunction;
   void AddFunction(const PrimFunc& f);
   void InitFuncState(const PrimFunc& f) final;
+  // Kernel attributes: " [[sycl::reqd_sub_group_size(W)]]" when the kernel uses sub-group
+  // shuffles, " [[intel::max_work_group_size(z, y, x)]]" for static thread extents.
+  std::string WorkGroupSizeAttr(const PrimFunc& f);
+  void SetSharedMemoryBudget(size_t bytes) { shared_memory_budget_ = bytes; }
+  void SetWarpSize(int64_t warp_size) { warp_size_ = warp_size; }
+  void SetMathWorkarounds(bool enabled) { math_workarounds_ = enabled; }
   void PrintFuncPrefix(std::ostream& os) final;                              // NOLINT(*)
   void BindThreadIndex(const IterVar& iv) final;                             // NOLINT(*)
   void PrintStorageScope(const std::string& scope, std::ostream& os) final;  // NOLINT(*)
@@ -64,6 +70,7 @@ class CodeGenSYCL final : public CodeGenC {
                     std::ostream& os);  // NOLINT(*)
 
   void VisitStmt_(const AllocateNode* op) final;                     // NOLINT(*)
+  void VisitStmt_(const AttrStmtNode* op) final;                     // NOLINT(*)
   void VisitExpr_(const DivNode* op, std::ostream& os) final;        // NOLINT(*)
   void VisitExpr_(const CallNode* op, std::ostream& os) final;       // NOLINT(*)
   void VisitExpr_(const BroadcastNode* op, std::ostream& os) final;  // NOLINT(*)
@@ -80,6 +87,11 @@ class CodeGenSYCL final : public CodeGenC {
   bool enable_fp64_{false};
   bool enable_atomics_{false};
   size_t current_shared_memory_usage_{0};
+  size_t shared_memory_budget_{49152};
+  // Target thread_warp_size; the sub-group size required by kernels that use shuffles.
+  int64_t warp_size_{32};
+  // float32 erf through float64 and a sign-stable tanh (HIP plugin defects); off behind CUDA.
+  bool math_workarounds_{true};
   std::ostringstream mem_allocate_code;
   std::unordered_map<const Object*, size_t> allocation_size_;
 };

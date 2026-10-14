@@ -72,7 +72,14 @@ void SYCLWorkspace::GetAttr(Device dev, DeviceAttrKind kind, ffi::Any* rv) {
       break;
     }
     case kComputeVersion: {
+#if __LIBSYCL_MAJOR_VERSION >= 6
       std::string backend_version = this->devices[index].get_info<sycl::info::device::backend_version>();
+#else
+      // The 2022 HIP plugin aborts the process (pi_die) on backend_version; the generic
+      // version string is enough there (the compute version is only used to derive an
+      // NVIDIA architecture).
+      std::string backend_version = this->devices[index].get_info<sycl::info::device::version>();
+#endif
       *rv = backend_version;
       break;
     }
@@ -94,9 +101,17 @@ void SYCLWorkspace::GetAttr(Device dev, DeviceAttrKind kind, ffi::Any* rv) {
       break;
     }
     case kMaxThreadDimensions: {
-      sycl::id<3> max_work_item_sizes = this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
+#if __LIBSYCL_MAJOR_VERSION >= 6
+      auto max_work_item_sizes =
+          this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
+#else  // DPC++ before the SYCL 2020 templated query (e.g. the 2022 build on the DCU)
+      auto max_work_item_sizes =
+          this->devices[index].get_info<sycl::info::device::max_work_item_sizes>();
+#endif
+      // SYCL lists the slowest-varying dimension first; threadIdx.x maps to SYCL dimension 2.
       std::stringstream ss;  // use json string to return multiple int values;
-      ss << "[" << max_work_item_sizes[0] << ", " << max_work_item_sizes[1] << ", " << max_work_item_sizes[2] << "]";
+      ss << "[" << max_work_item_sizes[2] << ", " << max_work_item_sizes[1] << ", "
+         << max_work_item_sizes[0] << "]";
       *rv = ss.str();
       break;
     }
@@ -175,12 +190,18 @@ void SYCLWorkspace::CopyDataFromTo(DLTensor* from, DLTensor* to, TVMStreamHandle
   VLOG(1) << "after convert from device data pointer address : " << from_data+from_size << std::endl;
   VLOG(1) << "after convert to device data pointer address : " << to_data+from_size << std::endl;
   
+  // Wait on the in-order queue rather than on the copy's event (equivalent here, and valid when
+  // the queue discards events).
+  auto copy_and_wait = [&](Device dev) {
+    sycl::queue q = this->GetQueue(dev);
+    SYCL_CALL(q.memcpy(to_data, from_data, from_size); q.wait_and_throw());
+  };
   if (IsSYCLDevice(from->device) && IsSYCLDevice(to->device)) {
-    SYCL_CALL(this->GetQueue(to->device).memcpy(to_data, from_data, from_size).wait_and_throw());
+    copy_and_wait(to->device);
   } else if (IsSYCLDevice(from->device) && to->device.device_type == kDLCPU) {
-    SYCL_CALL(this->GetQueue(from->device).memcpy(to_data, from_data, from_size).wait_and_throw());
+    copy_and_wait(from->device);
   } else if (from->device.device_type == kDLCPU && IsSYCLDevice(to->device)) {
-    SYCL_CALL(this->GetQueue(to->device).memcpy(to_data, from_data, from_size).wait_and_throw());
+    copy_and_wait(to->device);
   } else {
     LOG(FATAL) << "Expect copy from/to SYCL or between SYCL";
   }
@@ -243,8 +264,12 @@ void SYCLWorkspace::Init(const std::string& device_type, const std::string& plat
       for(sycl::device& dev : gpu_devices) {
         try {
           sycl::context ctx = sycl::context(dev, exception_handler);
-          sycl::queue queue =
-              sycl::queue(ctx, dev, sycl::property::queue::in_order{});
+          sycl::property_list props =
+              DiscardEvents()
+                  ? sycl::property_list{sycl::property::queue::in_order{},
+                                        sycl::ext::oneapi::property::queue::discard_events{}}
+                  : sycl::property_list{sycl::property::queue::in_order{}};
+          sycl::queue queue = sycl::queue(ctx, dev, props);
           
           this->devices.push_back(dev);
           this->contexts.push_back(ctx);
@@ -271,7 +296,6 @@ void SYCLWorkspace::Init(const std::string& device_type, const std::string& plat
 
   this->events.resize(this->devices.size());
   initialized_ = true;
-  //LOG(INFO) << "Successfully initialized " << this->devices.size() << " SYCL device(s)";
 }
 
 sycl::queue SYCLWorkspace::GetQueue(Device dev) {
@@ -300,6 +324,13 @@ TVM_FFI_REGISTER_GLOBAL("device_api.sycl").set_body_packed([](ffi::PackedArgs  a
   *rv = static_cast<void*>(ptr);
 });
 
+// L2 (global memory cache) size of a SYCL device, used by Target detection from the device.
+TVM_FFI_REGISTER_GLOBAL("device_api.sycl.l2_cache_size_bytes").set_body_typed([](Device dev) {
+  ffi::Any rv;
+  SYCLWorkspace::Global()->GetAttr(dev, kL2CacheSizeBytes, &rv);
+  return rv.cast<int64_t>();
+});
+
 TVM_FFI_REGISTER_GLOBAL("device_api.oneapi").set_body_packed([](ffi::PackedArgs args, ffi::Any* rv) {
   DeviceAPI* ptr = SYCLWorkspace::Global();
   *rv = static_cast<void*>(ptr);
@@ -307,11 +338,11 @@ TVM_FFI_REGISTER_GLOBAL("device_api.oneapi").set_body_packed([](ffi::PackedArgs 
 
 TVM_REGISTER_OBJECT_TYPE(SYCLTimerNode);
 TVM_FFI_REGISTER_GLOBAL("profiling.timer.sycl").set_body_typed([](Device dev) {
-  return Timer(make_object<SYCLTimerNode>());
+  return Timer(make_object<SYCLTimerNode>(dev));
 });
 
 TVM_FFI_REGISTER_GLOBAL("profiling.timer.oneapi").set_body_typed([](Device dev) {
-  return Timer(make_object<SYCLTimerNode>());
+  return Timer(make_object<SYCLTimerNode>(dev));
 });
 
 }  // namespace SYCL

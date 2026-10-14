@@ -92,6 +92,8 @@ def default_build_pipeline():
                 transform.CallTIRRewrite(),
                 transform.StaticPlanBlockMemory(),
                 transform.RewriteCUDAGraph(),
+                # SYCL targets replay captured regions as SYCL command graphs.
+                backend.sycl.pipeline.redirect_graph_builtins,
                 transform.LowerAllocTensor(),
                 transform.KillAfterLastUse(),
                 transform.LowerRuntimeBuiltin(),
@@ -247,7 +249,9 @@ def library_dispatch_passes(target: tvm.target.Target):
         return backend.cuda.library_dispatch_passes(target)
     if target.kind.name == "rocm":
         return backend.rocm.library_dispatch_passes(target)
-    if target.kind.name in ("metal", "sycl"):
+    if target.kind.name == "sycl":
+        return backend.sycl.library_dispatch_passes(target)
+    if target.kind.name == "metal":
         return backend.gpu_generic.library_dispatch_passes(target)
     if target.kind.name == "llvm":
         return backend.cpu_generic.library_dispatch_passes(target)
@@ -263,7 +267,9 @@ def legalize_passes(target: tvm.target.Target):
         return backend.cuda.legalize_passes(target)
     if target.kind.name == "rocm":
         return backend.rocm.legalize_passes(target)
-    if target.kind.name in ("metal", "sycl"):
+    if target.kind.name == "sycl":
+        return backend.sycl.legalize_passes(target)
+    if target.kind.name == "metal":
         return backend.gpu_generic.legalize_passes(target)
     if target.kind.name == "llvm":
         return backend.cpu_generic.legalize_passes(target)
@@ -279,7 +285,9 @@ def dataflow_lower_passes(target: tvm.target.Target):
         return backend.cuda.dataflow_lower_passes(target)
     if target.kind.name == "rocm":
         return backend.rocm.dataflow_lower_passes(target)
-    if target.kind.name in ("metal", "sycl"):
+    if target.kind.name == "sycl":
+        return backend.sycl.dataflow_lower_passes(target)
+    if target.kind.name == "metal":
         return backend.gpu_generic.dataflow_lower_passes(target)
     if target.kind.name == "llvm":
         return backend.cpu_generic.dataflow_lower_passes(target)
@@ -295,7 +303,9 @@ def finalize_passes(target: tvm.target.Target):
         return backend.cuda.finalize_passes(target)
     if target.kind.name == "rocm":
         return backend.rocm.finalize_passes(target)
-    if target.kind.name in ("metal", "sycl"):
+    if target.kind.name == "sycl":
+        return backend.sycl.finalize_passes(target)
+    if target.kind.name == "metal":
         return backend.gpu_generic.finalize_passes(target)
     if target.kind.name == "llvm":
         return backend.cpu_generic.finalize_passes(target)
@@ -311,7 +321,9 @@ def get_default_pipeline(target: tvm.target.Target):
         return backend.cuda.get_default_pipeline(target)
     if target.kind.name == "rocm":
         return backend.rocm.get_default_pipeline(target)
-    if target.kind.name in ("metal", "sycl"):
+    if target.kind.name == "sycl":
+        return backend.sycl.get_default_pipeline(target)
+    if target.kind.name == "metal":
         return backend.gpu_generic.get_default_pipeline(target)
     if target.kind.name == "llvm":
         return backend.cpu_generic.get_default_pipeline(target)

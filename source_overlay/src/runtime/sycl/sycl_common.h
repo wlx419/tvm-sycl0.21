@@ -41,6 +41,9 @@
 
 #include <sycl/sycl.hpp>
 
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -114,6 +117,55 @@ inline const char* SYCLGetErrorString(std::error_code error_code) {
     }                                                                                 \
   } while (0)
 
+/*!
+ * \brief Whether the device queues are created with discard_events.
+ * The runtime never consumes the event of a kernel launch, so the queue need not create one per
+ * submission; with this property every event returned by the queue is invalid, and the runtime
+ * synchronizes on the (in-order) queue instead. It cuts the host cost of a launch (RTX 4090:
+ * 5.1 -> 4.1 us; gfx906 with the 2022 HIP plugin: about 20 -> 7 us) but slows command-graph
+ * replay in the DPC++ versions we use, so it is the default only for builds without
+ * sycl_ext_oneapi_graph. TVM_SYCL_DISCARD_EVENTS=1/0 overrides the default.
+ */
+inline bool DiscardEvents() {
+  static const bool enabled = [] {
+    const char* v = std::getenv("TVM_SYCL_DISCARD_EVENTS");
+    if (v != nullptr) return std::string(v) == "1";
+#ifdef SYCL_EXT_ONEAPI_GRAPH
+    return false;
+#else
+    return true;
+#endif
+  }();
+  return enabled;
+}
+
+/*!
+ * \brief DPC++ flags for the JIT compile of generated device code.
+ * For the CUDA plugin (nvptx64), DPC++'s implicit global offset is disabled: TVM never launches a
+ * kernel with an offset, and the implicit offset otherwise gives every kernel a zero-initialized
+ * 16-byte stack frame and a duplicate "_with_offset" kernel. TVM_SYCL_GLOBAL_OFFSET=1 keeps it.
+ * Floating-point contraction is also enabled across statements (-ffp-contract=fast), the
+ * default of nvcc (--fmad=true) that TVM's CUDA path compiles with: DPC++'s default contracts
+ * only within one expression, and sycl::vec arithmetic is a chain of operator calls, so DLight's
+ * `acc = acc + a * b` stayed a separate multiply and add. TVM_SYCL_FP_CONTRACT=0 keeps DPC++'s
+ * default. TVM_SYCL_EXTRA_FLAGS appends flags. The flags are part of the JIT cache key.
+ */
+inline std::string DefaultJitFlags() {
+  std::string flags = SYCL_FLAGS;
+  const bool nvptx = flags.find("nvptx64") != std::string::npos;
+  const char* keep_offset = std::getenv("TVM_SYCL_GLOBAL_OFFSET");
+  if (!(keep_offset != nullptr && std::string(keep_offset) == "1") && nvptx) {
+    flags += " -Xclang -mllvm -Xclang -enable-global-offset=false";
+  }
+  const char* fp_contract = std::getenv("TVM_SYCL_FP_CONTRACT");
+  if (!(fp_contract != nullptr && std::string(fp_contract) == "0") && nvptx) {
+    flags += " -ffp-contract=fast";
+  }
+  if (const char* extra = std::getenv("TVM_SYCL_EXTRA_FLAGS")) {
+    flags += std::string(" ") + extra;
+  }
+  return flags;
+}
 
 class SYCL_LIB_COMPILER {
   public:
@@ -122,7 +174,6 @@ class SYCL_LIB_COMPILER {
       int pid = (int)getpid();
       file_path_key = std::to_string(pid) + "_" +std::to_string(module_id);
       std::string filename = prefix + "/sycl_" + file_path_key;
-      //std::string filename = prefix + "/sycl_" + getUUID();
       source_file_path = filename + ".cc";
       shared_lib_path = filename + ".so";
       command = sycl_compiler +" "+sycl_flags +" -DTVM_SYCL_MODULE_ID=m"+file_path_key+
@@ -137,8 +188,39 @@ class SYCL_LIB_COMPILER {
       command = sycl_compiler +" "+sycl_flags +" -DTVM_SYCL_MODULE_ID=m"+file_path_key+
                 " "+ source_file_path +" -o "+shared_lib_path;
     }
+    // Content-addressed library: the key hashes the kernel source together with the compiler and
+    // its flags, so an identical module (another process, a re-applied database, a rebuilt
+    // deployment) maps to the same file name and the same exported symbols, and can reuse the
+    // shared library that is already on disk.
+    static SYCL_LIB_COMPILER FromContent(const std::string& source) {
+      SYCL_LIB_COMPILER c;
+      uint64_t h = 1469598103934665603ULL;  // FNV-1a, 64-bit
+      auto mix = [&h](const std::string& s) {
+        for (unsigned char ch : s) {
+          h ^= ch;
+          h *= 1099511628211ULL;
+        }
+        h ^= 0xff;
+        h *= 1099511628211ULL;
+      };
+      mix(source);
+      mix(c.sycl_flags);
+      mix(c.sycl_compiler);
+      char buf[17];
+      snprintf(buf, sizeof(buf), "%016llx", static_cast<unsigned long long>(h));
+      c.file_path_key = std::string("c") + buf;
+      c.SetPaths();
+      return c;
+    }
+    void SetPaths() {
+      std::string filename = prefix + "/sycl_" + file_path_key;
+      source_file_path = filename + ".cc";
+      shared_lib_path = filename + ".so";
+      command = sycl_compiler + " " + sycl_flags + " -DTVM_SYCL_MODULE_ID=m" + file_path_key + " " +
+                source_file_path + " -o " + shared_lib_path;
+    }
     std::string sycl_compiler = SYCL_CXX_COMPILER;
-    std::string sycl_flags = std::string(SYCL_FLAGS);
+    std::string sycl_flags = DefaultJitFlags();
     std::string prefix = SYCL_TEMP_FOLDER;
     std::string file_path_key;
     std::string source_file_path;
@@ -267,7 +349,14 @@ class SYCLModuleNode : public ModuleNode {
       : data_(data), fmt_(fmt), fmap_(fmap), source_(source) {
         workspace_ = GetGlobalWorkspace();
         workspace_->module_num++;           //the number of sycl_modules add 1
-        lib_compiler = syclT::SYCL_LIB_COMPILER(workspace_->module_num);
+        // TVM_SYCL_JIT_CACHE=0 restores the original per-process, per-module file names
+        // (no reuse across modules or processes).
+        const char* cache = std::getenv("TVM_SYCL_JIT_CACHE");
+        if (cache != nullptr && std::string(cache) == "0") {
+          lib_compiler = syclT::SYCL_LIB_COMPILER(workspace_->module_num);
+        } else {
+          lib_compiler = syclT::SYCL_LIB_COMPILER::FromContent(data);
+        }
       }
   // load from file
   explicit SYCLModuleNode(std::string data, std::string fmt,
@@ -290,14 +379,11 @@ class SYCLModuleNode : public ModuleNode {
   }
   ffi::Function GetFunction(const String& name, const ObjectPtr<Object>& sptr_to_self) final;
 
-  // ffi::Function  GetFunction(const std::string& name, const ObjectPtr<Object>& sptr_to_self) final;
   void SaveToFile(const String& file_name, const String& format) final;
 
-  // void SaveToFile(const std::string& file_name, const std::string& format) final;
   void SaveToBinary(dmlc::Stream* stream) final;
   String GetSource(const String& format) final;
 
-  // String GetSource(const std::string& format) final;
   // Initialize the programs
   void Init();
 
@@ -325,27 +411,33 @@ class SYCLModuleNode : public ModuleNode {
   static const std::string library_path;
 };
 
-/*! \brief SYCL timer node */
+/*!
+ * \brief SYCL timer node (used by time_evaluator, e.g. in MetaSchedule measurement).
+ *
+ * Waits for the device queue at Start and Stop, like TVM's DefaultTimerNode. The inherited timer
+ * read the host clock only; that matched device time only while every launch waited for its
+ * kernel, and with asynchronous dispatch it measured enqueue time, so time_evaluator kept
+ * raising its repeat count until the queue filled (thousands of launches per candidate).
+ */
 class SYCLTimerNode : public TimerNode {
  public:
-  // Timer start
-  virtual void Start(){
+  explicit SYCLTimerNode(Device dev) : device_(dev) {}
+  void Start() final {
+    DeviceAPI::Get(device_)->StreamSync(device_, nullptr);
     this->start = std::chrono::steady_clock::now();
   }
-  virtual void Stop(){
+  void Stop() final {
+    DeviceAPI::Get(device_)->StreamSync(device_, nullptr);
     this->end = std::chrono::steady_clock::now();
   }
-  virtual int64_t SyncAndGetElapsedNanos(){ 
+  int64_t SyncAndGetElapsedNanos() final {
     return std::chrono::duration_cast<std::chrono::nanoseconds>(this->end - this->start).count();
-  }
-  virtual ~SYCLTimerNode() {
-    
-  }
-  SYCLTimerNode() {
   }
   static constexpr const char* _type_key = "SYCLTimerNode";
   TVM_DECLARE_FINAL_OBJECT_INFO(SYCLTimerNode, TimerNode);
+
  private:
+  Device device_;
   std::chrono::steady_clock::time_point start, end;
 };
 
