@@ -9,6 +9,22 @@ integration.
 The backend is evaluated on an NVIDIA RTX 4090 through the oneAPI CUDA adapter
 and on a Sugon DCU Z100L through the HIP adapter.
 
+## Version 2.0
+
+v2.0 changes the backend's code generation, runtime, schedule integration and tuning measurement.
+Each change is listed with the switch that restores the v1 behaviour in
+[`source_overlay/README.md`](source_overlay/README.md). The v2.0 scripts are in
+[`experiments/round2/`](experiments/round2/README.md) and their results in
+[`results/round2/`](results/round2/README.md); the v1 material below is unchanged. On the RTX 4090,
+ResNet-18 B1 tuned with equal budgets and identical settings runs at 1.03-1.06x of TVM-CUDA
+(v1: 2.61x), the seven-model sweep at 0.99-1.09x for the ResNets, and the launch-bound compact
+models at 1.06-2.14x without and 1.10-1.26x with command graphs; built against DPC++ v7.1.1, the
+compact models run at 1.06-1.11x without graphs.
+
+The backend descends from the `sycl` branch of RELOAD22/tvm (commit `5b36163df4`), ported to TVM
+v0.21 and changed as described in the overlay README; 937 of its 2,177 code lines (43%) are
+identical to that branch (`experiments/round2/analysis/lineage_compare.py`).
+
 ## Quick Start
 
 The backend is distributed as an overlay over an unmodified Apache TVM v0.21
@@ -42,10 +58,12 @@ SYCL-on-NVIDIA (`ONEAPI_DEVICE_SELECTOR=cuda:*`) and SYCL-on-DCU
 
 | Path | Contents |
 | --- | --- |
-| `source_overlay/` | TVM v0.21 files changed for the SYCL backend |
-| `experiments/` | Run, analysis, profiling, and figure-generation entry points |
-| `results/` | Raw records and derived summaries for every reported experiment |
-| `figures/` | Generated figures summarizing the reported results |
+| `source_overlay/` | TVM v0.21 files changed for the SYCL backend (v2.0) |
+| `experiments/` | Run, analysis, profiling, and figure-generation entry points (v1) |
+| `experiments/round2/` | Run, build and analysis scripts of v2.0 |
+| `results/` | Raw records and derived summaries for every reported experiment (v1) |
+| `results/round2/` | Raw records and summaries of v2.0 |
+| `figures/` | Generated figures summarizing the v1 results |
 
 ## License
 
@@ -56,7 +74,7 @@ Apache Software Foundation license headers. This repository is an independent
 research artifact and is not endorsed by or affiliated with the Apache Software
 Foundation.
 
-## Compiler and Scheduling Scope
+## Compiler and Scheduling Scope (v1)
 
 All model experiments use TVM v0.21 Relax, TensorIR, and the Relax VM. The
 focused ResNet-18 B1 comparison tunes CUDA and SYCL with MetaSchedule under the
@@ -67,7 +85,7 @@ than tuned performance. The independent DCU seven-model sweep uses the
 static-shape Relax pipeline with DLight scheduling and no search trials and is
 reported as portability, correctness, and batch-robustness evidence.
 
-## Evidence Map
+## Evidence Map (v1)
 
 - `results/paired_resnet18_metaschedule_formal1024/` contains the formal paired
   CUDA/SYCL MetaSchedule databases, three independent complete-model runs per
@@ -94,7 +112,7 @@ reported as portability, correctness, and batch-robustness evidence.
 - `experiments/` contains the corresponding run, analysis, profiling,
   summarization, and figure-generation entry points.
 
-## Primary Paired Result
+## Primary Paired Result (v1)
 
 The formal ResNet-18 experiment uses torchvision ResNet-18 with BatchNorm
 folded before `torch.export`, input `(1,3,224,224)`, identical model parameters
@@ -109,7 +127,7 @@ All six runs pass `allclose(atol=2e-4, rtol=2e-3)`. The detailed result and
 protocol are in
 `results/paired_resnet18_metaschedule_formal1024/README.md`.
 
-## Reproduction Entry Points
+## Reproduction Entry Points (v1)
 
 Run the paired tuning and complete-model experiment on the RTX 4090 host:
 
