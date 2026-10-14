@@ -1,0 +1,17 @@
+{
+ "adaptive_avg_pool2d": 512,
+ "fused_conv2d10_add7": 28,
+ "fused_conv2d1_add1_add2_relu1": 224,
+ "fused_conv2d1_add1_relu1": 112,
+ "fused_conv2d2_add3_relu2": 98,
+ "fused_conv2d3_add3_relu2": 112,
+ "fused_conv2d4_add3": 28,
+ "fused_conv2d6_add5_add6_relu3": 112,
+ "fused_conv2d6_add5_relu3": 224,
+ "fused_conv2d7_add5": 112,
+ "fused_conv2d8_add7_relu4": 56,
+ "fused_conv2d9_add7_add8_relu4": 64,
+ "fused_conv2d9_add7_relu4": 64,
+ "fused_conv2d_add_relu": 112,
+ "max_pool2d": 196
+}
