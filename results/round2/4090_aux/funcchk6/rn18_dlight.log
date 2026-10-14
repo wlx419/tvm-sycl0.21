@@ -1,0 +1,1 @@
+sycl resnet18 B1 pass p50=7.54918 abs=1.9073486328125e-06 db=0 fallback=0

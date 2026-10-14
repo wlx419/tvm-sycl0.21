@@ -1,0 +1,24 @@
+
+UR CUDA ERROR:
+	Value:           1
+	Name:            CUDA_ERROR_INVALID_VALUE
+	Description:     invalid argument
+	Function:        urEnqueueKernelLaunch
+	Source Location: /mnt/data/wlx/sycl_workspace/DPC++/_deps/unified-runtime-src/source/adapters/cuda/enqueue.cpp:474
+
+
+UR CUDA ERROR:
+	Value:           1
+	Name:            CUDA_ERROR_INVALID_VALUE
+	Description:     invalid argument
+	Function:        urEnqueueKernelLaunch
+	Source Location: /mnt/data/wlx/sycl_workspace/DPC++/_deps/unified-runtime-src/source/adapters/cuda/enqueue.cpp:474
+
+
+UR CUDA ERROR:
+	Value:           1
+	Name:            CUDA_ERROR_INVALID_VALUE
+	Description:     invalid argument
+	Function:        urEnqueueKernelLaunch
+	Source Location: /mnt/data/wlx/sycl_workspace/DPC++/_deps/unified-runtime-src/source/adapters/cuda/enqueue.cpp:474
+

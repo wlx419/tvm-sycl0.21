@@ -1,0 +1,46 @@
+=== window start (v2) 2026-10-13T11:47:04+08:00
+sycl run=1 finalize_us=252.9 (first, K=10)
+sycl run=1 growth K=10 replays 1-100 submit_us=16.73 iter_us=26.33
+sycl run=1 growth K=10 replays 101-1000 submit_us=136.97 iter_us=146.82
+sycl run=1 growth K=10 replays 1001-3000 submit_us=497.52 iter_us=507.02
+sycl run=1 refin K=10 every=8 submit_us=12.26 (finalize share 6.62, 374 finalizes) iter_us=21.89
+sycl run=1 refin K=10 every=16 submit_us=9.88 (finalize share 3.63, 187 finalizes) iter_us=19.50
+sycl run=1 refin K=10 every=32 submit_us=10.33 (finalize share 2.16, 93 finalizes) iter_us=20.00
+sycl run=1 refin K=10 every=64 submit_us=13.08 (finalize share 1.37, 46 finalizes) iter_us=22.75
+sycl run=1 refin K=10 every=128 submit_us=20.81 (finalize share 1.02, 23 finalizes) iter_us=30.46
+cuda run=1 k=10 cuda graph   submit_us=2.181 iter_us=11.351 (10 kernels)
+cuda run=1 k=10 cuda eager   iter_us=24.945
+sycl run=1 finalize_us=329.8 (first, K=26)
+sycl run=1 growth K=26 replays 1-100 submit_us=16.46 iter_us=36.70
+sycl run=1 growth K=26 replays 101-1000 submit_us=132.77 iter_us=153.22
+sycl run=1 growth K=26 replays 1001-3000 submit_us=482.71 iter_us=502.83
+sycl run=1 refin K=26 every=8 submit_us=21.77 (finalize share 15.51, 374 finalizes) iter_us=42.18
+sycl run=1 refin K=26 every=16 submit_us=14.57 (finalize share 7.95, 187 finalizes) iter_us=36.38
+sycl run=1 refin K=26 every=32 submit_us=12.33 (finalize share 4.26, 93 finalizes) iter_us=34.13
+sycl run=1 refin K=26 every=64 submit_us=14.42 (finalize share 2.49, 46 finalizes) iter_us=36.20
+sycl run=1 refin K=26 every=128 submit_us=21.00 (finalize share 1.55, 23 finalizes) iter_us=42.76
+cuda run=1 k=26 cuda graph   submit_us=2.230 iter_us=20.772 (26 kernels)
+cuda run=1 k=26 cuda eager   iter_us=59.162
+sycl run=2 finalize_us=254.6 (first, K=10)
+sycl run=2 growth K=10 replays 1-100 submit_us=16.85 iter_us=25.87
+sycl run=2 growth K=10 replays 101-1000 submit_us=139.41 iter_us=148.50
+sycl run=2 growth K=10 replays 1001-3000 submit_us=504.78 iter_us=513.45
+sycl run=2 refin K=10 every=8 submit_us=12.13 (finalize share 6.52, 374 finalizes) iter_us=21.57
+sycl run=2 refin K=10 every=16 submit_us=9.90 (finalize share 3.65, 187 finalizes) iter_us=19.53
+sycl run=2 refin K=10 every=32 submit_us=10.38 (finalize share 2.14, 93 finalizes) iter_us=20.04
+sycl run=2 refin K=10 every=64 submit_us=13.28 (finalize share 1.37, 46 finalizes) iter_us=22.88
+sycl run=2 refin K=10 every=128 submit_us=20.36 (finalize share 1.02, 23 finalizes) iter_us=30.04
+cuda run=2 k=10 cuda graph   submit_us=2.191 iter_us=11.337 (10 kernels)
+cuda run=2 k=10 cuda eager   iter_us=25.002
+sycl run=2 finalize_us=331.9 (first, K=26)
+sycl run=2 growth K=26 replays 1-100 submit_us=17.23 iter_us=37.49
+sycl run=2 growth K=26 replays 101-1000 submit_us=141.30 iter_us=161.73
+sycl run=2 growth K=26 replays 1001-3000 submit_us=513.84 iter_us=533.88
+sycl run=2 refin K=26 every=8 submit_us=21.33 (finalize share 15.17, 374 finalizes) iter_us=43.17
+sycl run=2 refin K=26 every=16 submit_us=14.55 (finalize share 7.93, 187 finalizes) iter_us=36.38
+sycl run=2 refin K=26 every=32 submit_us=12.54 (finalize share 4.30, 93 finalizes) iter_us=34.32
+sycl run=2 refin K=26 every=64 submit_us=14.17 (finalize share 2.42, 46 finalizes) iter_us=35.95
+sycl run=2 refin K=26 every=128 submit_us=21.25 (finalize share 1.54, 23 finalizes) iter_us=43.01
+cuda run=2 k=26 cuda graph   submit_us=2.224 iter_us=20.889 (26 kernels)
+cuda run=2 k=26 cuda eager   iter_us=59.691
+=== window end 2026-10-13T11:47:24+08:00

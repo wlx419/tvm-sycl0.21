@@ -1,0 +1,2 @@
+[20:52:55] /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/src/relax/transform/meta_schedule.cc:89: Warning: Creating JSONDatabase. Workload at: /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/sycl/database_workload.json, Tuning records at: /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/sycl/database_tuning_record.json
+sycl resnet18 B1 pass p50=4.345734 abs=3.814697265625e-06 db=15 fallback=4

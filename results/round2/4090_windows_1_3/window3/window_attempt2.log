@@ -1,0 +1,9 @@
+=== window start 2026-10-13T01:28:08+08:00
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 2025 MHz, 68, 450.23 W, 100 %
+1, 2715 MHz, 60, 119.32 W, 0 %
+872ab087425eedf796df3b964c4e773a  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+b6f1a3523a19bc7524db8e1c002236ca  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+6364c2c24332d051744dca78f6b708e2  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/dlight/base/utils.py
+--- retune sycl_pipe_iso start 2026-10-13T01:28:10+08:00
+=== stopped manually 2026-10-13T01:41:26+08:00: retune used num_trials_per_iter=64 (published: 8); restarting

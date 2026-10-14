@@ -1,0 +1,29 @@
+{
+ "model": "cnn",
+ "batch": 1,
+ "target": "sycl",
+ "graph": false,
+ "resolved_target": "sycl -keys=sycl,gpu -arch=sm_89 -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 13.527088222966995,
+ "max_abs_err": 2.1827872842550278e-11,
+ "status": "pass",
+ "latency_mean_ms": 0.060857699999999994,
+ "latency_p50_ms": 0.058943499999999996,
+ "latency_p90_ms": 0.0692894,
+ "latency_p99_ms": 0.07416884,
+ "latency_samples_ms": [
+  0.068687,
+  0.067006,
+  0.065283,
+  0.063915,
+  0.074711,
+  0.053747,
+  0.053547,
+  0.053972,
+  0.053765,
+  0.053944
+ ],
+ "max_abs_err_after_timing": 2.1827872842550278e-11
+}

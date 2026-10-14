@@ -1,0 +1,4 @@
+Symbolic links in the measurement directory (not reproduced here; the targets are files of another window directory on the measurement host):
+window6/e11/onednn_run1.csv -> /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window4/e11/onednn_run1.csv
+window6/e11/onednn_run3.csv -> /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window4/e11/onednn_run3.csv
+window6/e11/onednn_run2.csv -> /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window4/e11/onednn_run2.csv

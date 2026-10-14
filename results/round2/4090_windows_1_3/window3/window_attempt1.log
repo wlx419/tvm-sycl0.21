@@ -1,0 +1,42 @@
+=== window start 2026-10-13T00:22:30+08:00
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 2745 MHz, 61, 260.07 W, 0 %
+1, 2715 MHz, 57, 121.33 W, 0 %
+e96bfe45b4a01361cb1f271167d188eb  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+24e0e80641b01b95df98fedeb0068848  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+52f9edaeeb9969cce3d65e5a87701967  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/dlight/base/utils.py
+mlp_sycl_d1 sycl mlp B1 eager pass p50=0.0463395 abs=8.381903171539307e-09 
+mlp_sycl_d1 sycl mlp B1 eager pass p50=0.046973 abs=8.381903171539307e-09 
+mlp_sycl_d1 sycl mlp B1 eager pass p50=0.045377 abs=8.381903171539307e-09 
+mlp_sycl_d1_graph sycl mlp B1 graph pass p50=0.050588499999999995 abs=8.381903171539307e-09 
+mlp_sycl_d1_graph sycl mlp B1 graph pass p50=0.051012 abs=8.381903171539307e-09 
+mlp_sycl_d1_graph sycl mlp B1 graph pass p50=0.051805000000000004 abs=8.381903171539307e-09 
+cnn_sycl_d1 sycl cnn B1 eager pass p50=0.06355949999999999 abs=1.4551915228366852e-11 
+cnn_sycl_d1 sycl cnn B1 eager pass p50=0.064415 abs=1.4551915228366852e-11 
+cnn_sycl_d1 sycl cnn B1 eager pass p50=0.0645525 abs=1.4551915228366852e-11 
+cnn_sycl_d1_graph sycl cnn B1 graph pass p50=0.048257 abs=1.4551915228366852e-11 
+cnn_sycl_d1_graph sycl cnn B1 graph pass p50=0.046644 abs=1.4551915228366852e-11 
+cnn_sycl_d1_graph sycl cnn B1 graph pass p50=0.047186 abs=1.4551915228366852e-11 
+transformer_sycl_d1 sycl transformer B1 eager pass p50=0.220009 abs=1.4901161193847656e-08 
+transformer_sycl_d1 sycl transformer B1 eager pass p50=0.2233635 abs=1.4901161193847656e-08 
+transformer_sycl_d1 sycl transformer B1 eager pass p50=0.2157875 abs=1.4901161193847656e-08 
+transformer_sycl_d1_graph sycl transformer B1 graph pass p50=0.10495499999999999 abs=1.4901161193847656e-08 
+transformer_sycl_d1_graph sycl transformer B1 graph pass p50=0.10583100000000001 abs=1.4901161193847656e-08 
+transformer_sycl_d1_graph sycl transformer B1 graph pass p50=0.1063595 abs=1.4901161193847656e-08 
+vit_sycl_d1 sycl vit B1 eager pass p50=0.3337305 abs=1.4901161193847656e-08 
+vit_sycl_d1 sycl vit B1 eager pass p50=0.3326275 abs=1.4901161193847656e-08 
+vit_sycl_d1 sycl vit B1 eager pass p50=0.32957000000000003 abs=1.4901161193847656e-08 
+vit_sycl_d1_graph sycl vit B1 graph pass p50=0.12961699999999998 abs=1.4901161193847656e-08 
+vit_sycl_d1_graph sycl vit B1 graph pass p50=0.1288575 abs=1.4901161193847656e-08 
+vit_sycl_d1_graph sycl vit B1 graph pass p50=0.129446 abs=1.4901161193847656e-08 
+rn18_dlight_sycl_d1 sycl resnet18 B1 pass p50=2.7589034999999997 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_sycl_d1 sycl resnet18 B1 pass p50=2.759019 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_sycl_d1 sycl resnet18 B1 pass p50=2.757796 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_cuda cuda resnet18 B1 pass p50=2.509279 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_cuda cuda resnet18 B1 pass p50=2.508556 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_cuda cuda resnet18 B1 pass p50=2.508168 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_cudadb_sycl_d1 sycl resnet18 B1 pass p50=0.9157500000000001 abs=1.9073486328125e-06 db=15 fallback=4
+rn18_cudadb_sycl_d1 sycl resnet18 B1 pass p50=0.9169545 abs=1.9073486328125e-06 db=15 fallback=4
+rn18_cudadb_sycl_d1 sycl resnet18 B1 pass p50=0.9160820000000001 abs=1.9073486328125e-06 db=15 fallback=4
+--- retune sycl_pipe_iso start 2026-10-13T00:27:18+08:00
+=== stopped manually 2026-10-13T00:38:39+08:00: SYCL retune stalled on a deadlocked candidate (task 2 batch, runner timeout not firing)

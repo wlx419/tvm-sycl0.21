@@ -1,0 +1,7 @@
+=== window start 2026-10-13T09:31:59+08:00
+b76b11f80adfecdbf2892607ba1f149d  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+1797d4c9f8379c500e1dbf56505a6d5e  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+iso_sycl_n1     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window6d/e1/iso_sycl_n1.nsys-rep
+iso_sycl_non1     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window6d/e1/iso_sycl_non1.nsys-rep
+iso_cuda     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window6d/e1/iso_cuda.nsys-rep
+=== window end 2026-10-13T09:35:47+08:00

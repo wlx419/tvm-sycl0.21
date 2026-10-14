@@ -1,0 +1,93 @@
+=== window start 2026-10-13T05:04:33+08:00
+5f7a999b2f366810b25154de0ddac223  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+e41a5af711194fdd202e39bd7a807765  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+mlp_base sycl mlp B1 eager pass p50=0.046485 abs=8.381903171539307e-09 
+mlp_base sycl mlp B1 eager pass p50=0.046955 abs=8.381903171539307e-09 
+mlp_base sycl mlp B1 eager pass p50=0.0463365 abs=8.381903171539307e-09 
+mlp_base_graph sycl mlp B1 graph pass p50=0.0524805 abs=8.381903171539307e-09 
+mlp_base_graph sycl mlp B1 graph pass p50=0.051379499999999995 abs=8.381903171539307e-09 
+mlp_base_graph sycl mlp B1 graph pass p50=0.051517 abs=8.381903171539307e-09 
+mlp_sg sycl mlp B1 eager pass p50=0.047438999999999995 abs=8.381903171539307e-09 
+mlp_sg sycl mlp B1 eager pass p50=0.0477575 abs=8.381903171539307e-09 
+mlp_sg sycl mlp B1 eager pass p50=0.0468805 abs=8.381903171539307e-09 
+mlp_sg_graph sycl mlp B1 graph pass p50=0.0523495 abs=8.381903171539307e-09 
+mlp_sg_graph sycl mlp B1 graph pass p50=0.052504 abs=8.381903171539307e-09 
+mlp_sg_graph sycl mlp B1 graph pass p50=0.050442 abs=8.381903171539307e-09 
+mlp_grp sycl mlp B1 eager pass p50=0.0474165 abs=8.381903171539307e-09 
+mlp_grp sycl mlp B1 eager pass p50=0.046111 abs=8.381903171539307e-09 
+mlp_grp sycl mlp B1 eager pass p50=0.047799999999999995 abs=8.381903171539307e-09 
+mlp_grp_graph sycl mlp B1 graph pass p50=0.051768 abs=8.381903171539307e-09 
+mlp_grp_graph sycl mlp B1 graph pass p50=0.052236000000000005 abs=8.381903171539307e-09 
+mlp_grp_graph sycl mlp B1 graph pass p50=0.071825 abs=8.381903171539307e-09 
+cnn_base sycl cnn B1 eager pass p50=0.0664285 abs=1.4551915228366852e-11 
+cnn_base sycl cnn B1 eager pass p50=0.067847 abs=1.4551915228366852e-11 
+cnn_base sycl cnn B1 eager pass p50=0.0630775 abs=1.4551915228366852e-11 
+cnn_base_graph sycl cnn B1 graph pass p50=0.048133499999999996 abs=1.4551915228366852e-11 
+cnn_base_graph sycl cnn B1 graph pass p50=0.0466795 abs=1.4551915228366852e-11 
+cnn_base_graph sycl cnn B1 graph pass p50=0.048230999999999996 abs=1.4551915228366852e-11 
+cnn_sg sycl cnn B1 eager pass p50=0.064082 abs=1.8189894035458565e-11 
+cnn_sg sycl cnn B1 eager pass p50=0.06675149999999999 abs=1.8189894035458565e-11 
+cnn_sg sycl cnn B1 eager pass p50=0.065835 abs=1.8189894035458565e-11 
+cnn_sg_graph sycl cnn B1 graph pass p50=0.047837000000000005 abs=1.8189894035458565e-11 
+cnn_sg_graph sycl cnn B1 graph pass p50=0.046873 abs=1.8189894035458565e-11 
+cnn_sg_graph sycl cnn B1 graph pass p50=0.046574500000000005 abs=1.8189894035458565e-11 
+cnn_grp sycl cnn B1 eager pass p50=0.10000200000000001 abs=1.8189894035458565e-11 
+cnn_grp sycl cnn B1 eager pass p50=0.0680665 abs=1.8189894035458565e-11 
+cnn_grp sycl cnn B1 eager pass p50=0.06678100000000001 abs=1.8189894035458565e-11 
+cnn_grp_graph sycl cnn B1 graph pass p50=0.047368 abs=1.8189894035458565e-11 
+cnn_grp_graph sycl cnn B1 graph pass p50=0.046661999999999995 abs=1.8189894035458565e-11 
+cnn_grp_graph sycl cnn B1 graph pass p50=0.046636 abs=1.8189894035458565e-11 
+transformer_base sycl transformer B1 eager pass p50=0.2284445 abs=1.4901161193847656e-08 
+transformer_base sycl transformer B1 eager pass p50=0.23350300000000002 abs=1.4901161193847656e-08 
+transformer_base sycl transformer B1 eager pass p50=0.23276599999999997 abs=1.4901161193847656e-08 
+transformer_base_graph sycl transformer B1 graph pass p50=0.1169355 abs=1.4901161193847656e-08 
+transformer_base_graph sycl transformer B1 graph pass p50=0.1083435 abs=1.4901161193847656e-08 
+transformer_base_graph sycl transformer B1 graph pass p50=0.1065645 abs=1.4901161193847656e-08 
+transformer_sg sycl transformer B1 eager pass p50=0.2240465 abs=1.6763806343078613e-08 
+transformer_sg sycl transformer B1 eager pass p50=0.228298 abs=1.6763806343078613e-08 
+transformer_sg sycl transformer B1 eager pass p50=0.22863499999999998 abs=1.6763806343078613e-08 
+transformer_sg_graph sycl transformer B1 graph pass p50=0.1047485 abs=1.6763806343078613e-08 
+transformer_sg_graph sycl transformer B1 graph pass p50=0.1054175 abs=1.6763806343078613e-08 
+transformer_sg_graph sycl transformer B1 graph pass p50=0.105354 abs=1.6763806343078613e-08 
+transformer_grp sycl transformer B1 eager pass p50=0.23128500000000002 abs=1.4901161193847656e-08 
+transformer_grp sycl transformer B1 eager pass p50=0.22541450000000002 abs=1.4901161193847656e-08 
+transformer_grp sycl transformer B1 eager pass p50=0.214703 abs=1.4901161193847656e-08 
+transformer_grp_graph sycl transformer B1 graph pass p50=0.10557549999999999 abs=1.4901161193847656e-08 
+transformer_grp_graph sycl transformer B1 graph pass p50=0.10592399999999999 abs=1.4901161193847656e-08 
+transformer_grp_graph sycl transformer B1 graph pass p50=0.106253 abs=1.4901161193847656e-08 
+vit_base sycl vit B1 eager pass p50=0.3459 abs=1.4901161193847656e-08 
+vit_base sycl vit B1 eager pass p50=0.3391755 abs=1.4901161193847656e-08 
+vit_base sycl vit B1 eager pass p50=0.3368695 abs=1.4901161193847656e-08 
+vit_base_graph sycl vit B1 graph pass p50=0.1417075 abs=1.4901161193847656e-08 
+vit_base_graph sycl vit B1 graph pass p50=0.1313995 abs=1.4901161193847656e-08 
+vit_base_graph sycl vit B1 graph pass p50=0.13159949999999998 abs=1.4901161193847656e-08 
+vit_sg sycl vit B1 eager pass p50=0.335579 abs=2.2351741790771484e-08 
+vit_sg sycl vit B1 eager pass p50=0.339473 abs=2.2351741790771484e-08 
+vit_sg sycl vit B1 eager pass p50=0.505441 abs=2.2351741790771484e-08 
+vit_sg_graph sycl vit B1 graph pass p50=0.129227 abs=2.2351741790771484e-08 
+vit_sg_graph sycl vit B1 graph pass p50=0.1444825 abs=2.2351741790771484e-08 
+vit_sg_graph sycl vit B1 graph pass p50=0.1305405 abs=2.2351741790771484e-08 
+vit_grp sycl vit B1 eager pass p50=0.34416199999999997 abs=1.4901161193847656e-08 
+vit_grp sycl vit B1 eager pass p50=0.3390525 abs=1.4901161193847656e-08 
+vit_grp sycl vit B1 eager pass p50=0.34138500000000005 abs=1.4901161193847656e-08 
+vit_grp_graph sycl vit B1 graph pass p50=0.1318915 abs=1.4901161193847656e-08 
+vit_grp_graph sycl vit B1 graph pass p50=0.130378 abs=1.4901161193847656e-08 
+vit_grp_graph sycl vit B1 graph pass p50=0.12989499999999998 abs=1.4901161193847656e-08 
+rn18_dlight_base sycl resnet18 B1 pass p50=2.7587585 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_base sycl resnet18 B1 pass p50=2.7603985 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_base sycl resnet18 B1 pass p50=2.764081 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_sg sycl resnet18 B1 pass p50=2.758535 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_sg sycl resnet18 B1 pass p50=2.758902 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_sg sycl resnet18 B1 pass p50=2.7587815 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_grp sycl resnet18 B1 pass p50=2.7581405 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_grp sycl resnet18 B1 pass p50=2.7577905 abs=1.9073486328125e-06 db=0 fallback=0
+rn18_dlight_grp sycl resnet18 B1 pass p50=2.680465 abs=1.9073486328125e-06 db=0 fallback=0
+e1 transformer_sycl     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/transformer_sycl.nsys-rep
+e1 transformer_sycl_graph     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/transformer_sycl_graph.nsys-rep
+e1 transformer_cuda     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/transformer_cuda.nsys-rep
+e1 transformer_cuda_graph     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/transformer_cuda_graph.nsys-rep
+e1 vit_sycl     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/vit_sycl.nsys-rep
+e1 vit_sycl_graph     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/vit_sycl_graph.nsys-rep
+e1 vit_cuda     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/vit_cuda.nsys-rep
+e1 vit_cuda_graph     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window5/e1/vit_cuda_graph.nsys-rep
+=== window end 2026-10-13T05:16:55+08:00

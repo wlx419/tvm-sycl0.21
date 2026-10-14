@@ -1,0 +1,44 @@
+#include <cuda.h>
+
+#if (((__CUDACC_VER_MAJOR__ == 11) && (__CUDACC_VER_MINOR__ >= 4)) || \
+     (__CUDACC_VER_MAJOR__ > 11))
+#define TVM_ENABLE_L2_PREFETCH 1
+#else
+#define TVM_ENABLE_L2_PREFETCH 0
+#endif
+#include <cstdint>
+using uint = unsigned int;
+using uchar = unsigned char;
+using ushort = unsigned short;
+extern "C" __global__ void __launch_bounds__(160) fused_matmul_add9_kernel(float* __restrict__ T_add, float* __restrict__ lv87, float* __restrict__ param_0, float* __restrict__ param_1);
+extern "C" __global__ void __launch_bounds__(160) fused_matmul_add9_kernel(float* __restrict__ T_add, float* __restrict__ lv87, float* __restrict__ param_0, float* __restrict__ param_1) {
+  float matmul_rf_local[1];
+  __shared__ float red_buf0[160];
+  matmul_rf_local[0] = 0.000000e+00f;
+  for (int ax1_fused_0 = 0; ax1_fused_0 < 32; ++ax1_fused_0) {
+    matmul_rf_local[0] = (matmul_rf_local[0] + (lv87[((ax1_fused_0 * 16) + ((int)threadIdx.y))] * param_0[((((ax1_fused_0 * 16000) + (((int)threadIdx.y) * 1000)) + (((int)blockIdx.x) * 10)) + ((int)threadIdx.x))]));
+  }
+  __syncthreads();
+  ((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] = matmul_rf_local[0];
+  __syncthreads();
+  if (((int)threadIdx.y) < 8) {
+    ((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] = (((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] + ((volatile float*)red_buf0)[(((((int)threadIdx.x) * 16) + ((int)threadIdx.y)) + 8)]);
+  }
+  __syncthreads();
+  if (((int)threadIdx.y) < 4) {
+    ((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] = (((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] + ((volatile float*)red_buf0)[(((((int)threadIdx.x) * 16) + ((int)threadIdx.y)) + 4)]);
+  }
+  __syncthreads();
+  if (((int)threadIdx.y) < 2) {
+    ((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] = (((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] + ((volatile float*)red_buf0)[(((((int)threadIdx.x) * 16) + ((int)threadIdx.y)) + 2)]);
+  }
+  __syncthreads();
+  if (((int)threadIdx.y) < 1) {
+    ((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] = (((volatile float*)red_buf0)[((((int)threadIdx.x) * 16) + ((int)threadIdx.y))] + ((volatile float*)red_buf0)[(((((int)threadIdx.x) * 16) + ((int)threadIdx.y)) + 1)]);
+  }
+  __syncthreads();
+  if (((int)threadIdx.y) == 0) {
+    T_add[((((int)blockIdx.x) * 10) + ((int)threadIdx.x))] = (((volatile float*)red_buf0)[(((int)threadIdx.x) * 16)] + param_1[((((int)blockIdx.x) * 10) + ((int)threadIdx.x))]);
+  }
+}
+

@@ -1,0 +1,63 @@
+// tvm target: sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32
+#include <sycl/sycl.hpp>
+using namespace sycl;
+#ifndef TVM_SYCL_MODULE_ID
+#define TVM_SYCL_MODULE_ID m0
+#endif
+#define TVM_SYCL_KERNEL_NAME_IMPL(func, module_id) func##_##module_id
+#define TVM_SYCL_KERNEL_NAME(func, module_id) TVM_SYCL_KERNEL_NAME_IMPL(func, module_id)
+#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id
+#define TVM_SYCL_WRAPPER_NAME(func, module_id) TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)
+// CodeGenSYCL: NOTE: Auto-generated packed function
+// Function: adaptive_avg_pool2d_kernel
+class TVM_SYCL_KERNEL_NAME(h3081648926, TVM_SYCL_MODULE_ID);
+#ifdef __cplusplus
+extern "C"
+#endif
+void TVM_SYCL_WRAPPER_NAME(h3081648926, TVM_SYCL_MODULE_ID)(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {
+  float* adaptive_pool_avg = (float*)(*(int64_t *)(void_args[0]));
+  float* lv85 = (float*)(*(int64_t *)(void_args[1]));
+  Qh.submit([=](handler &h) {
+    h.parallel_for<TVM_SYCL_KERNEL_NAME(h3081648926, TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {
+      float in_thread_adaptive_pool_sum_shared[1];
+      auto red_buf0 = *sycl::ext::oneapi::group_local_memory<float[16]>(item.get_group());
+      auto adaptive_pool_sum_shared = *sycl::ext::oneapi::group_local_memory<float[1]>(item.get_group());
+      in_thread_adaptive_pool_sum_shared[0] = 0.000000e+00f;
+      in_thread_adaptive_pool_sum_shared[0] = (in_thread_adaptive_pool_sum_shared[0] + lv85[((((int)item.get_group(0)) * 49) + ((int)item.get_local_id(2)))]);
+      in_thread_adaptive_pool_sum_shared[0] = (in_thread_adaptive_pool_sum_shared[0] + lv85[(((((int)item.get_group(0)) * 49) + ((int)item.get_local_id(2))) + 16)]);
+      in_thread_adaptive_pool_sum_shared[0] = (in_thread_adaptive_pool_sum_shared[0] + lv85[(((((int)item.get_group(0)) * 49) + ((int)item.get_local_id(2))) + 32)]);
+      if (((int)item.get_local_id(2)) < 1) {
+        in_thread_adaptive_pool_sum_shared[0] = (in_thread_adaptive_pool_sum_shared[0] + lv85[(((((int)item.get_group(0)) * 49) + ((int)item.get_local_id(2))) + 48)]);
+      }
+      group_barrier(item.get_group());
+      ((volatile float*)red_buf0)[((int)item.get_local_id(2))] = in_thread_adaptive_pool_sum_shared[0];
+      group_barrier(item.get_group());
+      if (((int)item.get_local_id(2)) < 8) {
+        float w_8_0 = (((volatile float*)red_buf0)[((int)item.get_local_id(2))] + ((volatile float*)red_buf0)[(((int)item.get_local_id(2)) + 8)]);
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        ((volatile float*)red_buf0)[((int)item.get_local_id(2))] = w_8_0;
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        float w_4_0 = (((volatile float*)red_buf0)[((int)item.get_local_id(2))] + ((volatile float*)red_buf0)[(((int)item.get_local_id(2)) + 4)]);
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        ((volatile float*)red_buf0)[((int)item.get_local_id(2))] = w_4_0;
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        float w_2_0 = (((volatile float*)red_buf0)[((int)item.get_local_id(2))] + ((volatile float*)red_buf0)[(((int)item.get_local_id(2)) + 2)]);
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        ((volatile float*)red_buf0)[((int)item.get_local_id(2))] = w_2_0;
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        float w_1_0 = (((volatile float*)red_buf0)[((int)item.get_local_id(2))] + ((volatile float*)red_buf0)[(((int)item.get_local_id(2)) + 1)]);
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+        ((volatile float*)red_buf0)[((int)item.get_local_id(2))] = w_1_0;
+        /* warp storage_sync: no-op on SYCL to avoid divergence deadlock */
+      }
+      group_barrier(item.get_group());
+      if (((int)item.get_local_id(2)) == 0) {
+        adaptive_pool_sum_shared[0] = ((volatile float*)red_buf0)[0];
+      }
+      group_barrier(item.get_group());
+      if (((int)item.get_local_id(2)) < 1) {
+        adaptive_pool_avg[((int)item.get_group(0))] = (adaptive_pool_sum_shared[0] * 2.040816e-02f);
+      }
+    });
+  });
+  }

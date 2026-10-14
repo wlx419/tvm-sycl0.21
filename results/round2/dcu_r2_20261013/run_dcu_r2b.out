@@ -1,0 +1,9 @@
+compact_pub rc=0 2026-10-13T01:13:26+08:00
+compact_r2_async rc=0 2026-10-13T01:19:00+08:00
+compact_r2_legacywarp rc=0 2026-10-13T01:24:43+08:00
+compact_r2_dev_sg rc=0 2026-10-13T01:30:21+08:00
+resnet_pub rc=0 2026-10-13T02:05:21+08:00
+resnet_r2_async rc=0 2026-10-13T02:07:16+08:00
+compact_rocm2 rc=0 2026-10-13T02:11:36+08:00
+resnet_rocm2 rc=0 2026-10-13T02:18:06+08:00
+DCU_R2B_DONE

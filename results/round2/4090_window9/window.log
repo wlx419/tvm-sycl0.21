@@ -1,0 +1,201 @@
+r2 clang version 18.0.0 (https://github.com/intel/llvm.git 646ab086e503961db479a5bc0ab1b6e40cb96b33)
+v711 DPC++ compiler 7.1.0 (pre-release) build based on:
+=== window start 2026-10-13T21:28:43+08:00
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 1980 MHz, 65, 449.48 W, 100 %
+1, 2715 MHz, 55, 110.54 W, 0 %
+36ade27d7ab125b4b29d15bc3473abf9  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+2ab0ec45797b24d77435416912610fff  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+c2063faae90585be4c7c823eccf33c45  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-v711/libtvm_runtime.so
+c534ab9f05c55ccc3a52b0c7463013ea  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-v711/libtvm.so
+launch r2 run=1 device: NVIDIA GeForce RTX 4090
+launch r2 run=1 in_order                                 submit_us=5.077 total_us=5.078
+launch r2 run=1 in_order+parallel_for                    submit_us=5.205 total_us=5.205
+launch r2 run=1 in_order+discard_events                  submit_us=4.049 total_us=4.049
+launch r2 run=1 in_order+discard_events+parallel_for     submit_us=4.214 total_us=4.215
+graph r2 run=1 finalize_us=260.9 (first, K=10)
+graph r2 run=1 growth K=10 replays 1-100 submit_us=16.85 iter_us=26.49
+graph r2 run=1 growth K=10 replays 101-1000 submit_us=136.52 iter_us=146.41
+graph r2 run=1 growth K=10 replays 1001-3000 submit_us=494.81 iter_us=504.30
+graph r2 run=1 refin K=10 every=32 submit_us=10.29 (finalize share 2.14, 93 finalizes) iter_us=19.96
+launch v711 run=1 device: NVIDIA GeForce RTX 4090
+launch v711 run=1 in_order                                 submit_us=3.959 total_us=3.959
+launch v711 run=1 in_order+parallel_for                    submit_us=3.491 total_us=3.491
+launch v711 run=1 in_order+launch_grouped                  submit_us=2.500 total_us=2.500
+launch v711 run=1 in_order+discard_events                  submit_us=4.005 total_us=4.005
+launch v711 run=1 in_order+discard_events+parallel_for     submit_us=3.508 total_us=3.508
+launch v711 run=1 in_order+discard_events+launch_grouped   submit_us=2.495 total_us=2.495
+graph v711 run=1 finalize_us=315.7 (first, K=10)
+graph v711 run=1 growth K=10 replays 1-100 submit_us=3.74 iter_us=11.92
+graph v711 run=1 growth K=10 replays 101-1000 submit_us=3.48 iter_us=11.67
+graph v711 run=1 growth K=10 replays 1001-3000 submit_us=3.41 iter_us=11.57
+graph v711 run=1 refin K=10 every=32 submit_us=5.41 (finalize share 1.81, 93 finalizes) iter_us=13.60
+launch r2 run=2 device: NVIDIA GeForce RTX 4090
+launch r2 run=2 in_order                                 submit_us=4.939 total_us=4.939
+launch r2 run=2 in_order+parallel_for                    submit_us=5.291 total_us=5.291
+launch r2 run=2 in_order+discard_events                  submit_us=3.934 total_us=3.934
+launch r2 run=2 in_order+discard_events+parallel_for     submit_us=4.209 total_us=4.209
+graph r2 run=2 finalize_us=256.7 (first, K=10)
+graph r2 run=2 growth K=10 replays 1-100 submit_us=16.56 iter_us=26.28
+graph r2 run=2 growth K=10 replays 101-1000 submit_us=136.60 iter_us=146.49
+graph r2 run=2 growth K=10 replays 1001-3000 submit_us=495.22 iter_us=504.81
+graph r2 run=2 refin K=10 every=32 submit_us=10.17 (finalize share 2.14, 93 finalizes) iter_us=19.86
+launch v711 run=2 device: NVIDIA GeForce RTX 4090
+launch v711 run=2 in_order                                 submit_us=4.081 total_us=4.081
+launch v711 run=2 in_order+parallel_for                    submit_us=3.496 total_us=3.496
+launch v711 run=2 in_order+launch_grouped                  submit_us=2.515 total_us=2.516
+launch v711 run=2 in_order+discard_events                  submit_us=4.051 total_us=4.051
+launch v711 run=2 in_order+discard_events+parallel_for     submit_us=3.551 total_us=3.551
+launch v711 run=2 in_order+discard_events+launch_grouped   submit_us=2.501 total_us=2.501
+graph v711 run=2 finalize_us=307.6 (first, K=10)
+graph v711 run=2 growth K=10 replays 1-100 submit_us=3.72 iter_us=11.89
+graph v711 run=2 growth K=10 replays 101-1000 submit_us=3.46 iter_us=11.67
+graph v711 run=2 growth K=10 replays 1001-3000 submit_us=3.40 iter_us=11.56
+graph v711 run=2 refin K=10 every=32 submit_us=5.43 (finalize share 1.77, 93 finalizes) iter_us=13.59
+micro done
+c_transformer_eager r2 sycl transformer B1 eager pass p50=0.2225705 abs=1.4901161193847656e-08 
+c_transformer_eager v711 sycl transformer B1 eager pass p50=0.1203265 abs=1.4901161193847656e-08 
+c_transformer_eager r2 sycl transformer B1 eager pass p50=0.2307115 abs=1.4901161193847656e-08 
+c_transformer_eager v711 sycl transformer B1 eager pass p50=0.120825 abs=1.4901161193847656e-08 
+c_transformer_eager r2 sycl transformer B1 eager pass p50=0.22187849999999998 abs=1.4901161193847656e-08 
+c_transformer_eager v711 sycl transformer B1 eager pass p50=0.1205415 abs=1.4901161193847656e-08 
+c_transformer_graph r2 sycl transformer B1 graph pass p50=0.07971600000000001 abs=1.4901161193847656e-08 
+c_transformer_graph v711 sycl transformer B1 graph pass p50=0.071393 abs=1.4901161193847656e-08 
+c_transformer_graph r2 sycl transformer B1 graph pass p50=0.079294 abs=1.4901161193847656e-08 
+c_transformer_graph v711 sycl transformer B1 graph pass p50=0.0702595 abs=1.4901161193847656e-08 
+c_transformer_graph r2 sycl transformer B1 graph pass p50=0.078898 abs=1.4901161193847656e-08 
+c_transformer_graph v711 sycl transformer B1 graph pass p50=0.069976 abs=1.4901161193847656e-08 
+c_transformer_eager cuda cuda transformer B1 eager pass p50=0.1096245 abs=1.1175870895385742e-08 
+c_transformer_eager cuda cuda transformer B1 eager pass p50=0.110125 abs=1.1175870895385742e-08 
+c_transformer_eager cuda cuda transformer B1 eager pass p50=0.108958 abs=1.1175870895385742e-08 
+c_transformer_graph cuda cuda transformer B1 graph pass p50=0.06603149999999999 abs=1.1175870895385742e-08 
+c_transformer_graph cuda cuda transformer B1 graph pass p50=0.0648145 abs=1.1175870895385742e-08 
+c_transformer_graph cuda cuda transformer B1 graph pass p50=0.06478800000000001 abs=1.1175870895385742e-08 
+c_transformer_eager_l1off v711 sycl transformer B1 eager pass p50=0.17097600000000002 abs=1.4901161193847656e-08 
+c_transformer_eager_l1off v711 sycl transformer B1 eager pass p50=0.1736295 abs=1.4901161193847656e-08 
+c_transformer_eager_l1off v711 sycl transformer B1 eager pass p50=0.170628 abs=1.4901161193847656e-08 
+c_transformer_graph_l1off v711 sycl transformer B1 graph pass p50=0.073227 abs=1.4901161193847656e-08 
+c_transformer_graph_l1off v711 sycl transformer B1 graph pass p50=0.0724755 abs=1.4901161193847656e-08 
+c_transformer_graph_l1off v711 sycl transformer B1 graph pass p50=0.0730625 abs=1.4901161193847656e-08 
+c_vit_eager r2 sycl vit B1 eager pass p50=0.334096 abs=1.4901161193847656e-08 
+c_vit_eager v711 sycl vit B1 eager pass p50=0.18685049999999997 abs=1.4901161193847656e-08 
+c_vit_eager r2 sycl vit B1 eager pass p50=0.3291425 abs=1.4901161193847656e-08 
+c_vit_eager v711 sycl vit B1 eager pass p50=0.19062449999999997 abs=1.4901161193847656e-08 
+c_vit_eager r2 sycl vit B1 eager pass p50=0.3379345 abs=1.4901161193847656e-08 
+c_vit_eager v711 sycl vit B1 eager pass p50=0.187838 abs=1.4901161193847656e-08 
+c_vit_graph r2 sycl vit B1 graph pass p50=0.0997565 abs=1.4901161193847656e-08 
+c_vit_graph v711 sycl vit B1 graph pass p50=0.08753 abs=1.4901161193847656e-08 
+c_vit_graph r2 sycl vit B1 graph pass p50=0.1015455 abs=1.4901161193847656e-08 
+c_vit_graph v711 sycl vit B1 graph pass p50=0.0872765 abs=1.4901161193847656e-08 
+c_vit_graph r2 sycl vit B1 graph pass p50=0.10055800000000001 abs=1.4901161193847656e-08 
+c_vit_graph v711 sycl vit B1 graph pass p50=0.087325 abs=1.4901161193847656e-08 
+c_vit_eager cuda cuda vit B1 eager pass p50=0.1699255 abs=2.421438694000244e-08 
+c_vit_eager cuda cuda vit B1 eager pass p50=0.1773015 abs=2.421438694000244e-08 
+c_vit_eager cuda cuda vit B1 eager pass p50=0.16804 abs=2.421438694000244e-08 
+c_vit_graph cuda cuda vit B1 graph pass p50=0.081285 abs=2.421438694000244e-08 
+c_vit_graph cuda cuda vit B1 graph pass p50=0.08129700000000001 abs=2.421438694000244e-08 
+c_vit_graph cuda cuda vit B1 graph pass p50=0.08110049999999999 abs=2.421438694000244e-08 
+c_vit_eager_l1off v711 sycl vit B1 eager pass p50=0.252822 abs=1.4901161193847656e-08 
+c_vit_eager_l1off v711 sycl vit B1 eager pass p50=0.256272 abs=1.4901161193847656e-08 
+c_vit_eager_l1off v711 sycl vit B1 eager pass p50=0.2507015 abs=1.4901161193847656e-08 
+c_vit_graph_l1off v711 sycl vit B1 graph pass p50=0.089359 abs=1.4901161193847656e-08 
+c_vit_graph_l1off v711 sycl vit B1 graph pass p50=0.09057899999999999 abs=1.4901161193847656e-08 
+c_vit_graph_l1off v711 sycl vit B1 graph pass p50=0.0915495 abs=1.4901161193847656e-08 
+c_cnn_eager r2 sycl cnn B1 eager pass p50=0.063862 abs=2.1827872842550278e-11 
+c_cnn_eager v711 sycl cnn B1 eager pass p50=0.039784 abs=2.1827872842550278e-11 
+c_cnn_eager r2 sycl cnn B1 eager pass p50=0.063087 abs=2.1827872842550278e-11 
+c_cnn_eager v711 sycl cnn B1 eager pass p50=0.040726 abs=2.1827872842550278e-11 
+c_cnn_eager r2 sycl cnn B1 eager pass p50=0.06393199999999999 abs=2.1827872842550278e-11 
+c_cnn_eager v711 sycl cnn B1 eager pass p50=0.040944 abs=2.1827872842550278e-11 
+c_cnn_graph r2 sycl cnn B1 graph pass p50=0.0460575 abs=2.1827872842550278e-11 
+c_cnn_graph v711 sycl cnn B1 graph pass p50=0.040286 abs=2.1827872842550278e-11 
+c_cnn_graph r2 sycl cnn B1 graph pass p50=0.0453965 abs=2.1827872842550278e-11 
+c_cnn_graph v711 sycl cnn B1 graph pass p50=0.0395085 abs=2.1827872842550278e-11 
+c_cnn_graph r2 sycl cnn B1 graph pass p50=0.045848 abs=2.1827872842550278e-11 
+c_cnn_graph v711 sycl cnn B1 graph pass p50=0.048652 abs=2.1827872842550278e-11 
+c_cnn_eager cuda cuda cnn B1 eager pass p50=0.037404999999999994 abs=1.0913936421275139e-11 
+c_cnn_eager cuda cuda cnn B1 eager pass p50=0.0375925 abs=1.0913936421275139e-11 
+c_cnn_eager cuda cuda cnn B1 eager pass p50=0.0372915 abs=1.0913936421275139e-11 
+c_cnn_graph cuda cuda cnn B1 graph pass p50=0.036415 abs=1.0913936421275139e-11 
+c_cnn_graph cuda cuda cnn B1 graph pass p50=0.0370105 abs=1.0913936421275139e-11 
+c_cnn_graph cuda cuda cnn B1 graph pass p50=0.037211 abs=1.0913936421275139e-11 
+c_cnn_eager_l1off v711 sycl cnn B1 eager pass p50=0.0513155 abs=2.1827872842550278e-11 
+c_cnn_eager_l1off v711 sycl cnn B1 eager pass p50=0.0533755 abs=2.1827872842550278e-11 
+c_cnn_eager_l1off v711 sycl cnn B1 eager pass p50=0.052378 abs=2.1827872842550278e-11 
+c_cnn_graph_l1off v711 sycl cnn B1 graph pass p50=0.04172 abs=2.1827872842550278e-11 
+c_cnn_graph_l1off v711 sycl cnn B1 graph pass p50=0.041476 abs=2.1827872842550278e-11 
+c_cnn_graph_l1off v711 sycl cnn B1 graph pass p50=0.0416465 abs=2.1827872842550278e-11 
+c_mlp_eager r2 sycl mlp B1 eager pass p50=0.046166 abs=8.381903171539307e-09 
+c_mlp_eager v711 sycl mlp B1 eager pass p50=0.0284525 abs=8.381903171539307e-09 
+c_mlp_eager r2 sycl mlp B1 eager pass p50=0.045954499999999995 abs=8.381903171539307e-09 
+c_mlp_eager v711 sycl mlp B1 eager pass p50=0.029124999999999998 abs=8.381903171539307e-09 
+c_mlp_eager r2 sycl mlp B1 eager pass p50=0.0466825 abs=8.381903171539307e-09 
+c_mlp_eager v711 sycl mlp B1 eager pass p50=0.0289135 abs=8.381903171539307e-09 
+c_mlp_graph r2 sycl mlp B1 graph pass p50=0.0488025 abs=8.381903171539307e-09 
+c_mlp_graph v711 sycl mlp B1 graph pass p50=0.037364999999999995 abs=8.381903171539307e-09 
+c_mlp_graph r2 sycl mlp B1 graph pass p50=0.0490665 abs=8.381903171539307e-09 
+c_mlp_graph v711 sycl mlp B1 graph pass p50=0.037705 abs=8.381903171539307e-09 
+c_mlp_graph r2 sycl mlp B1 graph pass p50=0.0492465 abs=8.381903171539307e-09 
+c_mlp_graph v711 sycl mlp B1 graph pass p50=0.0372815 abs=8.381903171539307e-09 
+c_mlp_eager cuda cuda mlp B1 eager pass p50=0.027375 abs=8.381903171539307e-09 
+c_mlp_eager cuda cuda mlp B1 eager pass p50=0.0269685 abs=8.381903171539307e-09 
+c_mlp_eager cuda cuda mlp B1 eager pass p50=0.027166 abs=8.381903171539307e-09 
+c_mlp_graph cuda cuda mlp B1 graph pass p50=0.029079 abs=8.381903171539307e-09 
+c_mlp_graph cuda cuda mlp B1 graph pass p50=0.028915499999999997 abs=8.381903171539307e-09 
+c_mlp_graph cuda cuda mlp B1 graph pass p50=0.029494 abs=8.381903171539307e-09 
+c_mlp_eager_l1off v711 sycl mlp B1 eager pass p50=0.039112 abs=8.381903171539307e-09 
+c_mlp_eager_l1off v711 sycl mlp B1 eager pass p50=0.0372045 abs=8.381903171539307e-09 
+c_mlp_eager_l1off v711 sycl mlp B1 eager pass p50=0.0387185 abs=8.381903171539307e-09 
+c_mlp_graph_l1off v711 sycl mlp B1 graph pass p50=0.0403365 abs=8.381903171539307e-09 
+c_mlp_graph_l1off v711 sycl mlp B1 graph pass p50=0.040407 abs=8.381903171539307e-09 
+c_mlp_graph_l1off v711 sycl mlp B1 graph pass p50=0.0400505 abs=8.381903171539307e-09 
+c_transformer_graph_r2off v711 sycl transformer B1 graph pass p50=0.0698735 abs=1.4901161193847656e-08 
+c_transformer_graph_r2off v711 sycl transformer B1 graph pass p50=0.0700195 abs=1.4901161193847656e-08 
+c_transformer_graph_r2off v711 sycl transformer B1 graph pass p50=0.0700845 abs=1.4901161193847656e-08 
+dl_resnet18 r2 sycl resnet18 B1 pass p50=2.6716439999999997 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 v711 sycl resnet18 B1 pass p50=2.6694775 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 r2 sycl resnet18 B1 pass p50=2.6714955 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 v711 sycl resnet18 B1 pass p50=2.6689755 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 r2 sycl resnet18 B1 pass p50=2.6719109999999997 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 v711 sycl resnet18 B1 pass p50=2.6132619999999998 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 cuda cuda resnet18 B1 pass p50=2.5087669999999997 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 cuda cuda resnet18 B1 pass p50=2.50806 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet18 cuda cuda resnet18 B1 pass p50=2.513519 abs=2.0265579223632812e-06 db=0 fallback=0
+dl_resnet50 r2 sycl resnet50 B1 pass p50=3.7542575 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 v711 sycl resnet50 B1 pass p50=4.094025 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 r2 sycl resnet50 B1 pass p50=4.0447595 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 v711 sycl resnet50 B1 pass p50=4.0907685 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 r2 sycl resnet50 B1 pass p50=4.0434255 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 v711 sycl resnet50 B1 pass p50=4.0927045 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 cuda cuda resnet50 B1 pass p50=3.6412715 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 cuda cuda resnet50 B1 pass p50=3.9244285000000003 abs=2.288818359375e-05 db=0 fallback=0
+dl_resnet50 cuda cuda resnet50 B1 pass p50=3.9310460000000003 abs=2.288818359375e-05 db=0 fallback=0
+rn18_tuned_eager r2 sycl resnet18 B1 pass p50=0.5383815000000001 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager v711 sycl resnet18 B1 pass p50=0.559483 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager r2 sycl resnet18 B1 pass p50=0.5282005 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager v711 sycl resnet18 B1 pass p50=0.559151 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager r2 sycl resnet18 B1 pass p50=0.528789 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager v711 sycl resnet18 B1 pass p50=0.558894 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_graph r2 sycl resnet18 B1 pass p50=0.5178595 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_graph v711 sycl resnet18 B1 pass p50=0.555059 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_graph r2 sycl resnet18 B1 pass p50=0.513872 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_graph v711 sycl resnet18 B1 pass p50=0.5545804999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_graph r2 sycl resnet18 B1 pass p50=0.5125165 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_graph v711 sycl resnet18 B1 pass p50=0.554868 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager_l1off v711 sycl resnet18 B1 pass p50=0.5629854999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager_l1off v711 sycl resnet18 B1 pass p50=0.5647949999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager_l1off v711 sycl resnet18 B1 pass p50=0.5662215 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_tuned_eager cuda cuda resnet18 B1 pass p50=0.512751 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_tuned_eager cuda cuda resnet18 B1 pass p50=0.5125900000000001 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_tuned_eager cuda cuda resnet18 B1 pass p50=0.5072435 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_tuned_graph cuda cuda resnet18 B1 pass p50=0.493397 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_tuned_graph cuda cuda resnet18 B1 pass p50=0.4932525 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_tuned_graph cuda cuda resnet18 B1 pass p50=0.4941855 abs=4.291534423828125e-06 db=19 fallback=0
+e1 rn18_sycl     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window9/e1/rn18_sycl.nsys-rep
+e1 rn18_sycl_graph     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window9/e1/rn18_sycl_graph.nsys-rep
+e1 rn18_cuda     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window9/e1/rn18_cuda.nsys-rep
+e1 rn18_cuda_graph     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window9/e1/rn18_cuda_graph.nsys-rep
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W]
+0, 210 MHz, 33, 23.22 W
+1, 210 MHz, 33, 22.72 W
+=== window end 2026-10-13T22:05:02+08:00

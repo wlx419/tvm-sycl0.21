@@ -1,0 +1,12 @@
+sycl         mlp B1   pass abs=8.381903171539307e-09 p50=0.2456465
+sycl         mlp B8   pass abs=2.1944288164377213e-08 p50=0.380107
+sycl         mlp B16  pass abs=2.2351741790771484e-08 p50=0.373772
+sycl         cnn B1   pass abs=1.4551915228366852e-11 p50=0.346802
+sycl         cnn B8   pass abs=3.637978807091713e-11 p50=0.355077
+sycl         cnn B16  pass abs=5.093170329928398e-11 p50=0.363957
+sycl transformer B1   pass abs=1.4901161193847656e-08 p50=1.357092
+sycl transformer B8   pass abs=2.2351741790771484e-08 p50=1.3399415
+sycl transformer B16  pass abs=2.2351741790771484e-08 p50=1.320541
+sycl         vit B1   pass abs=2.60770320892334e-08 p50=1.6547285
+sycl         vit B8   pass abs=6.705522537231445e-08 p50=1.505048
+sycl         vit B16  pass abs=7.450580596923828e-08 p50=1.4980525

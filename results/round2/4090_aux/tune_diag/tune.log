@@ -1,0 +1,119 @@
+2026-10-13 00:44:05 [INFO] Logging directory: /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/tune_diag/logs
+2026-10-13 00:44:21 [INFO] LocalBuilder: max_workers = 32
+2026-10-13 00:44:22 [INFO] [task_scheduler.cc:258] Initializing Task #0: "fused_matmul_add9"
+2026-10-13 00:44:22 [INFO] [task_scheduler.cc:258] Initializing Task #1: "adaptive_avg_pool2d"
+schedule rule "meta_schedule.adaptive_pool_avg" for target keys "["sycl", "gpu"].[00:44:22] /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/src/meta_schedule/schedule_rule/apply_custom_rule.cc:100: Warning: Unknown schedule rule "meta_schedule.adaptive_pool_avg" for target keys "["sycl", "gpu"]". Checked ffi::Functions:
+  meta_schedule.sycl.meta_schedule.adaptive_pool_avg
+  meta_schedule.gpu.meta_schedule.adaptive_pool_avg
+2026-10-13 00:44:22 [INFO] [task_scheduler.cc:258] Initializing Task #2: "fused_conv2d9_add7_add8_relu4"
+2026-10-13 00:44:23 [INFO] [task_scheduler.cc:258] Initializing Task #3: "fused_conv2d_add_relu"
+2026-10-13 00:44:23 [INFO] [task_scheduler.cc:258] Initializing Task #4: "max_pool2d"
+schedule rule "meta_schedule.pool_max" for target keys "["sycl", "gpu"].[00:44:23] /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/src/meta_schedule/schedule_rule/apply_custom_rule.cc:100: Warning: Unknown schedule rule "meta_schedule.pool_max" for target keys "["sycl", "gpu"]". Checked ffi::Functions:
+  meta_schedule.sycl.meta_schedule.pool_max
+  meta_schedule.gpu.meta_schedule.pool_max
+2026-10-13 00:44:23 [INFO] [task_scheduler.cc:258] Initializing Task #5: "fused_conv2d1_add1_relu1"
+2026-10-13 00:44:23 [INFO] [task_scheduler.cc:258] Initializing Task #6: "fused_conv2d7_add5"
+2026-10-13 00:44:24 [INFO] [task_scheduler.cc:258] Initializing Task #7: "fused_conv2d5_add5_relu3"
+2026-10-13 00:44:24 [INFO] [task_scheduler.cc:258] Initializing Task #8: "reshape4"
+2026-10-13 00:44:24 [INFO] [task_scheduler.cc:258] Initializing Task #9: "fused_conv2d1_add1_add2_relu1"
+2026-10-13 00:44:24 [INFO] [task_scheduler.cc:258] Initializing Task #10: "fused_conv2d2_add3_relu2"
+2026-10-13 00:44:25 [INFO] [task_scheduler.cc:258] Initializing Task #11: "fused_conv2d9_add7_relu4"
+2026-10-13 00:44:25 [INFO] [task_scheduler.cc:258] Initializing Task #12: "fused_conv2d10_add7"
+2026-10-13 00:44:25 [INFO] [task_scheduler.cc:258] Initializing Task #13: "fused_conv2d3_add3_add4_relu2"
+2026-10-13 00:44:25 [INFO] [task_scheduler.cc:258] Initializing Task #14: "fused_conv2d6_add5_add6_relu3"
+2026-10-13 00:44:26 [INFO] [task_scheduler.cc:258] Initializing Task #15: "fused_conv2d4_add3"
+2026-10-13 00:44:26 [INFO] [task_scheduler.cc:258] Initializing Task #16: "fused_conv2d6_add5_relu3"
+2026-10-13 00:44:26 [INFO] [task_scheduler.cc:258] Initializing Task #17: "fused_conv2d3_add3_relu2"
+2026-10-13 00:44:26 [INFO] [task_scheduler.cc:258] Initializing Task #18: "fused_conv2d8_add7_relu4"
+2026-10-13 00:44:27 [INFO] [task_scheduler.cc:450] 
+ ID |                          Name |      FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Done 
+---------------------------------------------------------------------------------------------------------------------------------
+  0 |             fused_matmul_add9 |   1025000 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  1 |           adaptive_avg_pool2d |     25600 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  2 | fused_conv2d9_add7_add8_relu4 | 231286272 |      2 |            N/A |          N/A |                   N/A |      0 |      
+  3 |         fused_conv2d_add_relu | 237633536 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  4 |                    max_pool2d |   1806336 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  5 |      fused_conv2d1_add1_relu1 | 231612416 |      2 |            N/A |          N/A |                   N/A |      0 |      
+  6 |            fused_conv2d7_add5 |  12895232 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  7 |      fused_conv2d5_add5_relu3 | 115705856 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  8 |                      reshape4 |         1 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  9 | fused_conv2d1_add1_add2_relu1 | 231813120 |      2 |            N/A |          N/A |                   N/A |      0 |      
+ 10 |      fused_conv2d2_add3_relu2 | 115806208 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 11 |      fused_conv2d9_add7_relu4 | 231261184 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 12 |           fused_conv2d10_add7 |  12870144 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 13 | fused_conv2d3_add3_add4_relu2 | 231512064 |      2 |            N/A |          N/A |                   N/A |      0 |      
+ 14 | fused_conv2d6_add5_add6_relu3 | 231361536 |      2 |            N/A |          N/A |                   N/A |      0 |      
+ 15 |            fused_conv2d4_add3 |  12945408 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 16 |      fused_conv2d6_add5_relu3 | 231311360 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 17 |      fused_conv2d3_add3_relu2 | 231411712 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 18 |      fused_conv2d8_add7_relu4 | 115655680 |      1 |            N/A |          N/A |                   N/A |      0 |      
+---------------------------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2026-10-13 00:44:27 [INFO] [task_scheduler.cc:279] TaskScheduler picks Task #0: "fused_matmul_add9"
+2026-10-13 00:44:30 [INFO] [task_scheduler.cc:292] Sending 64 sample(s) to builder
+2026-10-13 00:45:08 [INFO] [task_scheduler.cc:294] Sending 64 sample(s) to runner
+[runner] candidate 2 took 2.0 s
+[runner] candidate 3 took 0.7 s
+[runner] candidate 4 took 1.7 s
+[runner] candidate 5 took 2.3 s
+[runner] candidate 7 took 1.6 s
+[runner] candidate 8 took 1.1 s
+[runner] candidate 9 took 0.6 s
+[runner] candidate 12 took 1.2 s
+[runner] candidate 13 took 1.1 s
+[runner] candidate 16 took 0.6 s
+[runner] candidate 18 took 2.6 s
+[runner] candidate 19 took 0.8 s
+[runner] candidate 21 took 1.2 s
+[runner] candidate 22 took 0.7 s
+[runner] candidate 23 took 1.6 s
+[runner] candidate 24 took 0.5 s
+[runner] candidate 25 took 0.5 s
+[runner] candidate 29 took 1.0 s
+[runner] candidate 32 took 0.6 s
+[runner] candidate 33 took 0.6 s
+[runner] candidate 35 took 2.0 s
+[runner] candidate 36 took 0.5 s
+[runner] candidate 37 took 1.5 s
+[runner] candidate 39 took 0.9 s
+[runner] candidate 41 took 1.1 s
+[runner] candidate 42 took 0.8 s
+[runner] candidate 44 took 0.7 s
+[runner] candidate 45 took 1.5 s
+[runner] candidate 46 took 1.1 s
+[runner] candidate 48 took 3.5 s
+[runner] candidate 50 took 1.4 s
+[runner] candidate 51 took 0.6 s
+[runner] candidate 52 took 0.9 s
+[runner] candidate 56 took 0.6 s
+[runner] candidate 61 took 0.9 s
+[runner] candidate 64 took 1.1 s
+2026-10-13 00:46:00 [INFO] [task_scheduler.cc:279] TaskScheduler picks Task #1: "adaptive_avg_pool2d"
+2026-10-13 00:46:01 [INFO] [task_scheduler.cc:292] Sending 62 sample(s) to builder
+2026-10-13 00:46:25 [INFO] [task_scheduler.cc:294] Sending 62 sample(s) to runner
+[runner] candidate 86 took 0.5 s
+[runner] candidate 89 took 0.6 s
+[runner] candidate 92 took 0.5 s
+2026-10-13 00:46:46 [INFO] [task_scheduler.cc:279] TaskScheduler picks Task #2: "fused_conv2d9_add7_add8_relu4"
+2026-10-13 00:46:57 [INFO] [task_scheduler.cc:292] Sending 64 sample(s) to builder
+2026-10-13 00:47:39 [INFO] [task_scheduler.cc:294] Sending 64 sample(s) to runner
+[runner] candidate 127 took 4.0 s
+[runner] candidate 128 failed after 120.2 s (watchdog); measurement process replaced (1): LocalRunner: Timeout, killed after 120 seconds
+[runner] candidate 129 took 6.1 s
+[runner] candidate 130 took 1.1 s
+[runner] candidate 131 took 9.5 s
+[runner] candidate 132 took 1.7 s
+[runner] candidate 133 failed after 120.2 s (watchdog); measurement process replaced (2): LocalRunner: Timeout, killed after 120 seconds
+[runner] candidate 134 took 10.6 s
+[runner] candidate 135 took 2.0 s
+[runner] candidate 136 took 24.8 s
+[runner] candidate 137 took 7.0 s
+[runner] candidate 138 took 6.4 s
+[runner] candidate 139 took 24.4 s
+[runner] candidate 140 took 2.0 s
+[runner] candidate 141 took 2.8 s
+[runner] candidate 142 took 56.2 s
+[runner] candidate 143 took 5.5 s
+[runner] candidate 144 took 7.8 s

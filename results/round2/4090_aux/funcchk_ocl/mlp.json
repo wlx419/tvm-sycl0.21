@@ -1,0 +1,23 @@
+{
+ "model": "mlp",
+ "batch": 1,
+ "target": "opencl",
+ "graph": false,
+ "resolved_target": "opencl -keys=opencl,gpu -image_base_address_alignment=64 -max_function_args=128 -max_num_threads=256 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -texture_spatial_limit=16384 -thread_warp_size=1",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 0.5388272150303237,
+ "max_abs_err": 8.381903171539307e-09,
+ "status": "pass",
+ "latency_mean_ms": 2.2942836,
+ "latency_p50_ms": 2.294941,
+ "latency_p90_ms": 2.2957710000000002,
+ "latency_p99_ms": 2.2959186,
+ "latency_samples_ms": [
+  2.291848,
+  2.293169,
+  2.294941,
+  2.295935,
+  2.295525
+ ]
+}

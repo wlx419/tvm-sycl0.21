@@ -1,0 +1,55 @@
+[00:00:25] /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/src/meta_schedule/schedule_rule/apply_custom_rule.cc:100: Warning: Unknown schedule rule "meta_schedule.adaptive_pool_avg" for target keys "["cuda", "gpu"]". Checked ffi::Functions:
+  meta_schedule.cuda.meta_schedule.adaptive_pool_avg
+  meta_schedule.gpu.meta_schedule.adaptive_pool_avg
+[00:00:26] /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/src/meta_schedule/schedule_rule/apply_custom_rule.cc:100: Warning: Unknown schedule rule "meta_schedule.pool_max" for target keys "["cuda", "gpu"]". Checked ffi::Functions:
+  meta_schedule.cuda.meta_schedule.pool_max
+  meta_schedule.gpu.meta_schedule.pool_max
+Traceback (most recent call last):
+  File "/mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/repo/revision_round2/experiments/resnet_relax_probe_r2.py", line 260, in run_one
+    mod, pipeline, report = apply_pipeline_r2(mod, target, args)
+  File "/mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/repo/revision_round2/experiments/resnet_relax_probe_r2.py", line 187, in apply_pipeline_r2
+    mod = custom_tuning_pipeline(mod, target, args)
+  File "/mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/repo/revision_round2/experiments/resnet_relax_probe_r2.py", line 160, in custom_tuning_pipeline
+    ms.relax_integration.tune_relax(
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/meta_schedule/relax_integration.py", line 255, in tune_relax
+    return tune_tasks(
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/meta_schedule/tune.py", line 122, in tune_tasks
+    task_scheduler.tune(
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/meta_schedule/task_scheduler/task_scheduler.py", line 132, in tune
+    _ffi_api.TaskSchedulerTune(  # type: ignore # pylint: disable=no-member
+  File "tvm/ffi/cython/function.pxi", line 228, in tvm.ffi.core.Function.__call__
+  File "tvm/ffi/cython/core.cpp", line 22178, in __pyx_pw_3tvm_3ffi_4core_8Function_1__call__
+  File "tvm/ffi/cython/core.cpp", line 22229, in __pyx_pf_3tvm_3ffi_4core_8Function___call__
+  File "tvm/ffi/cython/core.cpp", line 21947, in __pyx_f_3tvm_3ffi_4core_FuncCall
+  File "tvm/ffi/cython/core.cpp", line 24891, in __pyx_f_3tvm_3ffi_4core_tvm_ffi_callback
+  File "tvm/ffi/cython/core.cpp", line 15221, in __pyx_f_3tvm_3ffi_4core_set_last_ffi_error
+  File "tvm/ffi/cython/function.pxi", line 383, in tvm.ffi.core.tvm_ffi_callback
+  File "/mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/meta_schedule/utils.py", line 76, in method
+    return getattr(inst, name)(*args, **kwargs)
+  File "/mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/repo/revision_round2/experiments/resnet_relax_probe_r2.py", line 125, in run
+    self.inner.pool.shutdown()
+AttributeError: 'PopenPoolExecutor' object has no attribute 'shutdown'
+
+	Command being timed: "/mnt/data/wlx/anaconda3/envs/tvm-sycl/bin/python /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/repo/revision_round2/experiments/resnet_relax_probe_r2.py --target cuda --target-string cuda -keys=cuda,gpu -arch=sm_89 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -thread_warp_size=32 --total-trials 1024 --tune-seed 20261012 --runner-recycle-on-error --work-dir /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window2/tune_cuda_iso --warmup 10 --measure 50 --out-json /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window2/tune_cuda_iso/tune.json"
+	User time (seconds): 279.47
+	System time (seconds): 48.78
+	Percent of CPU this job got: 693%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:47.30
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1062192
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 890
+	Minor (reclaiming a frame) page faults: 2813243
+	Voluntary context switches: 15569
+	Involuntary context switches: 146333
+	Swaps: 0
+	File system inputs: 72
+	File system outputs: 215624
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

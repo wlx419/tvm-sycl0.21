@@ -1,0 +1,19 @@
+#include <cuda.h>
+
+#if (((__CUDACC_VER_MAJOR__ == 11) && (__CUDACC_VER_MINOR__ >= 4)) || \
+     (__CUDACC_VER_MAJOR__ > 11))
+#define TVM_ENABLE_L2_PREFETCH 1
+#else
+#define TVM_ENABLE_L2_PREFETCH 0
+#endif
+#include <cstdint>
+using uint = unsigned int;
+using uchar = unsigned char;
+using ushort = unsigned short;
+extern "C" __global__ void __launch_bounds__(1024) reshape4_kernel(float* __restrict__ T_reshape, float* __restrict__ lv86);
+extern "C" __global__ void __launch_bounds__(1024) reshape4_kernel(float* __restrict__ T_reshape, float* __restrict__ lv86) {
+  if (((int)threadIdx.x) < 512) {
+    T_reshape[((int)threadIdx.x)] = lv86[((int)threadIdx.x)];
+  }
+}
+

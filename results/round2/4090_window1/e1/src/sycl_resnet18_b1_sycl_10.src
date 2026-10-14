@@ -1,0 +1,1109 @@
+// tvm target: sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32
+#include <sycl/sycl.hpp>
+using namespace sycl;
+#ifndef TVM_SYCL_MODULE_ID
+#define TVM_SYCL_MODULE_ID m0
+#endif
+#define TVM_SYCL_KERNEL_NAME_IMPL(func, module_id) func##_##module_id
+#define TVM_SYCL_KERNEL_NAME(func, module_id) TVM_SYCL_KERNEL_NAME_IMPL(func, module_id)
+#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id
+#define TVM_SYCL_WRAPPER_NAME(func, module_id) TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)
+// CodeGenSYCL: NOTE: Auto-generated packed function
+// Function: fused_conv2d5_add5_relu3_kernel
+class TVM_SYCL_KERNEL_NAME(h2528641801, TVM_SYCL_MODULE_ID);
+#ifdef __cplusplus
+extern "C"
+#endif
+void TVM_SYCL_WRAPPER_NAME(h2528641801, TVM_SYCL_MODULE_ID)(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {
+  float* compute = (float*)(*(int64_t *)(void_args[0]));
+  float* lv43 = (float*)(*(int64_t *)(void_args[1]));
+  float* param_0 = (float*)(*(int64_t *)(void_args[2]));
+  float* param_1 = (float*)(*(int64_t *)(void_args[3]));
+  Qh.submit([=](handler &h) {
+    h.parallel_for<TVM_SYCL_KERNEL_NAME(h2528641801, TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {
+      float conv2d_nchw_local[8];
+      auto pad_temp_shared = *sycl::ext::oneapi::group_local_memory<float[1080]>(item.get_group());
+      auto param_0_shared = *sycl::ext::oneapi::group_local_memory<float[384]>(item.get_group());
+      conv2d_nchw_local[0] = 0.000000e+00f;
+      conv2d_nchw_local[4] = 0.000000e+00f;
+      conv2d_nchw_local[1] = 0.000000e+00f;
+      conv2d_nchw_local[5] = 0.000000e+00f;
+      conv2d_nchw_local[2] = 0.000000e+00f;
+      conv2d_nchw_local[6] = 0.000000e+00f;
+      conv2d_nchw_local[3] = 0.000000e+00f;
+      conv2d_nchw_local[7] = 0.000000e+00f;
+      for (int rc_0 = 0; rc_0 < 16; ++rc_0) {
+        group_barrier(item.get_group());
+        float condval;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((int)item.get_local_id(2)) * 2) / 27)))) && ((bool)(1 <= ((((int)item.get_local_id(2)) * 2) % 27))))) {
+          condval = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + (((((int)item.get_local_id(2)) * 2) / 27) * 28)) + ((((int)item.get_local_id(2)) * 2) % 27)) - 29)];
+        } else {
+          condval = 0.000000e+00f;
+        }
+        pad_temp_shared[(((int)item.get_local_id(2)) * 2)] = condval;
+        float condval_1;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 1) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 1) % 27))))) {
+          condval_1 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 1) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 1) % 27)) - 29)];
+        } else {
+          condval_1 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1)] = condval_1;
+        float condval_2;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 112) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 4) % 27))))) {
+          condval_2 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 112) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 112) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 4) % 27)) - 29)];
+        } else {
+          condval_2 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 112)] = condval_2;
+        float condval_3;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 113) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 5) % 27))))) {
+          condval_3 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 113) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 113) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 5) % 27)) - 29)];
+        } else {
+          condval_3 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 113)] = condval_3;
+        float condval_4;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 89) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 8) % 27))))) {
+          condval_4 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 224) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 89) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 8) % 27)) - 29)];
+        } else {
+          condval_4 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 224)] = condval_4;
+        float condval_5;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 90) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 9) % 27))))) {
+          condval_5 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 225) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 90) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 9) % 27)) - 29)];
+        } else {
+          condval_5 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 225)] = condval_5;
+        float condval_6;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 66) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 12) % 27))))) {
+          condval_6 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 336) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 66) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 12) % 27)) - 29)];
+        } else {
+          condval_6 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 336)] = condval_6;
+        float condval_7;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 67) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 13) % 27))))) {
+          condval_7 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 337) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 67) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 13) % 27)) - 29)];
+        } else {
+          condval_7 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 337)] = condval_7;
+        float condval_8;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 43) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 16) % 27))))) {
+          condval_8 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 448) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 43) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 16) % 27)) - 29)];
+        } else {
+          condval_8 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 448)] = condval_8;
+        float condval_9;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 44) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 17) % 27))))) {
+          condval_9 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 449) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 44) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 17) % 27)) - 29)];
+        } else {
+          condval_9 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 449)] = condval_9;
+        float condval_10;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 20) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 20) % 27))))) {
+          condval_10 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 20) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 20) % 27)) + 3107)];
+        } else {
+          condval_10 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 560)] = condval_10;
+        float condval_11;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 21) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 21) % 27))))) {
+          condval_11 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 21) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 21) % 27)) + 3107)];
+        } else {
+          condval_11 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 561)] = condval_11;
+        float condval_12;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 132) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 24) % 27))))) {
+          condval_12 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 672) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 132) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 24) % 27)) - 29)];
+        } else {
+          condval_12 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 672)] = condval_12;
+        float condval_13;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 133) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 25) % 27))))) {
+          condval_13 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 673) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 133) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 25) % 27)) - 29)];
+        } else {
+          condval_13 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 673)] = condval_13;
+        float condval_14;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 109) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 1) % 27))))) {
+          condval_14 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 784) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 109) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 1) % 27)) - 29)];
+        } else {
+          condval_14 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 784)] = condval_14;
+        float condval_15;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 110) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 2) % 27))))) {
+          condval_15 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 785) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 110) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 2) % 27)) - 29)];
+        } else {
+          condval_15 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 785)] = condval_15;
+        float condval_16;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 86) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 5) % 27))))) {
+          condval_16 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 896) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 86) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 5) % 27)) - 29)];
+        } else {
+          condval_16 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 896)] = condval_16;
+        float condval_17;
+        if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 87) % 135) / 27)))) && ((bool)(1 <= (((((int)item.get_local_id(2)) * 2) + 6) % 27))))) {
+          condval_17 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 897) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 87) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 6) % 27)) - 29)];
+        } else {
+          condval_17 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 897)] = condval_17;
+        if (((int)item.get_local_id(2)) < 36) {
+          float condval_18;
+          if ((1 <= (((((int)item.get_local_id(2)) * 2) + 9) % 27))) {
+            condval_18 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 63) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 9) % 27)) + 5459)];
+          } else {
+            condval_18 = 0.000000e+00f;
+          }
+          pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1008)] = condval_18;
+          float condval_19;
+          if ((1 <= (((((int)item.get_local_id(2)) * 2) + 10) % 27))) {
+            condval_19 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 64) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 10) % 27)) + 5459)];
+          } else {
+            condval_19 = 0.000000e+00f;
+          }
+          pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1009)] = condval_19;
+        }
+        sycl::vec<int, 2> v_ = (int2){((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)))+(3*0), ((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + (((int)item.get_local_id(2)) * 2);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v_[0]],param_0[v_[1]]})); }
+        sycl::vec<int, 2> v__1 = (int2){((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 56) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)))+(3*0), ((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 56) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 112);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__1[0]],param_0[v__1[1]]})); }
+        sycl::vec<int, 2> v__2 = (int2){((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 112) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 8) % 24) * 3)))+(3*0), ((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 112) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 8) % 24) * 3)))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 224);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__2[0]],param_0[v__2[1]]})); }
+        if (((int)item.get_local_id(2)) < 24) {
+          sycl::vec<int, 2> v__3 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 16128))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 16128))+(3*1)};
+          { using vec_t = sycl::vec<float,2>;
+          auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 336);
+          auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+          auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+          *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__3[0]],param_0[v__3[1]]})); }
+        }
+        group_barrier(item.get_group());
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[((((int)item.get_local_id(2)) % 7) * 4)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[((((int)item.get_local_id(2)) % 7) * 4)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 27)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 27)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 2)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 2)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 29)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 29)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 81)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 81)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 108)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 108)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 83)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 83)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 110)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 110)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 135)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 135)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 162)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 162)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 137)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 137)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 164)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 164)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 216)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 216)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 243)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 243)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 218)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 218)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 245)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 245)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 270)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 270)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 297)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 297)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 272)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 272)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 299)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 299)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 351)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 351)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 378)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 378)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 353)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 353)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 380)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 380)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 405)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 405)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 432)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 432)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 407)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 407)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 434)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 434)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 486)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 486)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 513)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 513)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 488)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 488)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 515)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 515)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 540)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 540)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 567)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 567)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 542)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 542)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 569)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 569)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 621)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 621)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 648)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 648)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 623)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 623)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 650)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 650)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 675)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 675)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 702)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 702)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 677)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 677)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 704)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 704)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 756)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 756)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 783)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 783)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 758)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 758)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 785)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 785)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 810)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 810)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 837)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 837)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 812)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 812)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 839)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 839)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 891)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 891)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 918)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 918)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 893)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 893)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 920)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 920)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 945)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 945)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 972)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 972)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 947)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 947)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 974)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 974)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1026)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1026)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1053)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1053)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1028)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1028)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1055)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1055)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        group_barrier(item.get_group());
+        float condval_20;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((int)item.get_local_id(2)) * 2) / 27)))) {
+          condval_20 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + (((((int)item.get_local_id(2)) * 2) / 27) * 28)) + ((((int)item.get_local_id(2)) * 2) % 27)) - 28)];
+        } else {
+          condval_20 = 0.000000e+00f;
+        }
+        pad_temp_shared[(((int)item.get_local_id(2)) * 2)] = condval_20;
+        float condval_21;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 1) / 27)))) {
+          condval_21 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 1) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 1) % 27)) - 28)];
+        } else {
+          condval_21 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1)] = condval_21;
+        float condval_22;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 112) % 135) / 27)))) {
+          condval_22 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 112) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 112) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 4) % 27)) - 28)];
+        } else {
+          condval_22 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 112)] = condval_22;
+        float condval_23;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 113) % 135) / 27)))) {
+          condval_23 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 113) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 113) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 5) % 27)) - 28)];
+        } else {
+          condval_23 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 113)] = condval_23;
+        float condval_24;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 89) % 135) / 27)))) {
+          condval_24 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 224) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 89) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 8) % 27)) - 28)];
+        } else {
+          condval_24 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 224)] = condval_24;
+        float condval_25;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 90) % 135) / 27)))) {
+          condval_25 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 225) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 90) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 9) % 27)) - 28)];
+        } else {
+          condval_25 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 225)] = condval_25;
+        float condval_26;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 66) % 135) / 27)))) {
+          condval_26 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 336) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 66) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 12) % 27)) - 28)];
+        } else {
+          condval_26 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 336)] = condval_26;
+        float condval_27;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 67) % 135) / 27)))) {
+          condval_27 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 337) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 67) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 13) % 27)) - 28)];
+        } else {
+          condval_27 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 337)] = condval_27;
+        float condval_28;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 43) % 135) / 27)))) {
+          condval_28 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 448) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 43) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 16) % 27)) - 28)];
+        } else {
+          condval_28 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 448)] = condval_28;
+        float condval_29;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 44) % 135) / 27)))) {
+          condval_29 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 449) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 44) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 17) % 27)) - 28)];
+        } else {
+          condval_29 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 449)] = condval_29;
+        float condval_30;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 20) / 27)))) {
+          condval_30 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 20) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 20) % 27)) + 3108)];
+        } else {
+          condval_30 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 560)] = condval_30;
+        float condval_31;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 21) / 27)))) {
+          condval_31 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 21) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 21) % 27)) + 3108)];
+        } else {
+          condval_31 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 561)] = condval_31;
+        float condval_32;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 132) % 135) / 27)))) {
+          condval_32 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 672) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 132) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 24) % 27)) - 28)];
+        } else {
+          condval_32 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 672)] = condval_32;
+        float condval_33;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 133) % 135) / 27)))) {
+          condval_33 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 673) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 133) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 25) % 27)) - 28)];
+        } else {
+          condval_33 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 673)] = condval_33;
+        float condval_34;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 109) % 135) / 27)))) {
+          condval_34 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 784) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 109) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 1) % 27)) - 28)];
+        } else {
+          condval_34 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 784)] = condval_34;
+        float condval_35;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 110) % 135) / 27)))) {
+          condval_35 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 785) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 110) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 2) % 27)) - 28)];
+        } else {
+          condval_35 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 785)] = condval_35;
+        float condval_36;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 86) % 135) / 27)))) {
+          condval_36 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 896) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 86) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 5) % 27)) - 28)];
+        } else {
+          condval_36 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 896)] = condval_36;
+        float condval_37;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 87) % 135) / 27)))) {
+          condval_37 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 897) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 87) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 6) % 27)) - 28)];
+        } else {
+          condval_37 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 897)] = condval_37;
+        if (((int)item.get_local_id(2)) < 36) {
+          pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1008)] = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 63) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 9) % 27)) + 5460)];
+          pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1009)] = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 64) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 10) % 27)) + 5460)];
+        }
+        sycl::vec<int, 2> v__4 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 1))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 1))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + (((int)item.get_local_id(2)) * 2);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__4[0]],param_0[v__4[1]]})); }
+        sycl::vec<int, 2> v__5 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 56) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)) + 1))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 56) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)) + 1))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 112);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__5[0]],param_0[v__5[1]]})); }
+        sycl::vec<int, 2> v__6 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 112) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 8) % 24) * 3)) + 1))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 112) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 8) % 24) * 3)) + 1))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 224);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__6[0]],param_0[v__6[1]]})); }
+        if (((int)item.get_local_id(2)) < 24) {
+          sycl::vec<int, 2> v__7 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 16129))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 16129))+(3*1)};
+          { using vec_t = sycl::vec<float,2>;
+          auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 336);
+          auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+          auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+          *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__7[0]],param_0[v__7[1]]})); }
+        }
+        group_barrier(item.get_group());
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[((((int)item.get_local_id(2)) % 7) * 4)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[((((int)item.get_local_id(2)) % 7) * 4)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 27)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 27)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 2)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 2)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 29)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 29)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 81)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 81)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 108)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 108)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 83)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 83)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 110)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 110)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 135)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 135)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 162)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 162)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 137)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 137)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 164)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 164)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 216)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 216)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 243)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 243)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 218)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 218)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 245)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 245)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 270)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 270)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 297)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 297)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 272)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 272)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 299)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 299)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 351)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 351)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 378)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 378)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 353)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 353)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 380)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 380)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 405)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 405)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 432)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 432)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 407)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 407)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 434)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 434)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 486)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 486)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 513)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 513)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 488)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 488)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 515)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 515)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 540)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 540)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 567)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 567)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 542)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 542)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 569)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 569)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 621)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 621)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 648)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 648)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 623)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 623)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 650)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 650)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 675)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 675)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 702)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 702)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 677)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 677)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 704)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 704)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 756)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 756)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 783)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 783)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 758)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 758)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 785)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 785)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 810)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 810)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 837)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 837)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 812)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 812)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 839)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 839)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 891)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 891)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 918)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 918)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 893)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 893)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 920)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 920)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 945)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 945)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 972)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 972)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 947)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 947)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 974)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 974)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1026)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1026)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1053)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1053)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1028)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1028)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1055)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1055)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        group_barrier(item.get_group());
+        float condval_38;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((int)item.get_local_id(2)) * 2) / 27)))) {
+          condval_38 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + (((((int)item.get_local_id(2)) * 2) / 27) * 28)) + ((((int)item.get_local_id(2)) * 2) % 27)) - 27)];
+        } else {
+          condval_38 = 0.000000e+00f;
+        }
+        pad_temp_shared[(((int)item.get_local_id(2)) * 2)] = condval_38;
+        float condval_39;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 1) / 27)))) {
+          condval_39 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 1) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 1) % 27)) - 27)];
+        } else {
+          condval_39 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1)] = condval_39;
+        float condval_40;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 112) % 135) / 27)))) {
+          condval_40 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 112) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 112) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 4) % 27)) - 27)];
+        } else {
+          condval_40 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 112)] = condval_40;
+        float condval_41;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 113) % 135) / 27)))) {
+          condval_41 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 113) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 113) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 5) % 27)) - 27)];
+        } else {
+          condval_41 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 113)] = condval_41;
+        float condval_42;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 89) % 135) / 27)))) {
+          condval_42 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 224) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 89) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 8) % 27)) - 27)];
+        } else {
+          condval_42 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 224)] = condval_42;
+        float condval_43;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 90) % 135) / 27)))) {
+          condval_43 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 225) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 90) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 9) % 27)) - 27)];
+        } else {
+          condval_43 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 225)] = condval_43;
+        float condval_44;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 66) % 135) / 27)))) {
+          condval_44 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 336) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 66) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 12) % 27)) - 27)];
+        } else {
+          condval_44 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 336)] = condval_44;
+        float condval_45;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 67) % 135) / 27)))) {
+          condval_45 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 337) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 67) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 13) % 27)) - 27)];
+        } else {
+          condval_45 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 337)] = condval_45;
+        float condval_46;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 43) % 135) / 27)))) {
+          condval_46 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 448) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 43) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 16) % 27)) - 27)];
+        } else {
+          condval_46 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 448)] = condval_46;
+        float condval_47;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 44) % 135) / 27)))) {
+          condval_47 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 449) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 44) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 17) % 27)) - 27)];
+        } else {
+          condval_47 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 449)] = condval_47;
+        float condval_48;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 20) / 27)))) {
+          condval_48 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 20) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 20) % 27)) + 3109)];
+        } else {
+          condval_48 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 560)] = condval_48;
+        float condval_49;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + (((((int)item.get_local_id(2)) * 2) + 21) / 27)))) {
+          condval_49 = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 21) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 21) % 27)) + 3109)];
+        } else {
+          condval_49 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 561)] = condval_49;
+        float condval_50;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 132) % 135) / 27)))) {
+          condval_50 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 672) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 132) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 24) % 27)) - 27)];
+        } else {
+          condval_50 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 672)] = condval_50;
+        float condval_51;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 133) % 135) / 27)))) {
+          condval_51 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 673) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 133) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 25) % 27)) - 27)];
+        } else {
+          condval_51 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 673)] = condval_51;
+        float condval_52;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 109) % 135) / 27)))) {
+          condval_52 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 784) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 109) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 1) % 27)) - 27)];
+        } else {
+          condval_52 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 784)] = condval_52;
+        float condval_53;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 110) % 135) / 27)))) {
+          condval_53 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 785) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 110) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 2) % 27)) - 27)];
+        } else {
+          condval_53 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 785)] = condval_53;
+        float condval_54;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 86) % 135) / 27)))) {
+          condval_54 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 896) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 86) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 5) % 27)) - 27)];
+        } else {
+          condval_54 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 896)] = condval_54;
+        float condval_55;
+        if ((1 <= (((((int)item.get_group(0)) % 7) * 4) + ((((((int)item.get_local_id(2)) * 2) + 87) % 135) / 27)))) {
+          condval_55 = lv43[((((((rc_0 * 6272) + ((((((int)item.get_local_id(2)) * 2) + 897) / 135) * 784)) + ((((int)item.get_group(0)) % 7) * 112)) + (((((((int)item.get_local_id(2)) * 2) + 87) % 135) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 6) % 27)) - 27)];
+        } else {
+          condval_55 = 0.000000e+00f;
+        }
+        pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 897)] = condval_55;
+        if (((int)item.get_local_id(2)) < 36) {
+          pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1008)] = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 63) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 9) % 27)) + 5461)];
+          pad_temp_shared[((((int)item.get_local_id(2)) * 2) + 1009)] = lv43[(((((rc_0 * 6272) + ((((int)item.get_group(0)) % 7) * 112)) + ((((((int)item.get_local_id(2)) * 2) + 64) / 27) * 28)) + (((((int)item.get_local_id(2)) * 2) + 10) % 27)) + 5461)];
+        }
+        sycl::vec<int, 2> v__8 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 2))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 2))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + (((int)item.get_local_id(2)) * 2);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__8[0]],param_0[v__8[1]]})); }
+        sycl::vec<int, 2> v__9 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 56) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)) + 2))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 56) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)) + 2))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 112);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__9[0]],param_0[v__9[1]]})); }
+        sycl::vec<int, 2> v__10 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 112) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 8) % 24) * 3)) + 2))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + (((((int)item.get_local_id(2)) + 112) / 12) * 1152)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 8) % 24) * 3)) + 2))+(3*1)};
+        { using vec_t = sycl::vec<float,2>;
+        auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 224);
+        auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+        auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+        *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__10[0]],param_0[v__10[1]]})); }
+        if (((int)item.get_local_id(2)) < 24) {
+          sycl::vec<int, 2> v__11 = (int2){(((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 16130))+(3*0), (((((((((int)item.get_group(0)) / 7) * 18432) + ((((int)item.get_local_id(2)) / 12) * 1152)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + 16130))+(3*1)};
+          { using vec_t = sycl::vec<float,2>;
+          auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 336);
+          auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+          auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+          *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__11[0]],param_0[v__11[1]]})); }
+        }
+        group_barrier(item.get_group());
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[((((int)item.get_local_id(2)) % 7) * 4)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[((((int)item.get_local_id(2)) % 7) * 4)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 27)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 27)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 2)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 2)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 29)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 29)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 54)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 81)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 81)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 108)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 108)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[((((int)item.get_local_id(2)) / 7) * 24)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 56)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 192)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 83)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 1)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 83)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 193)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 110)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 2)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 110)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 194)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 135)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 135)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 162)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 162)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 137)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 137)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 164)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 164)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 189)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 216)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 216)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 243)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 243)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 3)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 191)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 195)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 218)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 4)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 218)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 196)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 245)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 5)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 245)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 197)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 270)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 270)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 297)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 297)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 272)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 272)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 299)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 299)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 324)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 351)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 351)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 378)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 378)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 6)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 326)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 198)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 353)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 7)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 353)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 199)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 380)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 8)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 380)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 200)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 405)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 405)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 432)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 432)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 407)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 407)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 434)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 434)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 459)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 486)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 486)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 513)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 513)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 9)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 461)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 201)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 488)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 10)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 488)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 202)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 515)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 11)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 515)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 203)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 540)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 540)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 567)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 567)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 542)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 542)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 569)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 569)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 594)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 621)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 621)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 648)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 648)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 12)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 596)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 204)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 623)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 13)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 623)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 205)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 650)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 14)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 650)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 206)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 675)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 675)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 702)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 702)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 677)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 677)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 704)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 704)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 729)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 756)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 756)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 783)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 783)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 15)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 731)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 207)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 758)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 16)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 758)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 208)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 785)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 17)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 785)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 209)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 810)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 810)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 837)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 837)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 812)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 812)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 839)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 839)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 864)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 891)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 891)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 918)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 918)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 18)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 866)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 210)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 893)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 19)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 893)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 211)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 920)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 20)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 920)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 212)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 945)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 945)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 972)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 972)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[4] = (conv2d_nchw_local[4] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 947)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 947)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 974)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 974)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[1] = (conv2d_nchw_local[1] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[5] = (conv2d_nchw_local[5] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 999)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1026)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1026)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[2] = (conv2d_nchw_local[2] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1053)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[6] = (conv2d_nchw_local[6] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1053)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 21)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1001)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 213)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1028)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 22)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1028)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 214)]));
+        conv2d_nchw_local[3] = (conv2d_nchw_local[3] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1055)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 23)]));
+        conv2d_nchw_local[7] = (conv2d_nchw_local[7] + (pad_temp_shared[(((((int)item.get_local_id(2)) % 7) * 4) + 1055)] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + 215)]));
+      }
+      compute[(((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2))] = max((float)(conv2d_nchw_local[0] + param_1[(((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7))]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 1568)] = max((float)(conv2d_nchw_local[4] + param_1[((((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7)) + 8)]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 1)] = max((float)(conv2d_nchw_local[1] + param_1[(((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7))]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 1569)] = max((float)(conv2d_nchw_local[5] + param_1[((((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7)) + 8)]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 14)] = max((float)(conv2d_nchw_local[2] + param_1[(((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7))]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 1582)] = max((float)(conv2d_nchw_local[6] + param_1[((((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7)) + 8)]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 15)] = max((float)(conv2d_nchw_local[3] + param_1[(((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7))]), (float)0.000000e+00f);
+      compute[((((((((int)item.get_group(0)) / 7) * 3136) + ((((int)item.get_local_id(2)) / 7) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((int)item.get_local_id(2)) % 7) * 2)) + 1583)] = max((float)(conv2d_nchw_local[7] + param_1[((((((int)item.get_group(0)) / 7) * 16) + (((int)item.get_local_id(2)) / 7)) + 8)]), (float)0.000000e+00f);
+    });
+  });
+  }

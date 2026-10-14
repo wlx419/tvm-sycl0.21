@@ -1,0 +1,238 @@
+#include <cuda.h>
+
+#if (((__CUDACC_VER_MAJOR__ == 11) && (__CUDACC_VER_MINOR__ >= 4)) || \
+     (__CUDACC_VER_MAJOR__ > 11))
+#define TVM_ENABLE_L2_PREFETCH 1
+#else
+#define TVM_ENABLE_L2_PREFETCH 0
+#endif
+#include <cstdint>
+using uint = unsigned int;
+using uchar = unsigned char;
+using ushort = unsigned short;
+extern "C" __global__ void __launch_bounds__(56) fused_conv2d6_add5_relu3_kernel(float* __restrict__ compute, float* __restrict__ lv55, float* __restrict__ param_0, float* __restrict__ param_1);
+extern "C" __global__ void __launch_bounds__(56) fused_conv2d6_add5_relu3_kernel(float* __restrict__ compute, float* __restrict__ lv55, float* __restrict__ param_0, float* __restrict__ param_1) {
+  float conv2d_nchw_local[4];
+  __shared__ float pad_temp_shared[7168];
+  __shared__ float param_0_shared[3072];
+  conv2d_nchw_local[0] = 0.000000e+00f;
+  conv2d_nchw_local[1] = 0.000000e+00f;
+  conv2d_nchw_local[2] = 0.000000e+00f;
+  conv2d_nchw_local[3] = 0.000000e+00f;
+  for (int ax0_ax1_ax2_ax3_fused_0 = 0; ax0_ax1_ax2_ax3_fused_0 < 32; ++ax0_ax1_ax2_ax3_fused_0) {
+    float condval;
+    if ((((1 <= (((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14))) && ((((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14)) < 15)) && (1 <= (((int)threadIdx.x) % 14)))) {
+      condval = lv55[((((ax0_ax1_ax2_ax3_fused_0 * 196) + ((((int)blockIdx.x) % 7) * 28)) + ((int)threadIdx.x)) - 15)];
+    } else {
+      condval = 0.000000e+00f;
+    }
+    pad_temp_shared[((ax0_ax1_ax2_ax3_fused_0 * 56) + ((int)threadIdx.x))] = condval;
+  }
+  param_0_shared[((int)threadIdx.x)] = param_0[(((((int)blockIdx.x) / 7) * 18432) + (((int)threadIdx.x) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 56)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 56) / 96) * 2304)) + ((((((int)threadIdx.x) + 56) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 112)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 112) / 96) * 2304)) + (((((int)threadIdx.x) + 16) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 168)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 168) / 96) * 2304)) + ((((((int)threadIdx.x) / 3) + 24) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 224)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 224) / 96) * 2304)) + (((((int)threadIdx.x) + 32) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 280)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 280) / 96) * 2304)) + ((((((int)threadIdx.x) + 88) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 336)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 336) / 96) * 2304)) + ((((((int)threadIdx.x) / 3) + 16) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 392)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 392) / 96) * 2304)) + (((((int)threadIdx.x) + 8) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 448)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 448) / 96) * 2304)) + ((((((int)threadIdx.x) + 64) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 504)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 504) / 96) * 2304)) + (((int)threadIdx.x) * 3)) + 72)];
+  param_0_shared[(((int)threadIdx.x) + 560)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 560) / 96) * 2304)) + ((((((int)threadIdx.x) + 80) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 616)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 616) / 96) * 2304)) + (((((int)threadIdx.x) + 40) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3))];
+  param_0_shared[(((int)threadIdx.x) + 672)] = param_0[((((((int)blockIdx.x) / 7) * 18432) + (((int)threadIdx.x) * 3)) + 16128)];
+  if (((int)threadIdx.x) < 40) {
+    param_0_shared[(((int)threadIdx.x) + 728)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 728) / 96) * 2304)) + (((((int)threadIdx.x) + 56) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3))];
+  }
+__asm__ __volatile__("cp.async.commit_group;");
+
+  for (int ax0_ax1_ax2_ax3_fused_0_1 = 0; ax0_ax1_ax2_ax3_fused_0_1 < 32; ++ax0_ax1_ax2_ax3_fused_0_1) {
+    float condval_1;
+    if (((1 <= (((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14))) && ((((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14)) < 15))) {
+      condval_1 = lv55[((((ax0_ax1_ax2_ax3_fused_0_1 * 196) + ((((int)blockIdx.x) % 7) * 28)) + ((int)threadIdx.x)) - 14)];
+    } else {
+      condval_1 = 0.000000e+00f;
+    }
+    pad_temp_shared[(((ax0_ax1_ax2_ax3_fused_0_1 * 56) + ((int)threadIdx.x)) + 1792)] = condval_1;
+  }
+  param_0_shared[(((int)threadIdx.x) + 768)] = param_0[((((((int)blockIdx.x) / 7) * 18432) + (((int)threadIdx.x) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 824)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 56) / 96) * 2304)) + ((((((int)threadIdx.x) + 56) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 880)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 112) / 96) * 2304)) + (((((int)threadIdx.x) + 16) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 936)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 168) / 96) * 2304)) + ((((((int)threadIdx.x) / 3) + 24) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 992)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 224) / 96) * 2304)) + (((((int)threadIdx.x) + 32) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1048)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 280) / 96) * 2304)) + ((((((int)threadIdx.x) + 88) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1104)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 336) / 96) * 2304)) + ((((((int)threadIdx.x) / 3) + 16) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1160)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 392) / 96) * 2304)) + (((((int)threadIdx.x) + 8) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1216)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 448) / 96) * 2304)) + ((((((int)threadIdx.x) + 64) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1272)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 504) / 96) * 2304)) + (((int)threadIdx.x) * 3)) + 73)];
+  param_0_shared[(((int)threadIdx.x) + 1328)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 560) / 96) * 2304)) + ((((((int)threadIdx.x) + 80) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1384)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 616) / 96) * 2304)) + (((((int)threadIdx.x) + 40) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 1)];
+  param_0_shared[(((int)threadIdx.x) + 1440)] = param_0[((((((int)blockIdx.x) / 7) * 18432) + (((int)threadIdx.x) * 3)) + 16129)];
+  if (((int)threadIdx.x) < 40) {
+    param_0_shared[(((int)threadIdx.x) + 1496)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 728) / 96) * 2304)) + (((((int)threadIdx.x) + 56) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 1)];
+  }
+__asm__ __volatile__("cp.async.commit_group;");
+
+  for (int ax0_ax1_ax2_ax3_fused_0_2 = 0; ax0_ax1_ax2_ax3_fused_0_2 < 32; ++ax0_ax1_ax2_ax3_fused_0_2) {
+    float condval_2;
+    if ((((1 <= (((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14))) && ((((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14)) < 15)) && ((((int)threadIdx.x) % 14) < 13))) {
+      condval_2 = lv55[((((ax0_ax1_ax2_ax3_fused_0_2 * 196) + ((((int)blockIdx.x) % 7) * 28)) + ((int)threadIdx.x)) - 13)];
+    } else {
+      condval_2 = 0.000000e+00f;
+    }
+    pad_temp_shared[(((ax0_ax1_ax2_ax3_fused_0_2 * 56) + ((int)threadIdx.x)) + 3584)] = condval_2;
+  }
+  param_0_shared[(((int)threadIdx.x) + 1536)] = param_0[((((((int)blockIdx.x) / 7) * 18432) + (((int)threadIdx.x) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1592)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 56) / 96) * 2304)) + ((((((int)threadIdx.x) + 56) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1648)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 112) / 96) * 2304)) + (((((int)threadIdx.x) + 16) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1704)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 168) / 96) * 2304)) + ((((((int)threadIdx.x) / 3) + 24) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1760)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 224) / 96) * 2304)) + (((((int)threadIdx.x) + 32) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1816)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 280) / 96) * 2304)) + ((((((int)threadIdx.x) + 88) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1872)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 336) / 96) * 2304)) + ((((((int)threadIdx.x) / 3) + 16) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1928)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 392) / 96) * 2304)) + (((((int)threadIdx.x) + 8) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 1984)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 448) / 96) * 2304)) + ((((((int)threadIdx.x) + 64) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 2040)] = param_0[(((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 504) / 96) * 2304)) + (((int)threadIdx.x) * 3)) + 74)];
+  param_0_shared[(((int)threadIdx.x) + 2096)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 560) / 96) * 2304)) + ((((((int)threadIdx.x) + 80) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 2152)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 616) / 96) * 2304)) + (((((int)threadIdx.x) + 40) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + 2)];
+  param_0_shared[(((int)threadIdx.x) + 2208)] = param_0[((((((int)blockIdx.x) / 7) * 18432) + (((int)threadIdx.x) * 3)) + 16130)];
+  if (((int)threadIdx.x) < 40) {
+    param_0_shared[(((int)threadIdx.x) + 2264)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 728) / 96) * 2304)) + (((((int)threadIdx.x) + 56) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + 2)];
+  }
+__asm__ __volatile__("cp.async.commit_group;");
+
+  for (int rc_0_ry_0_rx_0_fused = 0; rc_0_ry_0_rx_0_fused < 21; ++rc_0_ry_0_rx_0_fused) {
+    __syncthreads();
+    for (int ax0_ax1_ax2_ax3_fused_0_3 = 0; ax0_ax1_ax2_ax3_fused_0_3 < 32; ++ax0_ax1_ax2_ax3_fused_0_3) {
+      float condval_3;
+      if (((((1 <= (((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14))) && ((((((int)blockIdx.x) % 7) * 2) + (((int)threadIdx.x) / 14)) < 15)) && (1 <= ((((int)threadIdx.x) % 14) + (rc_0_ry_0_rx_0_fused % 3)))) && (((((int)threadIdx.x) % 14) + (rc_0_ry_0_rx_0_fused % 3)) < 15))) {
+        condval_3 = lv55[(((((((rc_0_ry_0_rx_0_fused / 3) * 6272) + (ax0_ax1_ax2_ax3_fused_0_3 * 196)) + ((((int)blockIdx.x) % 7) * 28)) + ((int)threadIdx.x)) + (rc_0_ry_0_rx_0_fused % 3)) + 6257)];
+      } else {
+        condval_3 = 0.000000e+00f;
+      }
+      pad_temp_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 1792) + (ax0_ax1_ax2_ax3_fused_0_3 * 56)) + ((int)threadIdx.x))] = condval_3;
+    }
+    param_0_shared[((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x))] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((int)threadIdx.x) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 56)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 56) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + ((((((int)threadIdx.x) + 56) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 112)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 112) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((((int)threadIdx.x) + 16) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 168)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 168) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + ((((((int)threadIdx.x) / 3) + 24) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 224)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 224) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((((int)threadIdx.x) + 32) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 280)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 280) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + ((((((int)threadIdx.x) + 88) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 336)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 336) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + ((((((int)threadIdx.x) / 3) + 16) & 31) * 9)) + ((((int)threadIdx.x) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 392)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 392) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((((int)threadIdx.x) + 8) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 448)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 448) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + ((((((int)threadIdx.x) + 64) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 504)] = param_0[(((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 504) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((int)threadIdx.x) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 360)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 560)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 560) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + ((((((int)threadIdx.x) + 80) % 96) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 616)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 616) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((((int)threadIdx.x) + 40) / 3) * 9)) + (((((int)threadIdx.x) + 1) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 672)] = param_0[((((((((int)blockIdx.x) / 7) * 18432) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((int)threadIdx.x) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 16416)];
+    if (((int)threadIdx.x) < 40) {
+      param_0_shared[(((((rc_0_ry_0_rx_0_fused + 3) & 3) * 768) + ((int)threadIdx.x)) + 728)] = param_0[((((((((((int)blockIdx.x) / 7) * 18432) + (((((int)threadIdx.x) + 728) / 96) * 2304)) + ((rc_0_ry_0_rx_0_fused / 3) * 288)) + (((((int)threadIdx.x) + 56) / 3) * 9)) + (((((int)threadIdx.x) + 2) % 3) * 3)) + (rc_0_ry_0_rx_0_fused % 3)) + 288)];
+    }
+__asm__ __volatile__("cp.async.commit_group;");
+
+__asm__ __volatile__("cp.async.wait_group 3;");
+
+    __syncthreads();
+    for (int rc_1 = 0; rc_1 < 4; ++rc_1) {
+      for (int ry_1 = 0; ry_1 < 3; ++ry_1) {
+        for (int yy_3 = 0; yy_3 < 2; ++yy_3) {
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2))] * param_0_shared[(((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1)] * param_0_shared[(((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 56)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 3)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 57)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 3)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 112)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 6)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 113)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 6)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 168)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 9)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 169)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 9)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 224)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 12)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 225)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 12)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 280)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 15)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 281)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 15)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 336)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 18)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 337)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 18)]));
+          conv2d_nchw_local[(yy_3 * 2)] = (conv2d_nchw_local[(yy_3 * 2)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 392)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 21)]));
+          conv2d_nchw_local[((yy_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3 * 2) + 1)] + (pad_temp_shared[(((((((rc_0_ry_0_rx_0_fused & 3) * 1792) + (rc_1 * 448)) + (yy_3 * 14)) + (ry_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 393)] * param_0_shared[((((((rc_0_ry_0_rx_0_fused & 3) * 768) + ((((int)threadIdx.x) / 7) * 96)) + (rc_1 * 24)) + ry_1) + 21)]));
+        }
+      }
+    }
+  }
+__asm__ __volatile__("cp.async.wait_group 2;");
+
+  __syncthreads();
+  for (int rc_1_1 = 0; rc_1_1 < 4; ++rc_1_1) {
+    for (int ry_1_1 = 0; ry_1_1 < 3; ++ry_1_1) {
+      for (int yy_3_1 = 0; yy_3_1 < 2; ++yy_3_1) {
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1792)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 768)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1793)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 768)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1848)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 771)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1849)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 771)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1904)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 774)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1905)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 774)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1960)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 777)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 1961)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 777)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2016)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 780)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2017)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 780)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2072)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 783)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2073)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 783)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2128)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 786)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2129)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 786)]));
+        conv2d_nchw_local[(yy_3_1 * 2)] = (conv2d_nchw_local[(yy_3_1 * 2)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2184)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 789)]));
+        conv2d_nchw_local[((yy_3_1 * 2) + 1)] = (conv2d_nchw_local[((yy_3_1 * 2) + 1)] + (pad_temp_shared[(((((rc_1_1 * 448) + (yy_3_1 * 14)) + (ry_1_1 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 2185)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_1 * 24)) + ry_1_1) + 789)]));
+      }
+    }
+  }
+__asm__ __volatile__("cp.async.wait_group 1;");
+
+  __syncthreads();
+  for (int rc_1_2 = 0; rc_1_2 < 4; ++rc_1_2) {
+    for (int ry_1_2 = 0; ry_1_2 < 3; ++ry_1_2) {
+      for (int yy_3_2 = 0; yy_3_2 < 2; ++yy_3_2) {
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3584)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1536)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3585)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1536)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3640)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1539)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3641)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1539)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3696)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1542)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3697)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1542)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3752)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1545)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3753)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1545)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3808)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1548)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3809)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1548)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3864)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1551)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3865)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1551)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3920)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1554)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3921)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1554)]));
+        conv2d_nchw_local[(yy_3_2 * 2)] = (conv2d_nchw_local[(yy_3_2 * 2)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3976)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1557)]));
+        conv2d_nchw_local[((yy_3_2 * 2) + 1)] = (conv2d_nchw_local[((yy_3_2 * 2) + 1)] + (pad_temp_shared[(((((rc_1_2 * 448) + (yy_3_2 * 14)) + (ry_1_2 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 3977)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_2 * 24)) + ry_1_2) + 1557)]));
+      }
+    }
+  }
+__asm__ __volatile__("cp.async.wait_group 0;");
+
+  __syncthreads();
+  for (int rc_1_3 = 0; rc_1_3 < 4; ++rc_1_3) {
+    for (int ry_1_3 = 0; ry_1_3 < 3; ++ry_1_3) {
+      for (int yy_3_3 = 0; yy_3_3 < 2; ++yy_3_3) {
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5376)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2304)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5377)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2304)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5432)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2307)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5433)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2307)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5488)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2310)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5489)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2310)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5544)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2313)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5545)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2313)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5600)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2316)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5601)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2316)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5656)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2319)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5657)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2319)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5712)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2322)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5713)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2322)]));
+        conv2d_nchw_local[(yy_3_3 * 2)] = (conv2d_nchw_local[(yy_3_3 * 2)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5768)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2325)]));
+        conv2d_nchw_local[((yy_3_3 * 2) + 1)] = (conv2d_nchw_local[((yy_3_3 * 2) + 1)] + (pad_temp_shared[(((((rc_1_3 * 448) + (yy_3_3 * 14)) + (ry_1_3 * 14)) + ((((int)threadIdx.x) % 7) * 2)) + 5769)] * param_0_shared[(((((((int)threadIdx.x) / 7) * 96) + (rc_1_3 * 24)) + ry_1_3) + 2325)]));
+      }
+    }
+  }
+  compute[(((((((int)blockIdx.x) / 7) * 1568) + ((((int)threadIdx.x) / 7) * 196)) + ((((int)blockIdx.x) % 7) * 28)) + ((((int)threadIdx.x) % 7) * 2))] = max((conv2d_nchw_local[0] + param_1[(((((int)blockIdx.x) / 7) * 8) + (((int)threadIdx.x) / 7))]), 0.000000e+00f);
+  compute[((((((((int)blockIdx.x) / 7) * 1568) + ((((int)threadIdx.x) / 7) * 196)) + ((((int)blockIdx.x) % 7) * 28)) + ((((int)threadIdx.x) % 7) * 2)) + 1)] = max((conv2d_nchw_local[1] + param_1[(((((int)blockIdx.x) / 7) * 8) + (((int)threadIdx.x) / 7))]), 0.000000e+00f);
+  compute[((((((((int)blockIdx.x) / 7) * 1568) + ((((int)threadIdx.x) / 7) * 196)) + ((((int)blockIdx.x) % 7) * 28)) + ((((int)threadIdx.x) % 7) * 2)) + 14)] = max((conv2d_nchw_local[2] + param_1[(((((int)blockIdx.x) / 7) * 8) + (((int)threadIdx.x) / 7))]), 0.000000e+00f);
+  compute[((((((((int)blockIdx.x) / 7) * 1568) + ((((int)threadIdx.x) / 7) * 196)) + ((((int)blockIdx.x) % 7) * 28)) + ((((int)threadIdx.x) % 7) * 2)) + 15)] = max((conv2d_nchw_local[3] + param_1[(((((int)blockIdx.x) / 7) * 8) + (((int)threadIdx.x) / 7))]), 0.000000e+00f);
+}
+

@@ -1,0 +1,97 @@
+=== window start 2026-10-13T11:59:01+08:00
+afccce71e4be8e60b1855b62bd0e12eb  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+3536fad1073bbab732f2588cecf7d93b  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+long_transformer_sycl_r2off sycl transformer B1 graph pass p50=0.2463705 abs=1.4901161193847656e-08 
+long_transformer_sycl_r2off sycl transformer B1 graph pass p50=0.24658750000000002 abs=1.4901161193847656e-08 
+long_transformer_sycl_r2on sycl transformer B1 graph pass p50=0.0801985 abs=1.4901161193847656e-08 
+long_transformer_sycl_r2on sycl transformer B1 graph pass p50=0.0788215 abs=1.4901161193847656e-08 
+long_transformer_cuda cuda transformer B1 graph pass p50=0.064218 abs=1.1175870895385742e-08 
+long_transformer_cuda cuda transformer B1 graph pass p50=0.064547 abs=1.1175870895385742e-08 
+long_vit_sycl_r2off sycl vit B1 graph pass p50=0.271748 abs=1.4901161193847656e-08 
+long_vit_sycl_r2off sycl vit B1 graph pass p50=0.2627475 abs=1.4901161193847656e-08 
+long_vit_sycl_r2on sycl vit B1 graph pass p50=0.089498 abs=1.4901161193847656e-08 
+long_vit_sycl_r2on sycl vit B1 graph pass p50=0.089022 abs=1.4901161193847656e-08 
+long_vit_cuda cuda vit B1 graph pass p50=0.0774055 abs=2.421438694000244e-08 
+long_vit_cuda cuda vit B1 graph pass p50=0.0777765 abs=2.421438694000244e-08 
+sweep_mlp_b1_sycl_graph sycl mlp B1 graph pass p50=0.05111 abs=8.381903171539307e-09 
+sweep_mlp_b1_sycl_graph sycl mlp B1 graph pass p50=0.049786 abs=8.381903171539307e-09 
+sweep_mlp_b1_sycl_graph sycl mlp B1 graph pass p50=0.049832 abs=8.381903171539307e-09 
+sweep_mlp_b1_cuda_graph cuda mlp B1 graph pass p50=0.0294445 abs=8.381903171539307e-09 
+sweep_mlp_b1_cuda_graph cuda mlp B1 graph pass p50=0.0306665 abs=8.381903171539307e-09 
+sweep_mlp_b1_cuda_graph cuda mlp B1 graph pass p50=0.0290475 abs=8.381903171539307e-09 
+sweep_cnn_b1_sycl_graph sycl cnn B1 graph pass p50=0.0449245 abs=2.1827872842550278e-11 
+sweep_cnn_b1_sycl_graph sycl cnn B1 graph pass p50=0.0453325 abs=2.1827872842550278e-11 
+sweep_cnn_b1_sycl_graph sycl cnn B1 graph pass p50=0.045649999999999996 abs=2.1827872842550278e-11 
+sweep_cnn_b1_cuda_graph cuda cnn B1 graph pass p50=0.036557 abs=1.0913936421275139e-11 
+sweep_cnn_b1_cuda_graph cuda cnn B1 graph pass p50=0.036232 abs=1.0913936421275139e-11 
+sweep_cnn_b1_cuda_graph cuda cnn B1 graph pass p50=0.0361785 abs=1.0913936421275139e-11 
+sweep_transformer_b1_sycl_graph sycl transformer B1 graph pass p50=0.0791335 abs=1.4901161193847656e-08 
+sweep_transformer_b1_sycl_graph sycl transformer B1 graph pass p50=0.0790045 abs=1.4901161193847656e-08 
+sweep_transformer_b1_sycl_graph sycl transformer B1 graph pass p50=0.07915849999999999 abs=1.4901161193847656e-08 
+sweep_transformer_b1_cuda_graph cuda transformer B1 graph pass p50=0.064766 abs=1.1175870895385742e-08 
+sweep_transformer_b1_cuda_graph cuda transformer B1 graph pass p50=0.06474150000000001 abs=1.1175870895385742e-08 
+sweep_transformer_b1_cuda_graph cuda transformer B1 graph pass p50=0.0649235 abs=1.1175870895385742e-08 
+sweep_vit_b1_sycl_graph sycl vit B1 graph pass p50=0.1016175 abs=1.4901161193847656e-08 
+sweep_vit_b1_sycl_graph sycl vit B1 graph pass p50=0.0991755 abs=1.4901161193847656e-08 
+sweep_vit_b1_sycl_graph sycl vit B1 graph pass p50=0.0991185 abs=1.4901161193847656e-08 
+sweep_vit_b1_cuda_graph cuda vit B1 graph pass p50=0.08097599999999999 abs=2.421438694000244e-08 
+sweep_vit_b1_cuda_graph cuda vit B1 graph pass p50=0.080718 abs=2.421438694000244e-08 
+sweep_vit_b1_cuda_graph cuda vit B1 graph pass p50=0.084487 abs=2.421438694000244e-08 
+sweep_mlp_b8_sycl_graph sycl mlp B8 graph pass p50=0.063644 abs=1.9907020032405853e-08 
+sweep_mlp_b8_sycl_graph sycl mlp B8 graph pass p50=0.0641545 abs=1.9907020032405853e-08 
+sweep_mlp_b8_sycl_graph sycl mlp B8 graph pass p50=0.06372 abs=1.9907020032405853e-08 
+sweep_mlp_b8_cuda_graph cuda mlp B8 graph pass p50=0.0599895 abs=1.9907020032405853e-08 
+sweep_mlp_b8_cuda_graph cuda mlp B8 graph pass p50=0.0544445 abs=1.9907020032405853e-08 
+sweep_mlp_b8_cuda_graph cuda mlp B8 graph pass p50=0.054807 abs=1.9907020032405853e-08 
+sweep_cnn_b8_sycl_graph sycl cnn B8 graph pass p50=0.047531000000000004 abs=2.9103830456733704e-11 
+sweep_cnn_b8_sycl_graph sycl cnn B8 graph pass p50=0.0469375 abs=2.9103830456733704e-11 
+sweep_cnn_b8_sycl_graph sycl cnn B8 graph pass p50=0.0470825 abs=2.9103830456733704e-11 
+sweep_cnn_b8_cuda_graph cuda cnn B8 graph pass p50=0.03766 abs=3.2741809263825417e-11 
+sweep_cnn_b8_cuda_graph cuda cnn B8 graph pass p50=0.0372155 abs=3.2741809263825417e-11 
+sweep_cnn_b8_cuda_graph cuda cnn B8 graph pass p50=0.0373815 abs=3.2741809263825417e-11 
+sweep_transformer_b8_sycl_graph sycl transformer B8 graph pass p50=0.084986 abs=2.9802322387695312e-08 
+sweep_transformer_b8_sycl_graph sycl transformer B8 graph pass p50=0.08450099999999999 abs=2.9802322387695312e-08 
+sweep_transformer_b8_sycl_graph sycl transformer B8 graph pass p50=0.084784 abs=2.9802322387695312e-08 
+sweep_transformer_b8_cuda_graph cuda transformer B8 graph pass p50=0.0704485 abs=2.9802322387695312e-08 
+sweep_transformer_b8_cuda_graph cuda transformer B8 graph pass p50=0.0702315 abs=2.9802322387695312e-08 
+sweep_transformer_b8_cuda_graph cuda transformer B8 graph pass p50=0.0703615 abs=2.9802322387695312e-08 
+sweep_vit_b8_sycl_graph sycl vit B8 graph pass p50=0.1150215 abs=5.21540641784668e-08 
+sweep_vit_b8_sycl_graph sycl vit B8 graph pass p50=0.114454 abs=5.21540641784668e-08 
+sweep_vit_b8_sycl_graph sycl vit B8 graph pass p50=0.119611 abs=5.21540641784668e-08 
+sweep_vit_b8_cuda_graph cuda vit B8 graph pass p50=0.1059815 abs=6.705522537231445e-08 
+sweep_vit_b8_cuda_graph cuda vit B8 graph pass p50=0.109778 abs=6.705522537231445e-08 
+sweep_vit_b8_cuda_graph cuda vit B8 graph pass p50=0.105805 abs=6.705522537231445e-08 
+sweep_mlp_b16_sycl_graph sycl mlp B16 graph pass p50=0.064588 abs=2.2351741790771484e-08 
+sweep_mlp_b16_sycl_graph sycl mlp B16 graph pass p50=0.064275 abs=2.2351741790771484e-08 
+sweep_mlp_b16_sycl_graph sycl mlp B16 graph pass p50=0.0648475 abs=2.2351741790771484e-08 
+sweep_mlp_b16_cuda_graph cuda mlp B16 graph pass p50=0.0620395 abs=2.2351741790771484e-08 
+sweep_mlp_b16_cuda_graph cuda mlp B16 graph pass p50=0.055243 abs=2.2351741790771484e-08 
+sweep_mlp_b16_cuda_graph cuda mlp B16 graph pass p50=0.0596405 abs=2.2351741790771484e-08 
+sweep_cnn_b16_sycl_graph sycl cnn B16 graph pass p50=0.048317 abs=4.3655745685100555e-11 
+sweep_cnn_b16_sycl_graph sycl cnn B16 graph pass p50=0.0474285 abs=4.3655745685100555e-11 
+sweep_cnn_b16_sycl_graph sycl cnn B16 graph pass p50=0.047382499999999994 abs=4.3655745685100555e-11 
+sweep_cnn_b16_cuda_graph cuda cnn B16 graph pass p50=0.038619 abs=5.820766091346741e-11 
+sweep_cnn_b16_cuda_graph cuda cnn B16 graph pass p50=0.038727 abs=5.820766091346741e-11 
+sweep_cnn_b16_cuda_graph cuda cnn B16 graph pass p50=0.038778 abs=5.820766091346741e-11 
+sweep_transformer_b16_sycl_graph sycl transformer B16 graph pass p50=0.08595549999999999 abs=2.9802322387695312e-08 
+sweep_transformer_b16_sycl_graph sycl transformer B16 graph pass p50=0.0860935 abs=2.9802322387695312e-08 
+sweep_transformer_b16_sycl_graph sycl transformer B16 graph pass p50=0.087244 abs=2.9802322387695312e-08 
+sweep_transformer_b16_cuda_graph cuda transformer B16 graph pass p50=0.0717865 abs=3.725290298461914e-08 
+sweep_transformer_b16_cuda_graph cuda transformer B16 graph pass p50=0.0717615 abs=3.725290298461914e-08 
+sweep_transformer_b16_cuda_graph cuda transformer B16 graph pass p50=0.0719955 abs=3.725290298461914e-08 
+sweep_vit_b16_sycl_graph sycl vit B16 graph pass p50=0.1231285 abs=1.043081283569336e-07 
+sweep_vit_b16_sycl_graph sycl vit B16 graph pass p50=0.118293 abs=1.043081283569336e-07 
+sweep_vit_b16_sycl_graph sycl vit B16 graph pass p50=0.122429 abs=1.043081283569336e-07 
+sweep_vit_b16_cuda_graph cuda vit B16 graph pass p50=0.112275 abs=9.685754776000977e-08 
+sweep_vit_b16_cuda_graph cuda vit B16 graph pass p50=0.1126125 abs=9.685754776000977e-08 
+sweep_vit_b16_cuda_graph cuda vit B16 graph pass p50=0.112385 abs=9.685754776000977e-08 
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.512878 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.5128064999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.5135175000000001 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_cuda_iso_graph cuda resnet18 B1 pass p50=0.493417 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_graph cuda resnet18 B1 pass p50=0.493176 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_graph cuda resnet18 B1 pass p50=0.497681 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_sycldb_sycl_final_graph sycl resnet18 B1 pass p50=1.218363 abs=3.814697265625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final_graph sycl resnet18 B1 pass p50=1.218081 abs=3.814697265625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final_graph sycl resnet18 B1 pass p50=1.2235360000000002 abs=3.814697265625e-06 db=15 fallback=4
+=== window end 2026-10-13T12:09:11+08:00

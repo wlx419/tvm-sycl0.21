@@ -1,0 +1,36 @@
+// tvm target: sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32
+#include <sycl/sycl.hpp>
+using namespace sycl;
+#ifndef TVM_SYCL_MODULE_ID
+#define TVM_SYCL_MODULE_ID m0
+#endif
+#define TVM_SYCL_KERNEL_NAME_IMPL(func, module_id) func##_##module_id
+#define TVM_SYCL_KERNEL_NAME(func, module_id) TVM_SYCL_KERNEL_NAME_IMPL(func, module_id)
+#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id
+#define TVM_SYCL_WRAPPER_NAME(func, module_id) TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)
+// CodeGenSYCL: NOTE: Auto-generated packed function
+// Function: max_pool2d_kernel
+class TVM_SYCL_KERNEL_NAME(h3050990359, TVM_SYCL_MODULE_ID);
+#ifdef __cplusplus
+extern "C"
+#endif
+void TVM_SYCL_WRAPPER_NAME(h3050990359, TVM_SYCL_MODULE_ID)(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {
+  float* lv3 = (float*)(*(int64_t *)(void_args[0]));
+  float* pool_max = (float*)(*(int64_t *)(void_args[1]));
+  Qh.submit([=](handler &h) {
+    h.parallel_for<TVM_SYCL_KERNEL_NAME(h3050990359, TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {
+      pool_max[(((((((int)item.get_group(0)) / 196) * 200704) + (((((((int)item.get_group(0)) % 196) * 16) + (((int)item.get_local_id(2)) >> 6)) / 49) * 3136)) + (((((((int)item.get_group(0)) * 128) + (((int)item.get_local_id(2)) >> 3)) % 392) / 7) * 56)) + (((((int)item.get_group(0)) * 16) + ((int)item.get_local_id(2))) % 56))] = -3.402823e+38f;
+      for (int ax4 = 0; ax4 < 3; ++ax4) {
+        for (int ax5 = 0; ax5 < 3; ++ax5) {
+          float condval;
+          if ((((bool)(1 <= ((((((((int)item.get_group(0)) * 128) + (((int)item.get_local_id(2)) >> 3)) % 392) / 7) * 2) + ax4))) && ((bool)(1 <= (((((((int)item.get_group(0)) * 16) + ((int)item.get_local_id(2))) % 56) * 2) + ax5))))) {
+            condval = lv3[((((((((((int)item.get_group(0)) / 196) * 802816) + (((((((int)item.get_group(0)) % 196) * 16) + (((int)item.get_local_id(2)) >> 6)) / 49) * 12544)) + (((((((int)item.get_group(0)) * 128) + (((int)item.get_local_id(2)) >> 3)) % 392) / 7) * 224)) + (ax4 * 112)) + ((((((int)item.get_group(0)) * 16) + ((int)item.get_local_id(2))) % 56) * 2)) + ax5) - 113)];
+          } else {
+            condval = -3.402823e+38f;
+          }
+          pool_max[(((((((int)item.get_group(0)) / 196) * 200704) + (((((((int)item.get_group(0)) % 196) * 16) + (((int)item.get_local_id(2)) >> 6)) / 49) * 3136)) + (((((((int)item.get_group(0)) * 128) + (((int)item.get_local_id(2)) >> 3)) % 392) / 7) * 56)) + (((((int)item.get_group(0)) * 16) + ((int)item.get_local_id(2))) % 56))] = max((float)pool_max[(((((((int)item.get_group(0)) / 196) * 200704) + (((((((int)item.get_group(0)) % 196) * 16) + (((int)item.get_local_id(2)) >> 6)) / 49) * 3136)) + (((((((int)item.get_group(0)) * 128) + (((int)item.get_local_id(2)) >> 3)) % 392) / 7) * 56)) + (((((int)item.get_group(0)) * 16) + ((int)item.get_local_id(2))) % 56))], (float)condval);
+        }
+      }
+    });
+  });
+  }

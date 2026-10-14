@@ -1,0 +1,104 @@
+=== window start 2026-10-12T21:33:11+08:00
+GPU-e5e525e1-6c5a-fb72-18b0-3e59e3ca9983, 1442768, /mnt/data/wlx/anaconda3/envs/tvm-sycl/bin/python
+compute apps on GPU1 other than the stopped audit job: 0 (audit job: 1442766 1442768 )
+index, clocks.current.sm [MHz], clocks.current.memory [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 1995 MHz, 10251 MHz, 67, 450.19 W, 100 %
+1, 2715 MHz, 10251 MHz, 59, 114.98 W, 0 %
+ 21:33:14 up 4 days, 13:54,  1 user,  load average: 4.00, 5.10, 5.53
+sycl resnet18 B1 pass p50=2.046918 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=2.056257 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=2.059431 abs=3.814697265625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.779846 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7799285 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7795639999999999 abs=2.1457672119140625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=2.005446 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=2.0078245 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=2.096411 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.780757 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.785938 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.785287 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.7814485 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.78152 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.7811534999999998 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.7704875 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.7701335 abs=3.814697265625e-06 db=15 fallback=4
+sycl resnet18 B1 pass p50=1.770119 abs=3.814697265625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7803640000000001 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7804925 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7844125 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7703385 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.7654735 abs=2.1457672119140625e-06 db=15 fallback=4
+cuda resnet18 B1 pass p50=0.769778 abs=2.1457672119140625e-06 db=15 fallback=4
+sycl mlp B1 eager pass p50=0.0637915 abs=8.381903171539307e-09 
+sycl mlp B1 eager pass p50=0.064221 abs=8.381903171539307e-09 
+sycl mlp B1 eager pass p50=0.064633 abs=8.381903171539307e-09 
+sycl mlp B1 eager pass p50=0.0456935 abs=8.381903171539307e-09 
+sycl mlp B1 eager pass p50=0.047085 abs=8.381903171539307e-09 
+sycl mlp B1 eager pass p50=0.0470955 abs=8.381903171539307e-09 
+sycl mlp B1 graph pass p50=0.052740999999999996 abs=8.381903171539307e-09 
+sycl mlp B1 graph pass p50=0.051333000000000004 abs=8.381903171539307e-09 
+sycl mlp B1 graph pass p50=0.0514535 abs=8.381903171539307e-09 
+cuda mlp B1 eager pass p50=0.028766 abs=8.381903171539307e-09 
+cuda mlp B1 eager pass p50=0.034748 abs=8.381903171539307e-09 
+cuda mlp B1 eager pass p50=0.029111 abs=8.381903171539307e-09 
+cuda mlp B1 graph pass p50=0.031076 abs=8.381903171539307e-09 
+cuda mlp B1 graph pass p50=0.030407999999999998 abs=8.381903171539307e-09 
+cuda mlp B1 graph pass p50=0.030609499999999998 abs=8.381903171539307e-09 
+sycl cnn B1 eager pass p50=0.119888 abs=2.1827872842550278e-11 
+sycl cnn B1 eager pass p50=0.120204 abs=2.1827872842550278e-11 
+sycl cnn B1 eager pass p50=0.117315 abs=2.1827872842550278e-11 
+sycl cnn B1 eager pass p50=0.0668865 abs=2.1827872842550278e-11 
+sycl cnn B1 eager pass p50=0.066302 abs=2.1827872842550278e-11 
+sycl cnn B1 eager pass p50=0.06766 abs=2.1827872842550278e-11 
+sycl cnn B1 graph pass p50=0.063859 abs=2.1827872842550278e-11 
+sycl cnn B1 graph pass p50=0.0639915 abs=2.1827872842550278e-11 
+sycl cnn B1 graph pass p50=0.06374650000000001 abs=2.1827872842550278e-11 
+cuda cnn B1 eager pass p50=0.038540000000000005 abs=1.0913936421275139e-11 
+cuda cnn B1 eager pass p50=0.038304 abs=1.0913936421275139e-11 
+cuda cnn B1 eager pass p50=0.0383665 abs=1.0913936421275139e-11 
+cuda cnn B1 graph pass p50=0.036116 abs=1.0913936421275139e-11 
+cuda cnn B1 graph pass p50=0.0373095 abs=1.0913936421275139e-11 
+cuda cnn B1 graph pass p50=0.037009 abs=1.0913936421275139e-11 
+sycl transformer B1 eager pass p50=0.420156 abs=1.4901161193847656e-08 
+sycl transformer B1 eager pass p50=0.4085655 abs=1.4901161193847656e-08 
+sycl transformer B1 eager pass p50=0.4149385 abs=1.4901161193847656e-08 
+sycl transformer B1 eager pass p50=0.3491125 abs=1.4901161193847656e-08 
+sycl transformer B1 eager pass p50=0.2281745 abs=1.4901161193847656e-08 
+sycl transformer B1 eager pass p50=0.2261015 abs=1.4901161193847656e-08 
+sycl transformer B1 graph pass p50=0.172431 abs=1.4901161193847656e-08 
+sycl transformer B1 graph pass p50=0.173198 abs=1.4901161193847656e-08 
+sycl transformer B1 graph pass p50=0.1716585 abs=1.4901161193847656e-08 
+cuda transformer B1 eager pass p50=0.12215100000000001 abs=1.1175870895385742e-08 
+cuda transformer B1 eager pass p50=0.1205515 abs=1.1175870895385742e-08 
+cuda transformer B1 eager pass p50=0.109881 abs=1.1175870895385742e-08 
+cuda transformer B1 graph pass p50=0.066031 abs=1.1175870895385742e-08 
+cuda transformer B1 graph pass p50=0.064761 abs=1.1175870895385742e-08 
+cuda transformer B1 graph pass p50=0.065785 abs=1.1175870895385742e-08 
+sycl vit B1 eager pass p50=0.54648 abs=9.313225746154785e-09 
+sycl vit B1 eager pass p50=0.545354 abs=9.313225746154785e-09 
+sycl vit B1 eager pass p50=0.5403365 abs=9.313225746154785e-09 
+sycl vit B1 eager pass p50=0.33613499999999996 abs=9.313225746154785e-09 
+sycl vit B1 eager pass p50=0.3347685 abs=9.313225746154785e-09 
+sycl vit B1 eager pass p50=0.352831 abs=9.313225746154785e-09 
+sycl vit B1 graph pass p50=0.19948349999999998 abs=9.313225746154785e-09 
+sycl vit B1 graph pass p50=0.2000055 abs=9.313225746154785e-09 
+sycl vit B1 graph pass p50=0.200348 abs=9.313225746154785e-09 
+cuda vit B1 eager pass p50=0.180979 abs=2.421438694000244e-08 
+cuda vit B1 eager pass p50=0.1816435 abs=2.421438694000244e-08 
+cuda vit B1 eager pass p50=0.1808595 abs=2.421438694000244e-08 
+cuda vit B1 graph pass p50=0.0813025 abs=2.421438694000244e-08 
+cuda vit B1 graph pass p50=0.0813835 abs=2.421438694000244e-08 
+cuda vit B1 graph pass p50=0.081594 abs=2.421438694000244e-08 
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/sycl_b1.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/cuda_b1.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/sycl_r2async_b1.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/sycl_r2graph_b1.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/sycl_b16.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/cuda_b16.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/sycl_r2async_b16.nsys-rep
+    /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window1/e1/sycl_r2graph_b16.nsys-rep
+index, clocks.current.sm [MHz], clocks.current.memory [MHz], temperature.gpu, power.draw [W]
+0, 1965 MHz, 10251 MHz, 69, 450.08 W
+1, 210 MHz, 405 MHz, 38, 24.14 W
+=== window end 2026-10-12T22:26:34+08:00
+GPU-e5e525e1-6c5a-fb72-18b0-3e59e3ca9983, 1442768, /mnt/data/wlx/anaconda3/envs/tvm-sycl/bin/python

@@ -1,0 +1,23 @@
+{
+ "model": "transformer",
+ "batch": 1,
+ "target": "opencl",
+ "graph": false,
+ "resolved_target": "opencl -keys=opencl,gpu -image_base_address_alignment=64 -max_function_args=128 -max_num_threads=256 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -texture_spatial_limit=16384 -thread_warp_size=1",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 1.7360535489860922,
+ "max_abs_err": 1.4901161193847656e-08,
+ "status": "pass",
+ "latency_mean_ms": 2.3899326000000003,
+ "latency_p50_ms": 2.391787,
+ "latency_p90_ms": 2.3929522,
+ "latency_p99_ms": 2.39364052,
+ "latency_samples_ms": [
+  2.38195,
+  2.390404,
+  2.391787,
+  2.391805,
+  2.393717
+ ]
+}

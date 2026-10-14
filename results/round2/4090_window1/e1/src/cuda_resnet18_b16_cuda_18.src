@@ -1,0 +1,53 @@
+#include <cuda.h>
+
+#if defined(__CUDA_ARCH__) && (__CUDA_ARCH__ < 700)
+#define __shfl_sync(mask, var, lane, width) \
+        __shfl((var), (lane), (width))
+
+#define __shfl_down_sync(mask, var, offset, width) \
+        __shfl_down((var), (offset), (width))
+
+#define __shfl_up_sync(mask, var, offset, width) \
+        __shfl_up((var), (offset), (width))
+#endif
+
+
+#if (((__CUDACC_VER_MAJOR__ == 11) && (__CUDACC_VER_MINOR__ >= 4)) || \
+     (__CUDACC_VER_MAJOR__ > 11))
+#define TVM_ENABLE_L2_PREFETCH 1
+#else
+#define TVM_ENABLE_L2_PREFETCH 0
+#endif
+#include <cstdint>
+using uint = unsigned int;
+using uchar = unsigned char;
+using ushort = unsigned short;
+extern "C" __global__ void __launch_bounds__(32) adaptive_avg_pool2d_kernel(float* __restrict__ adaptive_pool_avg, float* __restrict__ lv85);
+extern "C" __global__ void __launch_bounds__(32) adaptive_avg_pool2d_kernel(float* __restrict__ adaptive_pool_avg, float* __restrict__ lv85) {
+  float adaptive_pool_sum_rf_local[1];
+  float red_buf0[1];
+  adaptive_pool_sum_rf_local[0] = 0.000000e+00f;
+  adaptive_pool_sum_rf_local[0] = (adaptive_pool_sum_rf_local[0] + lv85[((((int)blockIdx.x) * 49) + ((int)threadIdx.x))]);
+  if (((int)threadIdx.x) < 17) {
+    adaptive_pool_sum_rf_local[0] = (adaptive_pool_sum_rf_local[0] + lv85[(((((int)blockIdx.x) * 49) + ((int)threadIdx.x)) + 32)]);
+  }
+  uint mask[1];
+  float t0[1];
+  red_buf0[0] = adaptive_pool_sum_rf_local[0];
+  mask[0] = __activemask();
+  t0[0] = __shfl_down_sync(mask[0], red_buf0[0], 16, 32);
+  red_buf0[0] = (red_buf0[0] + t0[0]);
+  t0[0] = __shfl_down_sync(mask[0], red_buf0[0], 8, 32);
+  red_buf0[0] = (red_buf0[0] + t0[0]);
+  t0[0] = __shfl_down_sync(mask[0], red_buf0[0], 4, 32);
+  red_buf0[0] = (red_buf0[0] + t0[0]);
+  t0[0] = __shfl_down_sync(mask[0], red_buf0[0], 2, 32);
+  red_buf0[0] = (red_buf0[0] + t0[0]);
+  t0[0] = __shfl_down_sync(mask[0], red_buf0[0], 1, 32);
+  red_buf0[0] = (red_buf0[0] + t0[0]);
+  red_buf0[0] = __shfl_sync(mask[0], red_buf0[0], 0, 32);
+  if (((int)threadIdx.x) == 0) {
+    adaptive_pool_avg[((int)blockIdx.x)] = (red_buf0[0] * 2.040816e-02f);
+  }
+}
+

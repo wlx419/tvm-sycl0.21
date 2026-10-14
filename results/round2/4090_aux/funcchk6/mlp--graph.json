@@ -1,0 +1,23 @@
+{
+ "model": "mlp",
+ "batch": 1,
+ "target": "sycl",
+ "graph": true,
+ "resolved_target": "sycl -keys=sycl,gpu -arch=sm_89 -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 0.7518515319679864,
+ "max_abs_err": 8.381903171539307e-09,
+ "status": "pass",
+ "latency_mean_ms": 2.3033576000000004,
+ "latency_p50_ms": 2.30445,
+ "latency_p90_ms": 2.3046444,
+ "latency_p99_ms": 2.30475204,
+ "latency_samples_ms": [
+  2.30129,
+  2.301819,
+  2.304465,
+  2.304764,
+  2.30445
+ ]
+}

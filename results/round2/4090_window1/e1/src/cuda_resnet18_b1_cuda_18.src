@@ -1,0 +1,56 @@
+#include <cuda.h>
+
+#if (((__CUDACC_VER_MAJOR__ == 11) && (__CUDACC_VER_MINOR__ >= 4)) || \
+     (__CUDACC_VER_MAJOR__ > 11))
+#define TVM_ENABLE_L2_PREFETCH 1
+#else
+#define TVM_ENABLE_L2_PREFETCH 0
+#endif
+#include <cstdint>
+using uint = unsigned int;
+using uchar = unsigned char;
+using ushort = unsigned short;
+extern "C" __global__ void __launch_bounds__(1024) max_pool2d_kernel(float* __restrict__ lv3, float* __restrict__ pool_max);
+extern "C" __global__ void __launch_bounds__(1024) max_pool2d_kernel(float* __restrict__ lv3, float* __restrict__ pool_max) {
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = -3.402823e+38f;
+  float condval;
+  if (((7 <= (((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) % 392)) && (1 <= (((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56)))) {
+    condval = lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) - 113)];
+  } else {
+    condval = -3.402823e+38f;
+  }
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], condval);
+  float condval_1;
+  if ((7 <= (((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) % 392))) {
+    condval_1 = lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) - 112)];
+  } else {
+    condval_1 = -3.402823e+38f;
+  }
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], condval_1);
+  float condval_2;
+  if ((7 <= (((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) % 392))) {
+    condval_2 = lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) - 111)];
+  } else {
+    condval_2 = -3.402823e+38f;
+  }
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], condval_2);
+  float condval_3;
+  if ((1 <= (((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56))) {
+    condval_3 = lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) - 1)];
+  } else {
+    condval_3 = -3.402823e+38f;
+  }
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], condval_3);
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], lv3[(((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2))]);
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) + 1)]);
+  float condval_4;
+  if ((1 <= (((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56))) {
+    condval_4 = lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) + 111)];
+  } else {
+    condval_4 = -3.402823e+38f;
+  }
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], condval_4);
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) + 112)]);
+  pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))] = max(pool_max[((((int)blockIdx.x) * 1024) + ((int)threadIdx.x))], lv3[((((((((int)blockIdx.x) * 128) + (((int)threadIdx.x) >> 3)) / 7) * 224) + ((((((int)blockIdx.x) * 16) + ((int)threadIdx.x)) % 56) * 2)) + 113)]);
+}
+

@@ -1,0 +1,57 @@
+=== window start 2026-10-13T22:13:32+08:00
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 2025 MHz, 65, 450.81 W, 100 %
+1, 2715 MHz, 55, 123.82 W, 0 %
+437d5451e10114a66afc251e54405846  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+f46efeb055150b8b1e3980050b35f9da  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+eff4673f185bb7f196b8dad9a2314f35  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-v711/libtvm_runtime.so
+ab2534a6f1b4f68a4ce6debfdaa3c6e0  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-v711/libtvm.so
+e1 rn18_isodb_r2     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window10/e1/rn18_isodb_r2.nsys-rep
+e1 rn18_isodb_v711     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window10/e1/rn18_isodb_v711.nsys-rep
+c_transformer_graph_v711 sycl transformer B1 graph pass p50=0.0698415 abs=1.4901161193847656e-08 
+c_transformer_graph_v711 sycl transformer B1 graph pass p50=0.07026650000000001 abs=1.4901161193847656e-08 
+c_transformer_graph_v711 sycl transformer B1 graph pass p50=0.0701325 abs=1.4901161193847656e-08 
+c_vit_graph_v711 sycl vit B1 graph pass p50=0.087104 abs=1.4901161193847656e-08 
+c_vit_graph_v711 sycl vit B1 graph pass p50=0.0871915 abs=1.4901161193847656e-08 
+c_vit_graph_v711 sycl vit B1 graph pass p50=0.087298 abs=1.4901161193847656e-08 
+c_cnn_graph_v711 sycl cnn B1 graph pass p50=0.0396845 abs=2.1827872842550278e-11 
+c_cnn_graph_v711 sycl cnn B1 graph pass p50=0.0405975 abs=2.1827872842550278e-11 
+c_cnn_graph_v711 sycl cnn B1 graph pass p50=0.040026 abs=2.1827872842550278e-11 
+c_mlp_graph_v711 sycl mlp B1 graph pass p50=0.0382435 abs=8.381903171539307e-09 
+c_mlp_graph_v711 sycl mlp B1 graph pass p50=0.0372005 abs=8.381903171539307e-09 
+c_mlp_graph_v711 sycl mlp B1 graph pass p50=0.036598 abs=8.381903171539307e-09 
+--- retune sycl_v711 start 2026-10-13T22:15:15+08:00
+sycl_v711 sycl resnet18 B1 pass p50=0.571264 abs=3.0994415283203125e-06 db=19 fallback=0
+--- retune sycl_v711 end 2026-10-13T23:24:42+08:00 records=1029 recycled=0
+rn18_v711db_v711_eager sycl resnet18 B1 pass p50=0.568727 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_v711_eager sycl resnet18 B1 pass p50=0.5686355000000001 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_v711_eager sycl resnet18 B1 pass p50=0.5632195 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_v711_graph sycl resnet18 B1 pass p50=0.554637 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_v711_graph sycl resnet18 B1 pass p50=0.5492615000000001 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_v711_graph sycl resnet18 B1 pass p50=0.5551159999999999 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_r2_eager sycl resnet18 B1 pass p50=0.6571644999999999 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_r2_eager sycl resnet18 B1 pass p50=0.6560915 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_v711db_r2_eager sycl resnet18 B1 pass p50=0.6581155 abs=3.0994415283203125e-06 db=19 fallback=0
+rn18_isodb_v711_eager sycl resnet18 B1 pass p50=0.5587135 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_v711_eager sycl resnet18 B1 pass p50=0.563392 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_v711_eager sycl resnet18 B1 pass p50=0.5642400000000001 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_v711_graph sycl resnet18 B1 pass p50=0.549221 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_v711_graph sycl resnet18 B1 pass p50=0.549501 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_v711_graph sycl resnet18 B1 pass p50=0.549823 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_r2_eager sycl resnet18 B1 pass p50=0.5385275 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_r2_eager sycl resnet18 B1 pass p50=0.528726 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_r2_eager sycl resnet18 B1 pass p50=0.5284255 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_r2_graph sycl resnet18 B1 pass p50=0.5179425 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_r2_graph sycl resnet18 B1 pass p50=0.512948 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_isodb_r2_graph sycl resnet18 B1 pass p50=0.513922 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_cuda_eager cuda resnet18 B1 pass p50=0.507906 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_eager cuda resnet18 B1 pass p50=0.5073194999999999 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_eager cuda resnet18 B1 pass p50=0.50745 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_graph cuda resnet18 B1 pass p50=0.49343899999999996 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_graph cuda resnet18 B1 pass p50=0.49329100000000004 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_graph cuda resnet18 B1 pass p50=0.497783 abs=4.291534423828125e-06 db=19 fallback=0
+e1 rn18_v711db_v711     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window10/e1/rn18_v711db_v711.nsys-rep
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W]
+0, 1980 MHz, 67, 450.23 W
+1, 210 MHz, 36, 23.30 W
+=== window end 2026-10-13T23:40:24+08:00

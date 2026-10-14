@@ -1,0 +1,89 @@
+=== window start 2026-10-13T09:44:42+08:00
+b76b11f80adfecdbf2892607ba1f149d  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+8c20d08bb6bc681467514dad32cb7224  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+rn18_iso_p sycl resnet18 B1 pass p50=0.5310265000000001 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_iso_p sycl resnet18 B1 pass p50=0.5398235 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_iso_p sycl resnet18 B1 pass p50=0.531717 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_pub_p sycl resnet18 B1 pass p50=1.244505 abs=3.814697265625e-06 db=15 fallback=4
+rn18_pub_p sycl resnet18 B1 pass p50=1.2308805 abs=3.814697265625e-06 db=15 fallback=4
+rn18_pub_p sycl resnet18 B1 pass p50=1.2316075 abs=3.814697265625e-06 db=15 fallback=4
+rn18_dlight_p sycl resnet18 B1 pass p50=2.672539 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_p sycl resnet18 B1 pass p50=2.6744365 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_p sycl resnet18 B1 pass p50=2.6728555 abs=2.0265579223632812e-06 db=0 fallback=0
+rn50_dlight_p sycl resnet50 B1 pass p50=4.040831 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_p sycl resnet50 B1 pass p50=4.0491955 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_p sycl resnet50 B1 pass p50=4.0487895 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_b16_p sycl resnet50 B16 pass p50=10.6890845 abs=0.000152587890625 db=0 fallback=0
+rn50_dlight_b16_p sycl resnet50 B16 pass p50=10.7010665 abs=0.000152587890625 db=0 fallback=0
+rn50_dlight_b16_p sycl resnet50 B16 pass p50=10.6956005 abs=0.000152587890625 db=0 fallback=0
+transformer_graph_p sycl transformer B1 graph pass p50=0.0796795 abs=1.4901161193847656e-08 
+transformer_graph_p sycl transformer B1 graph pass p50=0.079569 abs=1.4901161193847656e-08 
+transformer_graph_p sycl transformer B1 graph pass p50=0.0794745 abs=1.4901161193847656e-08 
+transformer_b16_graph_p sycl transformer B16 graph pass p50=0.0869985 abs=2.9802322387695312e-08 
+transformer_b16_graph_p sycl transformer B16 graph pass p50=0.0875485 abs=2.9802322387695312e-08 
+transformer_b16_graph_p sycl transformer B16 graph pass p50=0.0866025 abs=2.9802322387695312e-08 
+vit_graph_p sycl vit B1 graph pass p50=0.1024535 abs=1.4901161193847656e-08 
+vit_graph_p sycl vit B1 graph pass p50=0.1021325 abs=1.4901161193847656e-08 
+vit_graph_p sycl vit B1 graph pass p50=0.1016965 abs=1.4901161193847656e-08 
+vit_b16_graph_p sycl vit B16 graph pass p50=0.123765 abs=1.043081283569336e-07 
+vit_b16_graph_p sycl vit B16 graph pass p50=0.124254 abs=1.043081283569336e-07 
+vit_b16_graph_p sycl vit B16 graph pass p50=0.12439449999999999 abs=1.043081283569336e-07 
+e11_matmul_p sycl matmul pass p50=6.351637 abs=3.504051057845459e-05 rel=4.940466342342716e-05 
+rn18_iso_m31 sycl resnet18 B1 pass p50=0.6585705 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_iso_m31 sycl resnet18 B1 pass p50=0.6607975 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_iso_m31 sycl resnet18 B1 pass p50=0.6582334999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_pub_m31 sycl resnet18 B1 pass p50=1.277295 abs=3.814697265625e-06 db=15 fallback=4
+rn18_pub_m31 sycl resnet18 B1 pass p50=1.2889655 abs=3.814697265625e-06 db=15 fallback=4
+rn18_pub_m31 sycl resnet18 B1 pass p50=1.2906594999999998 abs=3.814697265625e-06 db=15 fallback=4
+rn18_dlight_m31 sycl resnet18 B1 pass p50=2.599342 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_m31 sycl resnet18 B1 pass p50=2.5998375 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_m31 sycl resnet18 B1 pass p50=2.59944 abs=2.0265579223632812e-06 db=0 fallback=0
+rn50_dlight_m31 sycl resnet50 B1 pass p50=3.7547034999999997 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_m31 sycl resnet50 B1 pass p50=3.984868 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_m31 sycl resnet50 B1 pass p50=3.7607785 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_b16_m31 sycl resnet50 B16 pass p50=10.559439999999999 abs=0.000152587890625 db=0 fallback=0
+rn50_dlight_b16_m31 sycl resnet50 B16 pass p50=10.573504499999999 abs=0.000152587890625 db=0 fallback=0
+rn50_dlight_b16_m31 sycl resnet50 B16 pass p50=10.5802065 abs=0.000152587890625 db=0 fallback=0
+transformer_graph_m31 sycl transformer B1 graph pass p50=0.0796385 abs=1.4901161193847656e-08 
+transformer_graph_m31 sycl transformer B1 graph pass p50=0.0800935 abs=1.4901161193847656e-08 
+transformer_graph_m31 sycl transformer B1 graph pass p50=0.0790885 abs=1.4901161193847656e-08 
+transformer_b16_graph_m31 sycl transformer B16 graph pass p50=0.087353 abs=2.9802322387695312e-08 
+transformer_b16_graph_m31 sycl transformer B16 graph pass p50=0.0866745 abs=2.9802322387695312e-08 
+transformer_b16_graph_m31 sycl transformer B16 graph pass p50=0.087732 abs=2.9802322387695312e-08 
+vit_graph_m31 sycl vit B1 graph pass p50=0.10244600000000001 abs=1.4901161193847656e-08 
+vit_graph_m31 sycl vit B1 graph pass p50=0.1023 abs=1.4901161193847656e-08 
+vit_graph_m31 sycl vit B1 graph pass p50=0.10328499999999999 abs=1.4901161193847656e-08 
+vit_b16_graph_m31 sycl vit B16 graph pass p50=0.12595099999999998 abs=1.043081283569336e-07 
+vit_b16_graph_m31 sycl vit B16 graph pass p50=0.120408 abs=1.043081283569336e-07 
+vit_b16_graph_m31 sycl vit B16 graph pass p50=0.126058 abs=1.043081283569336e-07 
+e11_matmul_m31 sycl matmul pass p50=5.930877 abs=3.504051057845459e-05 rel=4.940466342342716e-05 
+rn18_iso_hw sycl resnet18 B1 pass p50=0.674828 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_iso_hw sycl resnet18 B1 pass p50=0.681192 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_iso_hw sycl resnet18 B1 pass p50=0.6729395 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_pub_hw sycl resnet18 B1 pass p50=1.406009 abs=3.814697265625e-06 db=15 fallback=4
+rn18_pub_hw sycl resnet18 B1 pass p50=1.4062275 abs=3.814697265625e-06 db=15 fallback=4
+rn18_pub_hw sycl resnet18 B1 pass p50=1.416702 abs=3.814697265625e-06 db=15 fallback=4
+rn18_dlight_hw sycl resnet18 B1 pass p50=2.5971585 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_hw sycl resnet18 B1 pass p50=2.5967345 abs=2.0265579223632812e-06 db=0 fallback=0
+rn18_dlight_hw sycl resnet18 B1 pass p50=2.5969585 abs=2.0265579223632812e-06 db=0 fallback=0
+rn50_dlight_hw sycl resnet50 B1 pass p50=4.0379205 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_hw sycl resnet50 B1 pass p50=4.0610625 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_hw sycl resnet50 B1 pass p50=4.045123 abs=2.288818359375e-05 db=0 fallback=0
+rn50_dlight_b16_hw sycl resnet50 B16 pass p50=10.337522 abs=0.000152587890625 db=0 fallback=0
+rn50_dlight_b16_hw sycl resnet50 B16 pass p50=10.3423895 abs=0.000152587890625 db=0 fallback=0
+rn50_dlight_b16_hw sycl resnet50 B16 pass p50=10.3522675 abs=0.000152587890625 db=0 fallback=0
+transformer_graph_hw sycl transformer B1 graph pass p50=0.079276 abs=1.4901161193847656e-08 
+transformer_graph_hw sycl transformer B1 graph pass p50=0.0797535 abs=1.4901161193847656e-08 
+transformer_graph_hw sycl transformer B1 graph pass p50=0.0799455 abs=1.4901161193847656e-08 
+transformer_b16_graph_hw sycl transformer B16 graph pass p50=0.086688 abs=2.9802322387695312e-08 
+transformer_b16_graph_hw sycl transformer B16 graph pass p50=0.0870735 abs=2.9802322387695312e-08 
+transformer_b16_graph_hw sycl transformer B16 graph pass p50=0.0865225 abs=2.9802322387695312e-08 
+vit_graph_hw sycl vit B1 graph pass p50=0.1022795 abs=1.4901161193847656e-08 
+vit_graph_hw sycl vit B1 graph pass p50=0.1026775 abs=1.4901161193847656e-08 
+vit_graph_hw sycl vit B1 graph pass p50=0.10273550000000001 abs=1.4901161193847656e-08 
+vit_b16_graph_hw sycl vit B16 graph pass p50=0.12642199999999998 abs=1.043081283569336e-07 
+vit_b16_graph_hw sycl vit B16 graph pass p50=0.12636 abs=1.043081283569336e-07 
+vit_b16_graph_hw sycl vit B16 graph pass p50=0.1257645 abs=1.043081283569336e-07 
+e11_matmul_hw sycl matmul pass p50=5.878766 abs=3.504051057845459e-05 rel=4.940466342342716e-05 
+e1 iso_sycl_m31     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window6e/e1/iso_sycl_m31.nsys-rep
+=== window end 2026-10-13T10:14:24+08:00

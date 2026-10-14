@@ -1,0 +1,77 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_ZTSZ16w_h2356953210_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h2356953210_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 78 registers, 25856 bytes smem, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZTSZ16w_h4027579333_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h4027579333_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 128 registers, 22848 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h1053957056_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h1053957056_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    256 bytes stack frame, 240 bytes spill stores, 240 bytes spill loads
+ptxas info    : Used 255 registers, 6336 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ15w_h894117287_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ15w_h894117287_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 168 registers, 28800 bytes smem, 392 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h2971782926_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h2971782926_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 102 registers, 9536 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ15w_h703018466_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ15w_h703018466_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 13184 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h2002577766_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h2002577766_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    16 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 172 registers, 10368 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h4263509833_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h4263509833_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    16 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 255 registers, 36864 bytes smem, 392 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h2528641801_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h2528641801_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 128 registers, 18048 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h3260639004_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h3260639004_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    112 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 80 registers, 5440 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ15w_h658052352_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ15w_h658052352_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    16 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 68 registers, 25344 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h1100719917_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h1100719917_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 224 registers, 19584 bytes smem, 392 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZTSZ16w_h2272498582_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h2272498582_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 172 registers, 21056 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h1977475787_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h1977475787_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    16 bytes stack frame, 12 bytes spill stores, 12 bytes spill loads
+ptxas info    : Used 64 registers, 3072 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h2062566437_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h2062566437_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 255 registers, 13824 bytes smem, 392 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ16w_h1475237883_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h1475237883_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 80 registers, 27072 bytes smem, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_ZTSZ15w_h453003130_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ15w_h453003130_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 8 registers, 368 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZTSZ16w_h3081648926_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h3081648926_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 128 bytes smem, 368 bytes cmem[0]
+ptxas info    : Compiling entry function '_ZTSZ16w_h3050990359_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ16w_h3050990359_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 21 registers, 368 bytes cmem[0]

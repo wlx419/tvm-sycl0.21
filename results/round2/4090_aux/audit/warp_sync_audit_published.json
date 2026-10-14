@@ -1,0 +1,241 @@
+{
+ "dcu/cnn/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/cnn/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/cnn/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/mlp/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/mlp/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/mlp/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet18/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet18/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet18/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet34/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet34/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet34/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet50/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet50/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/resnet50/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/transformer/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/transformer/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/transformer/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/vit/b1": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/vit/b16": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "dcu/vit/b8": {
+  "error": "ValueError('Check failed: (os.good()) is false: Cannot create new file: tuning_logs/database_workload.json')"
+ },
+ "q3/resnet18/b1": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 8
+  },
+  "warp_noop_sites": 8
+ },
+ "sweep/cnn/b1": {
+  "kernels": 8,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "sum_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/cnn/b16": {
+  "kernels": 8,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "sum_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/cnn/b8": {
+  "kernels": 8,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "sum_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/mlp/b1": {
+  "kernels": 4,
+  "kernels_with_warp_noop": 0,
+  "per_kernel": {},
+  "warp_noop_sites": 0
+ },
+ "sweep/mlp/b16": {
+  "kernels": 4,
+  "kernels_with_warp_noop": 0,
+  "per_kernel": {},
+  "warp_noop_sites": 0
+ },
+ "sweep/mlp/b8": {
+  "kernels": 4,
+  "kernels_with_warp_noop": 0,
+  "per_kernel": {},
+  "warp_noop_sites": 0
+ },
+ "sweep/resnet18/b1": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet18/b16": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet18/b8": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet34/b1": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet34/b16": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet34/b8": {
+  "kernels": 19,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet50/b1": {
+  "kernels": 28,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet50/b16": {
+  "kernels": 28,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/resnet50/b8": {
+  "kernels": 28,
+  "kernels_with_warp_noop": 1,
+  "per_kernel": {
+   "adaptive_avg_pool2d_kernel": 10
+  },
+  "warp_noop_sites": 10
+ },
+ "sweep/transformer/b1": {
+  "kernels": 18,
+  "kernels_with_warp_noop": 2,
+  "per_kernel": {
+   "layer_norm_kernel": 10,
+   "softmax_kernel": 20
+  },
+  "warp_noop_sites": 30
+ },
+ "sweep/transformer/b16": {
+  "kernels": 18,
+  "kernels_with_warp_noop": 2,
+  "per_kernel": {
+   "layer_norm_kernel": 10,
+   "softmax_kernel": 20
+  },
+  "warp_noop_sites": 30
+ },
+ "sweep/transformer/b8": {
+  "kernels": 18,
+  "kernels_with_warp_noop": 2,
+  "per_kernel": {
+   "layer_norm_kernel": 10,
+   "softmax_kernel": 20
+  },
+  "warp_noop_sites": 30
+ },
+ "sweep/vit/b1": {
+  "kernels": 21,
+  "kernels_with_warp_noop": 2,
+  "per_kernel": {
+   "layer_norm_kernel": 10,
+   "softmax_kernel": 20
+  },
+  "warp_noop_sites": 30
+ },
+ "sweep/vit/b16": {
+  "kernels": 21,
+  "kernels_with_warp_noop": 2,
+  "per_kernel": {
+   "layer_norm_kernel": 10,
+   "softmax_kernel": 20
+  },
+  "warp_noop_sites": 30
+ },
+ "sweep/vit/b8": {
+  "kernels": 21,
+  "kernels_with_warp_noop": 2,
+  "per_kernel": {
+   "layer_norm_kernel": 10,
+   "softmax_kernel": 20
+  },
+  "warp_noop_sites": 30
+ }
+}

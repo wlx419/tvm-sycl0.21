@@ -1,0 +1,72 @@
+// tvm target: sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32
+#include <sycl/sycl.hpp>
+using namespace sycl;
+#ifndef TVM_SYCL_MODULE_ID
+#define TVM_SYCL_MODULE_ID m0
+#endif
+#define TVM_SYCL_KERNEL_NAME_IMPL(func, module_id) func##_##module_id
+#define TVM_SYCL_KERNEL_NAME(func, module_id) TVM_SYCL_KERNEL_NAME_IMPL(func, module_id)
+#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id
+#define TVM_SYCL_WRAPPER_NAME(func, module_id) TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)
+// CodeGenSYCL: NOTE: Auto-generated packed function
+// Function: fused_matmul_add9_kernel
+class TVM_SYCL_KERNEL_NAME(h2356953210, TVM_SYCL_MODULE_ID);
+#ifdef __cplusplus
+extern "C"
+#endif
+void TVM_SYCL_WRAPPER_NAME(h2356953210, TVM_SYCL_MODULE_ID)(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {
+  float* T_add = (float*)(*(int64_t *)(void_args[0]));
+  float* lv87 = (float*)(*(int64_t *)(void_args[1]));
+  float* param_0 = (float*)(*(int64_t *)(void_args[2]));
+  float* param_1 = (float*)(*(int64_t *)(void_args[3]));
+  Qh.submit([=](handler &h) {
+    h.parallel_for<TVM_SYCL_KERNEL_NAME(h2356953210, TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {
+      float matmul_local[2];
+      auto lv87_shared = *sycl::ext::oneapi::group_local_memory<float[4]>(item.get_group());
+      auto param_0_shared = *sycl::ext::oneapi::group_local_memory<float[800]>(item.get_group());
+      for (int i1_4_init = 0; i1_4_init < 2; ++i1_4_init) {
+        matmul_local[i1_4_init] = 0.000000e+00f;
+      }
+      for (int k_0 = 0; k_0 < 128; ++k_0) {
+        group_barrier(item.get_group());
+        if (((int)item.get_local_id(2)) < 1) {
+                                                                      { using vec_t = sycl::vec<float,4>;
+          auto _raw_ = lv87_shared + 0;
+          auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+          auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+          *_vptr_ = static_cast<vec_t>(({
+using vec_t = sycl::vec<float,4>;
+auto _raw_ = lv87 + (k_0 * 4);
+auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::global_space, sycl::access::decorated::no>(_raw_vec_);
+vec_t _v_ = *_vptr_;
+_v_; })); }
+        }
+        for (int ax0_ax1_fused_0 = 0; ax0_ax1_fused_0 < 2; ++ax0_ax1_fused_0) {
+                                                                      { using vec_t = sycl::vec<float,4>;
+          auto _raw_ = param_0_shared + ((ax0_ax1_fused_0 * 400) + (((int)item.get_local_id(2)) * 4));
+          auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+          auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+          *_vptr_ = static_cast<vec_t>(({
+using vec_t = sycl::vec<float,4>;
+auto _raw_ = param_0 + (((((k_0 * 4000) + (ax0_ax1_fused_0 * 2000)) + ((((int)item.get_local_id(2)) / 50) * 1000)) + (((int)item.get_group(0)) * 200)) + ((((int)item.get_local_id(2)) % 50) * 4));
+auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::global_space, sycl::access::decorated::no>(_raw_vec_);
+vec_t _v_ = *_vptr_;
+_v_; })); }
+        }
+        group_barrier(item.get_group());
+        for (int k_1 = 0; k_1 < 2; ++k_1) {
+          for (int k_2 = 0; k_2 < 2; ++k_2) {
+            for (int i1_4 = 0; i1_4 < 2; ++i1_4) {
+              matmul_local[i1_4] = (matmul_local[i1_4] + (lv87_shared[((k_1 * 2) + k_2)] * param_0_shared[((((k_1 * 400) + (k_2 * 200)) + (((int)item.get_local_id(2)) * 2)) + i1_4)]));
+            }
+          }
+        }
+      }
+      for (int ax1 = 0; ax1 < 2; ++ax1) {
+        T_add[(((((int)item.get_group(0)) * 200) + (((int)item.get_local_id(2)) * 2)) + ax1)] = (matmul_local[ax1] + param_1[(((((int)item.get_group(0)) * 200) + (((int)item.get_local_id(2)) * 2)) + ax1)]);
+      }
+    });
+  });
+  }

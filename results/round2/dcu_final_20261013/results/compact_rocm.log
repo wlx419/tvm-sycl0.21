@@ -1,0 +1,12 @@
+rocm         mlp B1   pass abs=8.381903171539307e-09 p50=0.07392499999999999
+rocm         mlp B8   pass abs=2.6542693376541138e-08 p50=0.200166
+rocm         mlp B16  pass abs=2.2351741790771484e-08 p50=0.197936
+rocm         cnn B1   pass abs=1.4551915228366852e-11 p50=0.1120305
+rocm         cnn B8   pass abs=4.3655745685100555e-11 p50=0.139281
+rocm         cnn B16  pass abs=5.093170329928398e-11 p50=0.183166
+rocm transformer B1   fail_tolerance abs=nan p50=0.1873205
+rocm transformer B8   fail_tolerance abs=nan p50=0.192201
+rocm transformer B16  fail_tolerance abs=nan p50=0.196861
+rocm         vit B1   fail_tolerance abs=nan p50=0.2616315
+rocm         vit B8   fail_tolerance abs=nan p50=0.371702
+rocm         vit B16  fail_tolerance abs=nan p50=0.364442

@@ -1,0 +1,5 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_ZTSZ15w_h133602758_m0EUlN4sycl3_V17nd_itemILi3EEEE_' for 'sm_89'
+ptxas info    : Function properties for _ZTSZ15w_h133602758_m0EUlN4sycl3_V17nd_itemILi3EEEE_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 64 registers, 6912 bytes smem, 376 bytes cmem[0], 8 bytes cmem[2]

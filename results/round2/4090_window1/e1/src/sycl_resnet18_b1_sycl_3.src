@@ -1,0 +1,259 @@
+// tvm target: sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32
+#include <sycl/sycl.hpp>
+using namespace sycl;
+#ifndef TVM_SYCL_MODULE_ID
+#define TVM_SYCL_MODULE_ID m0
+#endif
+#define TVM_SYCL_KERNEL_NAME_IMPL(func, module_id) func##_##module_id
+#define TVM_SYCL_KERNEL_NAME(func, module_id) TVM_SYCL_KERNEL_NAME_IMPL(func, module_id)
+#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id
+#define TVM_SYCL_WRAPPER_NAME(func, module_id) TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)
+// CodeGenSYCL: NOTE: Auto-generated packed function
+// Function: fused_conv2d2_add3_relu2_kernel
+class TVM_SYCL_KERNEL_NAME(h2272498582, TVM_SYCL_MODULE_ID);
+#ifdef __cplusplus
+extern "C"
+#endif
+void TVM_SYCL_WRAPPER_NAME(h2272498582, TVM_SYCL_MODULE_ID)(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {
+  float* compute = (float*)(*(int64_t *)(void_args[0]));
+  float* lv22 = (float*)(*(int64_t *)(void_args[1]));
+  float* param_0 = (float*)(*(int64_t *)(void_args[2]));
+  float* param_1 = (float*)(*(int64_t *)(void_args[3]));
+  Qh.submit([=](handler &h) {
+    h.parallel_for<TVM_SYCL_KERNEL_NAME(h2272498582, TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {
+      float conv2d_nchw_intermediate_reindex_pad_local[16];
+      auto pad_temp_reindex_pad_shared = *sycl::ext::oneapi::group_local_memory<float[256]>(item.get_group());
+      auto param_0_reindex_shared = *sycl::ext::oneapi::group_local_memory<float[256]>(item.get_group());
+      for (long var = 0; var < (long)1; ++var) {
+        conv2d_nchw_intermediate_reindex_pad_local[0] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[1] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[2] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[3] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[4] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[5] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[6] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[7] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[8] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[9] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[10] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[11] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[12] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[13] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[14] = 0.000000e+00f;
+        conv2d_nchw_intermediate_reindex_pad_local[15] = 0.000000e+00f;
+        for (int ax3_0 = 0; ax3_0 < 72; ++ax3_0) {
+          group_barrier(item.get_group());
+          float condval;
+          if ((((bool)(((bool)(((bool)(((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(1)) >> 2)) < 49)) && ((bool)(1 <= (((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + ((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) % 9) / 3)))))) && ((bool)((((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + ((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) % 9) / 3)) < 57)))) && ((bool)(1 <= ((((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2) + (((ax3_0 * 2) + (((int)item.get_local_id(2)) & 1)) % 3)))))) {
+            condval = lv22[(((((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) / 9) * 3136) + ((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 112)) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) % 9) / 3) * 56)) + (((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2)) + (((ax3_0 * 2) + (((int)item.get_local_id(2)) & 1)) % 3)) - 57)];
+          } else {
+            condval = 0.000000e+00f;
+          }
+          pad_temp_reindex_pad_shared[((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4))] = condval;
+          float condval_1;
+          if ((((bool)(((bool)(((bool)(((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(1)) >> 2)) < 49)) && ((bool)(1 <= (((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 1) % 9) / 3)))))) && ((bool)((((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 1) % 9) / 3)) < 57)))) && ((bool)(1 <= ((((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2) + (((((((int)item.get_local_id(2)) & 1) * 4) + (ax3_0 * 2)) + 1) % 3)))))) {
+            condval_1 = lv22[((((((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 1) / 9) * 3136) + ((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 112)) + ((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 1) % 9) / 3) * 56)) + (((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2)) + (((((((int)item.get_local_id(2)) & 1) * 4) + (ax3_0 * 2)) + 1) % 3)) - 57)];
+          } else {
+            condval_1 = 0.000000e+00f;
+          }
+          pad_temp_reindex_pad_shared[(((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4)) + 1)] = condval_1;
+          float condval_2;
+          if ((((bool)(((bool)(((bool)(((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(1)) >> 2)) < 49)) && ((bool)(1 <= (((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 2) % 9) / 3)))))) && ((bool)((((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 2) % 9) / 3)) < 57)))) && ((bool)(1 <= ((((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2) + (((((((int)item.get_local_id(2)) & 1) * 4) + (ax3_0 * 2)) + 2) % 3)))))) {
+            condval_2 = lv22[((((((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 2) / 9) * 3136) + ((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 112)) + ((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 2) % 9) / 3) * 56)) + (((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2)) + (((((((int)item.get_local_id(2)) & 1) * 4) + (ax3_0 * 2)) + 2) % 3)) - 57)];
+          } else {
+            condval_2 = 0.000000e+00f;
+          }
+          pad_temp_reindex_pad_shared[(((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4)) + 2)] = condval_2;
+          float condval_3;
+          if ((((bool)(((bool)(((bool)(((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(1)) >> 2)) < 49)) && ((bool)(1 <= (((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) / 3) + 1) % 3)))))) && ((bool)((((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 2) + (((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) / 3) + 1) % 3)) < 57)))) && ((bool)(1 <= ((((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2) + (((ax3_0 * 2) + (((int)item.get_local_id(2)) & 1)) % 3)))))) {
+            condval_3 = lv22[((((((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) + 3) / 9) * 3136) + ((((((int)item.get_group(0)) * 8) + ((int)item.get_local_id(1))) / 7) * 112)) + ((((((ax3_0 * 8) + ((((int)item.get_local_id(2)) & 1) * 4)) / 3) + 1) % 3) * 56)) + (((((((int)item.get_group(0)) * 32) + (((int)item.get_local_id(1)) * 4)) + (((int)item.get_local_id(2)) >> 1)) % 28) * 2)) + (((ax3_0 * 2) + (((int)item.get_local_id(2)) & 1)) % 3)) - 57)];
+          } else {
+            condval_3 = 0.000000e+00f;
+          }
+          pad_temp_reindex_pad_shared[(((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4)) + 3)] = condval_3;
+          param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4))] = param_0[(((((((int)item.get_group(1)) * 18432) + (((int)item.get_local_id(1)) * 2304)) + ((((int)item.get_local_id(2)) >> 1) * 576)) + (ax3_0 * 8)) + ((((int)item.get_local_id(2)) & 1) * 4))];
+          param_0_reindex_shared[(((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4)) + 1)] = param_0[((((((((int)item.get_group(1)) * 18432) + (((int)item.get_local_id(1)) * 2304)) + ((((int)item.get_local_id(2)) >> 1) * 576)) + (ax3_0 * 8)) + ((((int)item.get_local_id(2)) & 1) * 4)) + 1)];
+          param_0_reindex_shared[(((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4)) + 2)] = param_0[((((((((int)item.get_group(1)) * 18432) + (((int)item.get_local_id(1)) * 2304)) + ((((int)item.get_local_id(2)) >> 1) * 576)) + (ax3_0 * 8)) + ((((int)item.get_local_id(2)) & 1) * 4)) + 2)];
+          param_0_reindex_shared[(((((int)item.get_local_id(1)) * 32) + (((int)item.get_local_id(2)) * 4)) + 3)] = param_0[((((((((int)item.get_group(1)) * 18432) + (((int)item.get_local_id(1)) * 2304)) + ((((int)item.get_local_id(2)) >> 1) * 576)) + (ax3_0 * 8)) + ((((int)item.get_local_id(2)) & 1) * 4)) + 3)];
+          group_barrier(item.get_group());
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[(((int)item.get_local_id(2)) * 32)] * param_0_reindex_shared[(((int)item.get_local_id(1)) * 32)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[(((int)item.get_local_id(2)) * 32)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 8)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[(((int)item.get_local_id(2)) * 32)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 16)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[(((int)item.get_local_id(2)) * 32)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 24)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 8)] * param_0_reindex_shared[(((int)item.get_local_id(1)) * 32)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 8)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 8)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 8)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 16)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 8)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 24)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 16)] * param_0_reindex_shared[(((int)item.get_local_id(1)) * 32)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 16)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 8)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 16)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 16)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 16)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 24)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 24)] * param_0_reindex_shared[(((int)item.get_local_id(1)) * 32)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 24)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 8)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 24)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 16)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 24)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 24)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 1)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 1)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 1)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 9)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 1)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 17)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 1)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 25)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 9)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 1)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 9)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 9)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 9)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 17)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 9)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 25)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 17)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 1)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 17)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 9)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 17)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 17)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 17)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 25)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 25)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 1)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 25)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 9)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 25)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 17)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 25)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 25)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 2)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 2)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 2)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 10)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 2)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 18)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 2)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 26)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 10)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 2)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 10)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 10)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 10)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 18)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 10)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 26)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 18)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 2)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 18)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 10)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 18)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 18)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 18)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 26)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 26)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 2)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 26)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 10)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 26)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 18)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 26)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 26)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 3)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 3)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 3)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 11)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 3)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 19)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 3)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 27)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 11)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 3)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 11)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 11)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 11)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 19)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 11)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 27)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 19)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 3)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 19)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 11)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 19)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 19)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 19)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 27)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 27)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 3)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 27)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 11)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 27)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 19)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 27)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 27)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 4)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 4)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 4)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 12)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 4)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 20)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 4)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 28)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 12)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 4)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 12)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 12)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 12)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 20)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 12)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 28)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 20)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 4)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 20)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 12)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 20)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 20)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 20)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 28)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 28)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 4)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 28)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 12)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 28)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 20)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 28)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 28)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 5)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 5)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 5)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 13)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 5)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 21)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 5)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 29)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 13)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 5)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 13)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 13)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 13)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 21)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 13)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 29)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 21)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 5)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 21)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 13)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 21)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 21)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 21)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 29)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 29)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 5)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 29)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 13)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 29)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 21)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 29)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 29)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 6)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 6)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 6)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 14)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 6)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 22)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 6)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 30)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 14)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 6)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 14)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 14)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 14)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 22)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 14)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 30)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 22)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 6)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 22)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 14)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 22)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 22)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 22)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 30)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 30)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 6)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 30)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 14)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 30)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 22)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 30)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 30)]));
+          conv2d_nchw_intermediate_reindex_pad_local[0] = (conv2d_nchw_intermediate_reindex_pad_local[0] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 7)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 7)]));
+          conv2d_nchw_intermediate_reindex_pad_local[1] = (conv2d_nchw_intermediate_reindex_pad_local[1] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 7)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 15)]));
+          conv2d_nchw_intermediate_reindex_pad_local[2] = (conv2d_nchw_intermediate_reindex_pad_local[2] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 7)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 23)]));
+          conv2d_nchw_intermediate_reindex_pad_local[3] = (conv2d_nchw_intermediate_reindex_pad_local[3] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 7)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 31)]));
+          conv2d_nchw_intermediate_reindex_pad_local[4] = (conv2d_nchw_intermediate_reindex_pad_local[4] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 15)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 7)]));
+          conv2d_nchw_intermediate_reindex_pad_local[5] = (conv2d_nchw_intermediate_reindex_pad_local[5] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 15)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 15)]));
+          conv2d_nchw_intermediate_reindex_pad_local[6] = (conv2d_nchw_intermediate_reindex_pad_local[6] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 15)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 23)]));
+          conv2d_nchw_intermediate_reindex_pad_local[7] = (conv2d_nchw_intermediate_reindex_pad_local[7] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 15)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 31)]));
+          conv2d_nchw_intermediate_reindex_pad_local[8] = (conv2d_nchw_intermediate_reindex_pad_local[8] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 23)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 7)]));
+          conv2d_nchw_intermediate_reindex_pad_local[9] = (conv2d_nchw_intermediate_reindex_pad_local[9] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 23)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 15)]));
+          conv2d_nchw_intermediate_reindex_pad_local[10] = (conv2d_nchw_intermediate_reindex_pad_local[10] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 23)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 23)]));
+          conv2d_nchw_intermediate_reindex_pad_local[11] = (conv2d_nchw_intermediate_reindex_pad_local[11] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 23)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 31)]));
+          conv2d_nchw_intermediate_reindex_pad_local[12] = (conv2d_nchw_intermediate_reindex_pad_local[12] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 31)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 7)]));
+          conv2d_nchw_intermediate_reindex_pad_local[13] = (conv2d_nchw_intermediate_reindex_pad_local[13] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 31)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 15)]));
+          conv2d_nchw_intermediate_reindex_pad_local[14] = (conv2d_nchw_intermediate_reindex_pad_local[14] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 31)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 23)]));
+          conv2d_nchw_intermediate_reindex_pad_local[15] = (conv2d_nchw_intermediate_reindex_pad_local[15] + (pad_temp_reindex_pad_shared[((((int)item.get_local_id(2)) * 32) + 31)] * param_0_reindex_shared[((((int)item.get_local_id(1)) * 32) + 31)]));
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4))] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[0] + param_1[((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4))]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 784)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[1] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 1)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 1568)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[2] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 2)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 2352)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[3] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 3)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 1)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[4] + param_1[((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4))]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 785)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[5] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 1)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 1569)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[6] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 2)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 2353)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[7] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 3)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 2)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[8] + param_1[((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4))]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 786)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[9] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 1)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 1570)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[10] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 2)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 2354)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[11] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 3)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 3)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[12] + param_1[((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4))]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 787)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[13] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 1)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 1571)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[14] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 2)]), (float)0.000000e+00f);
+        }
+        if (((((int)item.get_group(0)) * 2) + (((int)item.get_local_id(2)) >> 2)) < 49) {
+          compute[(((((((int)item.get_group(1)) * 25088) + (((int)item.get_local_id(1)) * 3136)) + (((int)item.get_group(0)) * 32)) + (((int)item.get_local_id(2)) * 4)) + 2355)] = max((float)(conv2d_nchw_intermediate_reindex_pad_local[15] + param_1[(((((int)item.get_group(1)) * 32) + (((int)item.get_local_id(1)) * 4)) + 3)]), (float)0.000000e+00f);
+        }
+      }
+    });
+  });
+  }

@@ -1,0 +1,23 @@
+{
+ "model": "vit",
+ "batch": 1,
+ "target": "sycl",
+ "graph": false,
+ "resolved_target": "sycl -keys=sycl,gpu -arch=sm_89 -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 27.495355718012433,
+ "max_abs_err": 2.2351741790771484e-08,
+ "status": "pass",
+ "latency_mean_ms": 2.419201,
+ "latency_p50_ms": 2.419294,
+ "latency_p90_ms": 2.420331,
+ "latency_p99_ms": 2.4207846,
+ "latency_samples_ms": [
+  2.41773,
+  2.419294,
+  2.418571,
+  2.420835,
+  2.419575
+ ]
+}

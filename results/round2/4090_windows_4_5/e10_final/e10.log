@@ -1,0 +1,42 @@
+[1/16] matmul shape=64x64x64 wg=256
+  -> pass abs=0.0 rel=0.0 p50=2.286756
+[2/16] matmul shape=128x128x128 wg=256
+  -> pass abs=0.0 rel=0.0 p50=2.292157
+[3/16] matmul shape=256x256x256 wg=256
+  -> pass abs=0.0 rel=0.0 p50=2.301651
+[4/16] batch_matmul shape=8x32x32x64 wg=256
+  -> pass abs=0.0 rel=0.0 p50=2.287284
+[5/16] row_sum shape=256x1024 wg=256
+  -> pass abs=5.340576171875e-05 rel=7.369142258539796e-05 p50=2.4010135
+[6/16] row_sum shape=1024x1024 wg=256
+  -> pass abs=5.91278076171875e-05 rel=7.369142258539796e-05 p50=2.402622
+[7/16] layer_norm shape=128x768 wg=256
+  -> pass abs=1.1920928955078125e-06 rel=0.0009114515851251781 p50=2.3787589999999996
+[8/16] conv2d_nhwc shape=1x32x32x3x16x3x3 wg=256
+  -> pass abs=1.1920928955078125e-06 rel=0.0022500085178762674 p50=2.2836825
+[9/16] conv2d_nhwc shape=1x32x32x16x32x3x3 wg=256
+  -> pass abs=7.62939453125e-06 rel=0.002612886019051075 p50=2.2870939999999997
+[10/16] conv2d_nhwc shape=8x32x32x16x32x3x3 wg=256
+  -> pass abs=1.1444091796875e-05 rel=0.08715180307626724 p50=2.3017754999999998
+[11/16] conv2d_nhwc shape=16x32x32x16x32x3x3 wg=256
+  -> pass abs=9.5367431640625e-06 rel=0.007951335981488228 p50=2.316559
+[12/16] max_pool2d_nhwc shape=8x32x32x16x2x2x2 wg=256
+  -> pass abs=0.0 rel=0.0 p50=2.2836030000000003
+[13/16] softmax shape=128x256 wg=256
+  -> pass abs=1.6763806343078613e-08 rel=9.571130021868157e-07 p50=2.3218385
+[14/16] softmax shape=512x512 wg=256
+  -> pass abs=1.30385160446167e-08 rel=1.2008423482257058e-06 p50=2.4084975
+[15/16] gelu shape=256x1024 wg=256
+  -> pass abs=4.76837158203125e-07 rel=0.5000000596046448 p50=2.286506
+[16/16] transpose_3d shape=16x128x64 wg=256
+  -> pass abs=0.0 rel=0.0 p50=2.286486
+{
+  "summary": {
+    "total": 16,
+    "pass": 16,
+    "non_pass": 0,
+    "pass_rate": 1.0,
+    "max_abs_err": 5.91278076171875e-05,
+    "max_rel_err": 0.5000000596046448
+  }
+}

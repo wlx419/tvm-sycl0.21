@@ -1,0 +1,39 @@
+[22:46:20] /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/src/relax/transform/meta_schedule.cc:89: Warning: Creating JSONDatabase. Workload at: /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/cuda/database_workload.json, Tuning records at: /mnt/data/wlx/workspace/tvm-sycl-exp/codex_extended/paired_resnet18_metaschedule_20260813/formal1024/tune/cuda/database_tuning_record.json
+
+UR CUDA ERROR:
+	Value:           716
+	Name:            CUDA_ERROR_MISALIGNED_ADDRESS
+	Description:     misaligned address
+	Function:        operator()
+	Source Location: /mnt/data/wlx/sycl_workspace/DPC++/_deps/unified-runtime-src/source/adapters/cuda/queue.cpp:218
+
+Traceback (most recent call last):
+  File "/mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/repo/revision_round2/experiments/resnet_relax_probe_r2.py", line 238, in run_one
+    out = base.to_numpy(vm["main"](x_dev))
+  File "tvm/ffi/cython/function.pxi", line 228, in tvm.ffi.core.Function.__call__
+tvm.error.InternalError: Check failed: (e.code() == sycl::errc::success) is false: SYCL kernel wait failed: func=fused_conv2d2_add3_relu2_kernel grid=(1,1,98) block=(1,1,512) error=Native API failed. Native API returns: -999 (Unknown PI error) -999 (Unknown PI error)
+
+sycl resnet18 B1 runtime_error p50=None abs=None db=15 fallback=4
+
+UR CUDA ERROR:
+	Value:           716
+	Name:            CUDA_ERROR_MISALIGNED_ADDRESS
+	Description:     misaligned address
+	Function:        USMFreeImpl
+	Source Location: /mnt/data/wlx/sycl_workspace/DPC++/_deps/unified-runtime-src/source/adapters/cuda/usm.cpp:113
+
+terminate called after throwing an instance of 'tvm::runtime::InternalError'
+  what():  Traceback (most recent call last):
+  File "/usr/local/src/conda/python-3.10.18/Objects/typeobject.c", line 1460, in subtype_dealloc
+  File "tvm/ffi/cython/core.cpp", line 25816, in __pyx_tp_dealloc_3tvm_3ffi_4core_Object
+  File "tvm/ffi/cython/core.cpp", line 10500, in __pyx_pw_3tvm_3ffi_4core_6Object_3__dealloc__
+  File "tvm/ffi/cython/core.cpp", line 10530, in __pyx_pf_3tvm_3ffi_4core_6Object_2__dealloc__
+  File "<unknown>", in TVMFFIObjectFree
+  File "<unknown>", in tvm::ffi::SimpleObjAllocator::Handler<tvm::ffi::details::NDArrayObjFromNDAlloc<tvm::runtime::NDArray::Empty(tvm::ffi::Shape, DLDataType, DLDevice, tvm::ffi::Optional<tvm::ffi::String, void>)::DeviceAPIAlloc> >::Deleter_(TVMFFIObject*)
+  File "<unknown>", in tvm::runtime::syclT::SYCLWorkspace::FreeDataSpace(DLDevice, void*) [clone .cold]
+  File "<unknown>", in tvm::runtime::detail::LogFatal::Entry::Finalize()
+  File "<unknown>", in tvm::runtime::InternalError::InternalError(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+  File "<unknown>", in TVMFFITraceback
+  File "<unknown>", in tvm::ffi::(anonymous namespace)::Traceback()
+InternalError: SYCL call failed, code=1: Native API failed. Native API returns: -999 (Unknown PI error) -999 (Unknown PI error)
+

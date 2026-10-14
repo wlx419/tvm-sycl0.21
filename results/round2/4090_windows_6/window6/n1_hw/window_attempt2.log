@@ -1,0 +1,26 @@
+=== window start 2026-10-13T09:19:36+08:00
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 1980 MHz, 65, 450.89 W, 100 %
+1, 2715 MHz, 56, 112.44 W, 0 %
+b76b11f80adfecdbf2892607ba1f149d  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+1797d4c9f8379c500e1dbf56505a6d5e  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+rn18_sycl_iso_eager sycl resnet18 B1 pass p50=0.673109 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager sycl resnet18 B1 pass p50=0.674121 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager sycl resnet18 B1 pass p50=0.6736505 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.6627165 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.6689305000000001 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.661187 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager_noN1 sycl resnet18 B1 pass p50=0.53067 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager_noN1 sycl resnet18 B1 pass p50=0.5379115 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager_noN1 sycl resnet18 B1 pass p50=0.5387284999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager_none sycl resnet18 B1 pass p50=0.530474 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager_none sycl resnet18 B1 pass p50=0.5370965 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager_none sycl resnet18 B1 pass p50=0.536728 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_cudadb_sycl sycl resnet18 B1 pass p50=0.9288425 abs=2.1457672119140625e-06 db=15 fallback=4
+rn18_cudadb_sycl sycl resnet18 B1 pass p50=0.9274745 abs=2.1457672119140625e-06 db=15 fallback=4
+rn18_cudadb_sycl sycl resnet18 B1 pass p50=0.934158 abs=2.1457672119140625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final sycl resnet18 B1 pass p50=1.4169450000000001 abs=3.814697265625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final sycl resnet18 B1 pass p50=1.4061885 abs=3.814697265625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final sycl resnet18 B1 pass p50=1.41675 abs=3.814697265625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final_graph sycl resnet18 B1 pass p50=1.393111 abs=3.814697265625e-06 db=15 fallback=4
+rn18_sycldb_sycl_final_graph sycl resnet18 B1 pass p50=1.3931255 abs=3.814697265625e-06 db=15 fallback=4

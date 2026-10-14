@@ -1,0 +1,15 @@
+=== window start 2026-10-13T11:35:09+08:00
+sycl k=10 run=1 device: NVIDIA GeForce RTX 4090, 10 kernels per graph
+sycl k=10 run=1 plain        submit_us=1889.746 iter_us=1898.382
+sycl k=10 run=1 event_wait   submit_us=4155.687 iter_us=4163.807
+sycl k=10 run=1 event_query  submit_us=7110.797 iter_us=7117.734
+sycl k=10 run=1 eager        iter_us=55.089
+cuda k=10 run=1 cuda graph   submit_us=2.347 iter_us=11.743 (10 kernels)
+cuda k=10 run=1 cuda eager   iter_us=28.259
+sycl k=10 run=2 device: NVIDIA GeForce RTX 4090, 10 kernels per graph
+sycl k=10 run=2 plain        submit_us=1919.112 iter_us=1927.341
+sycl k=10 run=2 event_wait   submit_us=4270.372 iter_us=4277.677
+sycl k=10 run=2 event_query  submit_us=7218.850 iter_us=7226.468
+sycl k=10 run=2 eager        iter_us=55.656
+cuda k=10 run=2 cuda graph   submit_us=2.332 iter_us=11.708 (10 kernels)
+cuda k=10 run=2 cuda eager   iter_us=28.501

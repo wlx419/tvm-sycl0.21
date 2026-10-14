@@ -1,0 +1,57 @@
+2026-10-12 23:54:19 [INFO] Logging directory: /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window2/tune_sycl_pipe_iso/logs
+2026-10-12 23:54:36 [INFO] LocalBuilder: max_workers = 32
+2026-10-12 23:54:37 [INFO] [task_scheduler.cc:258] Initializing Task #0: "fused_matmul_add9"
+2026-10-12 23:54:37 [INFO] [task_scheduler.cc:258] Initializing Task #1: "adaptive_avg_pool2d"
+schedule rule "meta_schedule.adaptive_pool_avg" for target keys "["sycl", "gpu"].2026-10-12 23:54:37 [INFO] [task_scheduler.cc:258] Initializing Task #2: "fused_conv2d9_add7_add8_relu4"
+2026-10-12 23:54:37 [INFO] [task_scheduler.cc:258] Initializing Task #3: "fused_conv2d_add_relu"
+2026-10-12 23:54:37 [INFO] [task_scheduler.cc:258] Initializing Task #4: "max_pool2d"
+schedule rule "meta_schedule.pool_max" for target keys "["sycl", "gpu"].2026-10-12 23:54:38 [INFO] [task_scheduler.cc:258] Initializing Task #5: "fused_conv2d1_add1_relu1"
+2026-10-12 23:54:38 [INFO] [task_scheduler.cc:258] Initializing Task #6: "fused_conv2d7_add5"
+2026-10-12 23:54:38 [INFO] [task_scheduler.cc:258] Initializing Task #7: "fused_conv2d5_add5_relu3"
+2026-10-12 23:54:38 [INFO] [task_scheduler.cc:258] Initializing Task #8: "reshape4"
+2026-10-12 23:54:38 [INFO] [task_scheduler.cc:258] Initializing Task #9: "fused_conv2d1_add1_add2_relu1"
+2026-10-12 23:54:39 [INFO] [task_scheduler.cc:258] Initializing Task #10: "fused_conv2d2_add3_relu2"
+2026-10-12 23:54:39 [INFO] [task_scheduler.cc:258] Initializing Task #11: "fused_conv2d9_add7_relu4"
+2026-10-12 23:54:39 [INFO] [task_scheduler.cc:258] Initializing Task #12: "fused_conv2d10_add7"
+2026-10-12 23:54:39 [INFO] [task_scheduler.cc:258] Initializing Task #13: "fused_conv2d3_add3_add4_relu2"
+2026-10-12 23:54:40 [INFO] [task_scheduler.cc:258] Initializing Task #14: "fused_conv2d6_add5_add6_relu3"
+2026-10-12 23:54:40 [INFO] [task_scheduler.cc:258] Initializing Task #15: "fused_conv2d4_add3"
+2026-10-12 23:54:40 [INFO] [task_scheduler.cc:258] Initializing Task #16: "fused_conv2d6_add5_relu3"
+2026-10-12 23:54:41 [INFO] [task_scheduler.cc:258] Initializing Task #17: "fused_conv2d3_add3_relu2"
+2026-10-12 23:54:41 [INFO] [task_scheduler.cc:258] Initializing Task #18: "fused_conv2d8_add7_relu4"
+2026-10-12 23:54:41 [INFO] [task_scheduler.cc:450] 
+ ID |                          Name |      FLOP | Weight | Speed (GFLOPS) | Latency (us) | Weighted Latency (us) | Trials | Done 
+---------------------------------------------------------------------------------------------------------------------------------
+  0 |             fused_matmul_add9 |   1025000 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  1 |           adaptive_avg_pool2d |     25600 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  2 | fused_conv2d9_add7_add8_relu4 | 231286272 |      2 |            N/A |          N/A |                   N/A |      0 |      
+  3 |         fused_conv2d_add_relu | 237633536 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  4 |                    max_pool2d |   1806336 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  5 |      fused_conv2d1_add1_relu1 | 231612416 |      2 |            N/A |          N/A |                   N/A |      0 |      
+  6 |            fused_conv2d7_add5 |  12895232 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  7 |      fused_conv2d5_add5_relu3 | 115705856 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  8 |                      reshape4 |         1 |      1 |            N/A |          N/A |                   N/A |      0 |      
+  9 | fused_conv2d1_add1_add2_relu1 | 231813120 |      2 |            N/A |          N/A |                   N/A |      0 |      
+ 10 |      fused_conv2d2_add3_relu2 | 115806208 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 11 |      fused_conv2d9_add7_relu4 | 231261184 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 12 |           fused_conv2d10_add7 |  12870144 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 13 | fused_conv2d3_add3_add4_relu2 | 231512064 |      2 |            N/A |          N/A |                   N/A |      0 |      
+ 14 | fused_conv2d6_add5_add6_relu3 | 231361536 |      2 |            N/A |          N/A |                   N/A |      0 |      
+ 15 |            fused_conv2d4_add3 |  12945408 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 16 |      fused_conv2d6_add5_relu3 | 231311360 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 17 |      fused_conv2d3_add3_relu2 | 231411712 |      1 |            N/A |          N/A |                   N/A |      0 |      
+ 18 |      fused_conv2d8_add7_relu4 | 115655680 |      1 |            N/A |          N/A |                   N/A |      0 |      
+---------------------------------------------------------------------------------------------------------------------------------
+Total trials: 0
+Total latency (us): 0
+
+2026-10-12 23:54:41 [INFO] [task_scheduler.cc:279] TaskScheduler picks Task #0: "fused_matmul_add9"
+2026-10-12 23:54:45 [INFO] [task_scheduler.cc:292] Sending 64 sample(s) to builder
+2026-10-12 23:55:24 [INFO] [task_scheduler.cc:294] Sending 64 sample(s) to runner
+2026-10-12 23:55:59 [INFO] [task_scheduler.cc:279] TaskScheduler picks Task #1: "adaptive_avg_pool2d"
+2026-10-12 23:56:00 [INFO] [task_scheduler.cc:292] Sending 63 sample(s) to builder
+2026-10-12 23:56:34 [INFO] [task_scheduler.cc:294] Sending 63 sample(s) to runner
+2026-10-12 23:56:53 [INFO] [task_scheduler.cc:279] TaskScheduler picks Task #2: "fused_conv2d9_add7_add8_relu4"
+2026-10-12 23:57:03 [INFO] [task_scheduler.cc:292] Sending 64 sample(s) to builder
+2026-10-12 23:57:55 [INFO] [task_scheduler.cc:294] Sending 64 sample(s) to runner
+sycl resnet18 B1 runtime_error p50=None abs=None db=None fallback=None

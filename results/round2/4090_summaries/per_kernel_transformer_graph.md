@@ -1,0 +1,44 @@
+# Per-workload kernel time, ms per inference (median)
+
+| Workload | transformer_cuda_graph | transformer_sycl_graph | transformer_sycl_graph/transformer_cuda_graph |
+|---|---:|---:|---:|
+| fused_matmul_add | 0.0095 | 0.0000 | 0.00 |
+| transpose | 0.0057 | 0.0000 | 0.00 |
+| fused_matmul3_add_add1 | 0.0054 | 0.0000 | 0.00 |
+| layer_norm | 0.0042 | 0.0000 | 0.00 |
+| fused_matmul2_add2_gelu | 0.0035 | 0.0000 | 0.00 |
+| fused_matmul_add_add1 | 0.0034 | 0.0000 | 0.00 |
+| fused_reshape_transpose1 | 0.0020 | 0.0000 | 0.00 |
+| matmul1 | 0.0014 | 0.0000 | 0.00 |
+| fused_matmul1_multiply | 0.0014 | 0.0000 | 0.00 |
+| softmax | 0.0014 | 0.0000 | 0.00 |
+| transpose4 | 0.0014 | 0.0000 | 0.00 |
+| transpose5 | 0.0013 | 0.0000 | 0.00 |
+| fused_matmul4_add3 | 0.0013 | 0.0000 | 0.00 |
+| fused_reshape_transpose1_transpose2 | 0.0012 | 0.0000 | 0.00 |
+| sum | 0.0011 | 0.0000 | 0.00 |
+| transpose6 | 0.0010 | 0.0000 | 0.00 |
+| fused_transpose3_reshape1 | 0.0010 | 0.0000 | 0.00 |
+| divide | 0.0009 | 0.0000 | 0.00 |
+| Typeinfo name for h1350265394_mcf6358d3b0deda1ce | 0.0000 | 0.0107 | - |
+| Typeinfo name for h1534756871_mcf6358d3b0deda1ce | 0.0000 | 0.0015 | - |
+| Typeinfo name for h1737888063_mcf6358d3b0deda1ce | 0.0000 | 0.0013 | - |
+| Typeinfo name for h1753718718_mcf6358d3b0deda1ce | 0.0000 | 0.0013 | - |
+| Typeinfo name for h1951265625_mcf6358d3b0deda1ce | 0.0000 | 0.0045 | - |
+| Typeinfo name for h2033247447_mcf6358d3b0deda1ce | 0.0000 | 0.0261 | - |
+| Typeinfo name for h2337775380_mcf6358d3b0deda1ce | 0.0000 | 0.0019 | - |
+| Typeinfo name for h250168041_mcf6358d3b0deda1ce | 0.0000 | 0.0023 | - |
+| Typeinfo name for h2762380778_mcf6358d3b0deda1ce | 0.0000 | 0.0011 | - |
+| Typeinfo name for h3012509384_mcf6358d3b0deda1ce | 0.0000 | 0.0018 | - |
+| Typeinfo name for h3050828056_mcf6358d3b0deda1ce | 0.0000 | 0.0010 | - |
+| Typeinfo name for h3276024936_mcf6358d3b0deda1ce | 0.0000 | 0.0018 | - |
+| Typeinfo name for h3611227213_mcf6358d3b0deda1ce | 0.0000 | 0.0015 | - |
+| Typeinfo name for h3617141213_mcf6358d3b0deda1ce | 0.0000 | 0.0065 | - |
+| Typeinfo name for h4119474894_mcf6358d3b0deda1ce | 0.0000 | 0.0011 | - |
+| Typeinfo name for h599492245_mcf6358d3b0deda1ce | 0.0000 | 0.0049 | - |
+| Typeinfo name for h748868295_mcf6358d3b0deda1ce | 0.0000 | 0.0060 | - |
+| Typeinfo name for h81117850_mcf6358d3b0deda1ce | 0.0000 | 0.0011 | - |
+| **sum of kernels** | 0.0469 | 0.0764 | 1.63 |
+| **device span** | 0.0812 | 0.1250 | 1.54 |
+
+launches per inference: transformer_cuda_graph=26, transformer_sycl_graph=26; inferences: transformer_cuda_graph=20, transformer_sycl_graph=20

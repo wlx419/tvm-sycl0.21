@@ -1,0 +1,24 @@
+{
+ "model": "transformer",
+ "batch": 1,
+ "target": "sycl",
+ "graph": false,
+ "resolved_target": "sycl -keys=sycl,gpu -arch=sm_89 -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 25.65789852500893,
+ "max_abs_err": 1.4901161193847656e-08,
+ "status": "pass",
+ "latency_mean_ms": 2.3553416,
+ "latency_p50_ms": 2.355018,
+ "latency_p90_ms": 2.3564348,
+ "latency_p99_ms": 2.35692368,
+ "latency_samples_ms": [
+  2.355018,
+  2.354983,
+  2.354109,
+  2.356978,
+  2.35562
+ ],
+ "max_abs_err_after_timing": 1.4901161193847656e-08
+}

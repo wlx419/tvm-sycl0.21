@@ -1,0 +1,13 @@
+{"device": "Z100L", "platform": "AMD HIP BACKEND", 
+ "results": [
+  {"blocks": 1024, "threads": 64, "mapping": "inherited_blockIdx.x_on_dim0", "status": "pass"},
+  {"blocks": 1024, "threads": 64, "mapping": "reversed_blockIdx.x_on_dim2", "status": "pass"},
+  {"blocks": 65535, "threads": 64, "mapping": "inherited_blockIdx.x_on_dim0", "status": "pass"},
+  {"blocks": 65535, "threads": 64, "mapping": "reversed_blockIdx.x_on_dim2", "status": "pass"},
+  {"blocks": 65536, "threads": 64, "mapping": "inherited_blockIdx.x_on_dim0", "status": "pass"},
+  {"blocks": 65536, "threads": 64, "mapping": "reversed_blockIdx.x_on_dim2", "status": "pass"},
+  {"blocks": 131072, "threads": 64, "mapping": "inherited_blockIdx.x_on_dim0", "status": "pass"},
+  {"blocks": 131072, "threads": 64, "mapping": "reversed_blockIdx.x_on_dim2", "status": "pass"},
+  {"blocks": 1048576, "threads": 64, "mapping": "inherited_blockIdx.x_on_dim0", "status": "pass"},
+  {"blocks": 1048576, "threads": 64, "mapping": "reversed_blockIdx.x_on_dim2", "status": "pass"}
+]}

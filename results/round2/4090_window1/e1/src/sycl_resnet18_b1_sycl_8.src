@@ -1,0 +1,86 @@
+// tvm target: sycl -keys=sycl,gpu -l2_cache_size_bytes=75497472 -max_num_threads=1024 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -registers_per_block=65536 -texture_spatial_limit=16384 -thread_warp_size=32
+#include <sycl/sycl.hpp>
+using namespace sycl;
+#ifndef TVM_SYCL_MODULE_ID
+#define TVM_SYCL_MODULE_ID m0
+#endif
+#define TVM_SYCL_KERNEL_NAME_IMPL(func, module_id) func##_##module_id
+#define TVM_SYCL_KERNEL_NAME(func, module_id) TVM_SYCL_KERNEL_NAME_IMPL(func, module_id)
+#define TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id) w_##func##_##module_id
+#define TVM_SYCL_WRAPPER_NAME(func, module_id) TVM_SYCL_WRAPPER_NAME_IMPL(func, module_id)
+// CodeGenSYCL: NOTE: Auto-generated packed function
+// Function: fused_conv2d8_add7_relu4_kernel
+class TVM_SYCL_KERNEL_NAME(h2971782926, TVM_SYCL_MODULE_ID);
+#ifdef __cplusplus
+extern "C"
+#endif
+void TVM_SYCL_WRAPPER_NAME(h2971782926, TVM_SYCL_MODULE_ID)(queue &Qh, sycl::range<3> dimGrid, sycl::range<3> dimBlock, void** void_args) {
+  float* compute = (float*)(*(int64_t *)(void_args[0]));
+  float* lv64 = (float*)(*(int64_t *)(void_args[1]));
+  float* param_0 = (float*)(*(int64_t *)(void_args[2]));
+  float* param_1 = (float*)(*(int64_t *)(void_args[3]));
+  Qh.submit([=](handler &h) {
+    h.parallel_for<TVM_SYCL_KERNEL_NAME(h2971782926, TVM_SYCL_MODULE_ID)>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]] {
+      float conv2d_nchw_local[1];
+      auto pad_temp_shared = *sycl::ext::oneapi::group_local_memory<float[312]>(item.get_group());
+      auto param_0_shared = *sycl::ext::oneapi::group_local_memory<float[768]>(item.get_group());
+      conv2d_nchw_local[0] = 0.000000e+00f;
+      for (int rc_0 = 0; rc_0 < 32; ++rc_0) {
+        for (int rx_0 = 0; rx_0 < 3; ++rx_0) {
+          group_barrier(item.get_group());
+          if (((int)item.get_local_id(2)) < 78) {
+            float condval;
+            if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 2) + (((((int)item.get_local_id(2)) * 4) % 39) / 13)))) && ((bool)(1 <= (rx_0 + ((((int)item.get_local_id(2)) * 4) % 13)))))) {
+              condval = lv64[(((((((rc_0 * 1568) + (((((int)item.get_local_id(2)) * 4) / 39) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + ((((((int)item.get_local_id(2)) * 4) % 39) / 13) * 14)) + rx_0) + ((((int)item.get_local_id(2)) * 4) % 13)) - 15)];
+            } else {
+              condval = 0.000000e+00f;
+            }
+            pad_temp_shared[(((int)item.get_local_id(2)) * 4)] = condval;
+            float condval_1;
+            if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 2) + ((((((int)item.get_local_id(2)) * 4) + 1) % 39) / 13)))) && ((bool)(1 <= (rx_0 + (((((int)item.get_local_id(2)) * 4) + 1) % 13)))))) {
+              condval_1 = lv64[(((((((rc_0 * 1568) + ((((((int)item.get_local_id(2)) * 4) + 1) / 39) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + (((((((int)item.get_local_id(2)) * 4) + 1) % 39) / 13) * 14)) + rx_0) + (((((int)item.get_local_id(2)) * 4) + 1) % 13)) - 15)];
+            } else {
+              condval_1 = 0.000000e+00f;
+            }
+            pad_temp_shared[((((int)item.get_local_id(2)) * 4) + 1)] = condval_1;
+            float condval_2;
+            if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 2) + ((((((int)item.get_local_id(2)) * 4) + 2) % 39) / 13)))) && ((bool)(1 <= (rx_0 + (((((int)item.get_local_id(2)) * 4) + 2) % 13)))))) {
+              condval_2 = lv64[(((((((rc_0 * 1568) + ((((((int)item.get_local_id(2)) * 4) + 2) / 39) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + (((((((int)item.get_local_id(2)) * 4) + 2) % 39) / 13) * 14)) + rx_0) + (((((int)item.get_local_id(2)) * 4) + 2) % 13)) - 15)];
+            } else {
+              condval_2 = 0.000000e+00f;
+            }
+            pad_temp_shared[((((int)item.get_local_id(2)) * 4) + 2)] = condval_2;
+            float condval_3;
+            if ((((bool)(1 <= (((((int)item.get_group(0)) % 7) * 2) + ((((((int)item.get_local_id(2)) * 4) + 3) % 39) / 13)))) && ((bool)(1 <= (rx_0 + (((((int)item.get_local_id(2)) * 4) + 3) % 13)))))) {
+              condval_3 = lv64[(((((((rc_0 * 1568) + ((((((int)item.get_local_id(2)) * 4) + 3) / 39) * 196)) + ((((int)item.get_group(0)) % 7) * 28)) + (((((((int)item.get_local_id(2)) * 4) + 3) % 39) / 13) * 14)) + rx_0) + (((((int)item.get_local_id(2)) * 4) + 3) % 13)) - 15)];
+            } else {
+              condval_3 = 0.000000e+00f;
+            }
+            pad_temp_shared[((((int)item.get_local_id(2)) * 4) + 3)] = condval_3;
+          }
+          sycl::vec<int, 2> v_ = (int2){(((((((((int)item.get_group(0)) / 7) * 73728) + ((((int)item.get_local_id(2)) / 12) * 2304)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + rx_0))+(3*0), (((((((((int)item.get_group(0)) / 7) * 73728) + ((((int)item.get_local_id(2)) / 12) * 2304)) + (rc_0 * 72)) + ((((int)item.get_local_id(2)) % 12) * 6)) + rx_0))+(3*1)};
+          { using vec_t = sycl::vec<float,2>;
+          auto _raw_ = param_0_shared + (((int)item.get_local_id(2)) * 2);
+          auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+          auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+          *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v_[0]],param_0[v_[1]]})); }
+          if (((int)item.get_local_id(2)) < 160) {
+            sycl::vec<int, 2> v__1 = (int2){(((((((((int)item.get_group(0)) / 7) * 73728) + (((((int)item.get_local_id(2)) + 224) / 12) * 2304)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)) + rx_0))+(3*0), (((((((((int)item.get_group(0)) / 7) * 73728) + (((((int)item.get_local_id(2)) + 224) / 12) * 2304)) + (rc_0 * 72)) + ((((((int)item.get_local_id(2)) * 2) + 16) % 24) * 3)) + rx_0))+(3*1)};
+            { using vec_t = sycl::vec<float,2>;
+            auto _raw_ = param_0_shared + ((((int)item.get_local_id(2)) * 2) + 448);
+            auto _raw_vec_ = reinterpret_cast<vec_t*>(_raw_);
+            auto _vptr_ = sycl::address_space_cast<sycl::access::address_space::local_space, sycl::access::decorated::no>(_raw_vec_);
+            *_vptr_ = static_cast<vec_t>(((sycl::vec<float, 2>){param_0[v__1[0]],param_0[v__1[1]]})); }
+          }
+          group_barrier(item.get_group());
+          for (int rc_2 = 0; rc_2 < 8; ++rc_2) {
+            conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[((rc_2 * 39) + ((((int)item.get_local_id(2)) % 7) * 2))] * param_0_shared[(((((int)item.get_local_id(2)) / 7) * 24) + (rc_2 * 3))]));
+            conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((rc_2 * 39) + ((((int)item.get_local_id(2)) % 7) * 2)) + 13)] * param_0_shared[((((((int)item.get_local_id(2)) / 7) * 24) + (rc_2 * 3)) + 1)]));
+            conv2d_nchw_local[0] = (conv2d_nchw_local[0] + (pad_temp_shared[(((rc_2 * 39) + ((((int)item.get_local_id(2)) % 7) * 2)) + 26)] * param_0_shared[((((((int)item.get_local_id(2)) / 7) * 24) + (rc_2 * 3)) + 2)]));
+          }
+        }
+      }
+      compute[(((((((int)item.get_group(0)) / 7) * 1568) + ((((int)item.get_local_id(2)) / 7) * 49)) + ((((int)item.get_group(0)) % 7) * 7)) + (((int)item.get_local_id(2)) % 7))] = max((float)(conv2d_nchw_local[0] + param_1[(((((int)item.get_group(0)) / 7) * 32) + (((int)item.get_local_id(2)) / 7))]), (float)0.000000e+00f);
+    });
+  });
+  }

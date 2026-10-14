@@ -1,0 +1,23 @@
+{
+ "model": "vit",
+ "batch": 1,
+ "target": "opencl",
+ "graph": false,
+ "resolved_target": "opencl -keys=opencl,gpu -image_base_address_alignment=64 -max_function_args=128 -max_num_threads=256 -max_shared_memory_per_block=49152 -max_threads_per_block=1024 -texture_spatial_limit=16384 -thread_warp_size=1",
+ "env_sync_each_launch": "",
+ "env_legacy_warp_sync": "",
+ "compile_s": 1.7564135389984585,
+ "max_abs_err": 1.30385160446167e-08,
+ "status": "pass",
+ "latency_mean_ms": 2.4138162000000003,
+ "latency_p50_ms": 2.414749,
+ "latency_p90_ms": 2.4154822,
+ "latency_p99_ms": 2.4155963199999997,
+ "latency_samples_ms": [
+  2.409746,
+  2.414749,
+  2.415609,
+  2.415292,
+  2.413685
+ ]
+}

@@ -1,0 +1,5 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_ZTS13h133602758_m0' for 'sm_89'
+ptxas info    : Function properties for _ZTS13h133602758_m0
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 128 registers, 6912 bytes smem, 376 bytes cmem[0], 8 bytes cmem[2]

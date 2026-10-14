@@ -1,0 +1,41 @@
+=== window start 2026-10-13T01:42:05+08:00
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W], utilization.gpu [%]
+0, 1965 MHz, 67, 450.20 W, 100 %
+1, 2715 MHz, 56, 115.22 W, 0 %
+872ab087425eedf796df3b964c4e773a  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm_runtime.so
+b6f1a3523a19bc7524db8e1c002236ca  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/build-4090-r2/libtvm.so
+6364c2c24332d051744dca78f6b708e2  /mnt/data/wlx/workspace/apache-tvm-src-sycl-v0.21.0-20260809-r2/python/tvm/dlight/base/utils.py
+--- retune sycl_pipe_iso start 2026-10-13T01:42:08+08:00
+sycl_pipe_iso sycl resnet18 B1 pass p50=0.5323424999999999 abs=3.5762786865234375e-06 db=19 fallback=0
+--- retune sycl_pipe_iso end 2026-10-13T02:57:12+08:00 records=1029 recycled=0
+--- retune cuda_iso start 2026-10-13T02:57:12+08:00
+cuda_iso cuda resnet18 B1 pass p50=0.509622 abs=4.291534423828125e-06 db=19 fallback=0
+--- retune cuda_iso end 2026-10-13T03:46:33+08:00 records=1029 recycled=26
+rn18_sycl_iso_eager sycl resnet18 B1 pass p50=0.5304265 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager sycl resnet18 B1 pass p50=0.53806 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_eager sycl resnet18 B1 pass p50=0.5376615 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.512783 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.5140335 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_sycl_iso_graph sycl resnet18 B1 pass p50=0.518594 abs=3.5762786865234375e-06 db=19 fallback=0
+rn18_cuda_iso_eager cuda resnet18 B1 pass p50=0.512584 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_eager cuda resnet18 B1 pass p50=0.513756 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_eager cuda resnet18 B1 pass p50=0.5079675 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_graph cuda resnet18 B1 pass p50=0.49842949999999997 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_graph cuda resnet18 B1 pass p50=0.4979675 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_iso_graph cuda resnet18 B1 pass p50=0.497925 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_sycl_with_cuda_iso_db sycl resnet18 B1 pass p50=0.724874 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_sycl_with_cuda_iso_db sycl resnet18 B1 pass p50=0.7242995000000001 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_sycl_with_cuda_iso_db sycl resnet18 B1 pass p50=0.7242655 abs=4.291534423828125e-06 db=19 fallback=0
+rn18_cuda_with_sycl_iso_db 
+rn18_cuda_with_sycl_iso_db 
+rn18_cuda_with_sycl_iso_db 
+iso_cuda_b1     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window3/e1/iso_cuda_b1.nsys-rep
+iso_sycl_b1     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window3/e1/iso_sycl_b1.nsys-rep
+iso_cuda_graph_b1     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window3/e1/iso_cuda_graph_b1.nsys-rep
+iso_sycl_graph_b1     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window3/e1/iso_sycl_graph_b1.nsys-rep
+iso_cuda_b16     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window3/e1/iso_cuda_b16.nsys-rep
+iso_sycl_b16     /mnt/data/wlx/workspace/tvm-sycl-exp/round2_20261012/window3/e1/iso_sycl_b16.nsys-rep
+index, clocks.current.sm [MHz], temperature.gpu, power.draw [W]
+0, 1980 MHz, 69, 450.25 W
+1, 210 MHz, 37, 23.03 W
+=== window end 2026-10-13T04:10:12+08:00

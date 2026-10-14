@@ -1,0 +1,9 @@
+compact_r2_old rc=0 2026-10-13T00:06:28+08:00
+compact_r2_cg rc=0 2026-10-13T00:12:41+08:00
+compact_r2_dev rc=0 2026-10-13T00:18:39+08:00
+compact_rocm rc=0 2026-10-13T00:22:54+08:00
+resnet_r2_old rc=0 2026-10-13T00:23:57+08:00
+resnet_r2_cg rc=0 2026-10-13T00:32:36+08:00
+resnet_r2_dev rc=0 2026-10-13T00:41:19+08:00
+resnet_rocm rc=0 2026-10-13T00:47:43+08:00
+DCU_R2_DONE
